@@ -1,4 +1,4 @@
-package com.group6;
+package com.group6.Server;
 
 public class Networking {
 }

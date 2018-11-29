@@ -1,4 +1,10 @@
 package com.group6.RobotRover;
 
-public class GPS {
+import java.util.Observable;
+import java.util.Observer;
+
+public class GPS implements Observer {
+    public void update(Observable observable, Object o) {
+
+    }
 }
