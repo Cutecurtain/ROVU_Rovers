@@ -4,7 +4,7 @@ import java.awt.*;
 
 public interface IArea {
 
-    boolean isPosIn(Point);
+    boolean isPosIn(Point point);
     boolean isPhysical();
     int getRewardPoints();
 }
