@@ -6,4 +6,12 @@ public class Main {
 
     }
 
+    public void procedureA(){
+
+    }
+
+    public void procedureB(){
+
+    }
+
 }
