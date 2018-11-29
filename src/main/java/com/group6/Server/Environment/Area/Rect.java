@@ -1,4 +1,4 @@
 package com.group6.Server.Environment.Area;
 
-public class Rect {
+public class Rect implements IShape{
 }
