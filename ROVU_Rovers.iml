@@ -11,5 +11,12 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.8.1" level="project" />
+    <orderEntry type="library" name="Maven: MDSDProject:MDSDProject:0.0.1-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: MDSDProject:j3dcore:1.0" level="project" />
+    <orderEntry type="library" name="Maven: MDSDProject:j3dutils:1.0" level="project" />
+    <orderEntry type="library" name="Maven: MDSDProject:jogamp-fat:1.0" level="project" />
+    <orderEntry type="library" name="Maven: MDSDProject:Loader3DS1_2:1.0" level="project" />
+    <orderEntry type="library" name="Maven: MDSDProject:StarfireExt:1.0" level="project" />
+    <orderEntry type="library" name="Maven: MDSDProject:vecmath:1.0" level="project" />
   </component>
 </module>
