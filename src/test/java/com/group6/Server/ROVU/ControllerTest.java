@@ -14,37 +14,32 @@ import static junit.framework.Assert.assertTrue;
 
 public class ControllerTest {
 
-    private Mission mission;
-    private Controller controller;
-    private FaultHandler faultHandler;
-    private Robot robot;
+    private Controller controller = new Controller();
+    private Robot robot = new Robot();
 
 
     @Before
     public void setUp() {
-        Mission mission = new Mission();
-        Robot robot = new Robot();
-        FaultHandler faultHandler = new FaultHandler();
-        Controller controller = new Controller();
+
     }
 
 
     @Test
     public void testGiveMission() {
 
-        assertTrue(mission.giveMission && robot.hasMission);
+        assertTrue(mission.giveMission() && robot.hasMission);
     }
 
     @Test
     public void collectRewardPointsLogical() {
-        tank.moveToLogical();
-        assertTrue(tank.rewardPoints > 0);
+        robot.moveToLogical();
+        assertTrue(robot.rewardPoints > 0);
     }
 
     @Test
     public void collectRewardPointsPhysical() {
-        tank.moveToPhysical();
-        assertTrue(tank.rewardPoints > 0);
+        robot.moveToPhysical();
+        assertTrue(robot.rewardPoints > 0);
     }
 
 

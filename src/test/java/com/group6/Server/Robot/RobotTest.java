@@ -9,27 +9,25 @@ import static junit.framework.Assert.assertTrue;
 public class RobotTest {
 
     private Mission mission;
-    private Robot robot;
+    private Robot robot = new Robot();
     private FaultHandler faultHandler;
 
     @Before
     public void setUp() {
-        Mission mission = new Mission();
-        Robot robot = new Robot();
-        FaultHandler faultHandler = new FaultHandler();
+
     }
 
 
     @Test
     public void faultHandler() {
 
-        assertTrue(faultHandler().notify);
+        assertTrue(faultHandler.notify());
     }
 
     @Test
     public void testCompleteMission() {
 
-        assertTrue(robot.completeMission);
+        assertTrue(robot.completeMission());
     }
 
 
