@@ -2,7 +2,7 @@ package com.group6.Server.Environment;
 
 import com.group6.Server.Environment.Area.IArea;
 
-import java.awt.*;
+import java.awt.geom.Point2D;
 import java.util.List;
 
 public class Environment implements IEnvironment{
@@ -19,15 +19,15 @@ public class Environment implements IEnvironment{
         this.areas.add(area);
     }
 
-    public int logicalReward(Point point) {
+    public int logicalReward(Point2D point) {
         return collectReward(point, false);
     }
 
-    public int physicalReward(Point point) {
+    public int physicalReward(Point2D point) {
         return collectReward(point, true);
     }
 
-    private int collectReward(Point point, boolean isPhysical) {
+    private int collectReward(Point2D point, boolean isPhysical) {
         int rewardPoints = 0;
         for (IArea area : areas) {
             if (area.isPhysical() == isPhysical && area.isPosIn(point))

@@ -1,16 +1,16 @@
 package com.group6.Server.Environment.Area;
 
-import java.awt.*;
+import java.awt.geom.Point2D;
 
 public class Rect implements IShape{
-    private Point point1, point2;
+    private Point2D point1, point2;
 
-    public Rect(Point point1, Point point2) {
+    public Rect(Point2D point1, Point2D point2) {
         this.point1 = point1;
         this.point2 = point2;
     }
 
-    public boolean isPosIn(Point point) {
+    public boolean isPosIn(Point2D point) {
         boolean withinX;
         boolean withinY;
 

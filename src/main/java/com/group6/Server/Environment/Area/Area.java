@@ -1,6 +1,6 @@
 package com.group6.Server.Environment.Area;
 
-import java.awt.*;
+import java.awt.geom.Point2D;
 
 public class Area implements IArea{
 
@@ -22,7 +22,7 @@ public class Area implements IArea{
         this.shape = shape;
     }
 
-    public boolean isPosIn(Point point) {
+    public boolean isPosIn(Point2D point) {
         return shape.isPosIn(point);
     }
 

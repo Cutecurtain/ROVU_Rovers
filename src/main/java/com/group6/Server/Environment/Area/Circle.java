@@ -1,22 +1,22 @@
 package com.group6.Server.Environment.Area;
 
-import java.awt.*;
+import java.awt.geom.Point2D;
 
 public class Circle implements IShape{
 
-    private Point point;
+    private Point2D point;
     private float radius;
 
-    public Circle(Point middlePoint, float radius) {
+    public Circle(Point2D middlePoint, float radius) {
         this.point = middlePoint;
         this.radius = radius;
     }
 
-    public boolean isPosIn(Point point) {
-        float dx = (float) Math.abs(this.point.getX() - point.getX());
-        float dy = (float) Math.abs(this.point.getY() - point.getY());
+    public boolean isPosIn(Point2D point) {
+        double dx = Math.abs(this.point.getX() - point.getX());
+        double dy = Math.abs(this.point.getY() - point.getY());
 
-        float distance = (float) Math.sqrt(dx*dx + dy*dy);
+        double distance = Math.sqrt(dx*dx + dy*dy);
 
         return distance <= radius;
     }

@@ -1,22 +1,22 @@
 package com.group6.Server.Robot;
 
-import java.awt.*;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Mission implements IMission{
 
-    private List<Point> missionPoints;
+    private List<Point2D> missionPoints;
 
     public Mission() {
-        this.missionPoints = new ArrayList<Point>();
+        this.missionPoints = new ArrayList<Point2D>();
     }
 
-    public Mission(List<Point> missionPoints) {
+    public Mission(List<Point2D> missionPoints) {
         this.missionPoints = missionPoints;
     }
 
-    public List<Point> getMissionPoints() {
+    public List<Point2D> getMissionPoints() {
         return null;
     }
 }

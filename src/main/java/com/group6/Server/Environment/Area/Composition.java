@@ -1,6 +1,6 @@
 package com.group6.Server.Environment.Area;
 
-import java.awt.*;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class Composition implements IShape{
         this.shapes.add(shape);
     }
 
-    public boolean isPosIn(Point point) {
+    public boolean isPosIn(Point2D point) {
         for (IShape shape : shapes) {
             if (shape.isPosIn(point))
                 return true;
