@@ -6,7 +6,7 @@ public class ProximitySensor extends Observable {
 
     private float distance;
     private String sensorType;
-    ProximitySensor proximitySensor;
+    IProximitySensor proximitySensor;
 
     public ProximitySensor(int sensorType) {
 

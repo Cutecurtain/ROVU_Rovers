@@ -13,7 +13,7 @@ public class Laser implements IProximitySensor{
     }
 
     public float getDistance() {
-        calculateDistance();
+        distance = calculateDistance();
         return distance;
     }
 

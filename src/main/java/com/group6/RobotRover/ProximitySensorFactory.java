@@ -8,9 +8,9 @@ public class ProximitySensorFactory {
             return null;
         }
 
-        if(sensorType == "laser") {
+        if(sensorType.equals("laser")) {
             return new Laser();
-        } else if(sensorType == "ultrasonic") {
+        } else if(sensorType.equals("ultrasonic")) {
             return new UltraSonic();
         }
 
