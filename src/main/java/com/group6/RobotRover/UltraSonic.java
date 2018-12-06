@@ -13,7 +13,7 @@ public class UltraSonic implements IProximitySensor{
     }
 
     public float getDistance() {
-        distance = calculateDistance();
+        setDistance();
         return distance;
     }
 
