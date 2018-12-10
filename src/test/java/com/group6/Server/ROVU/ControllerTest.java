@@ -1,16 +1,7 @@
 package com.group6.Server.ROVU;
 
-import com.group6.RobotRover.FaultHandler;
-import com.group6.Server.Environment.IEnvironment;
-import com.group6.Server.Robot.Mission;
 import com.group6.Server.Robot.Robot;
 import org.junit.Before;
-import org.junit.Test;
-
-
-import java.awt.*;
-
-import static junit.framework.Assert.assertTrue;
 
 public class ControllerTest {
 
@@ -24,7 +15,7 @@ public class ControllerTest {
     }
 
 
-    @Test
+   /* @Test
     public void testGiveMission() {
 
         assertTrue(mission.giveMission() && robot.hasMission);
@@ -57,7 +48,7 @@ public class ControllerTest {
 
 
 
-
+*/
 
 
 
