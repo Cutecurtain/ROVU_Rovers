@@ -1,17 +1,23 @@
 package com.group6.Server.Environment;
 
 import com.group6.Server.Environment.Area.IArea;
+import simbad.sim.EnvironmentDescription;
 
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.List;
 
-public class Environment implements IEnvironment{
+public class Environment extends EnvironmentDescription implements IEnvironment{
 
     private List<IArea> areas;
 
-    public Environment() {}
+    public Environment() {
+        super();
+        this.areas = new ArrayList<IArea>();
+    }
 
     public Environment(List<IArea> areas) {
+        super();
         this.areas = areas;
     }
 

@@ -22,7 +22,7 @@ public class Main {
 
     public void main() {
         List<IArea> areas = new ArrayList<IArea>();
-        IArea area1 = new Area(true, 1);
+        IArea area1 = new Area(true, 1, new Point(0,0));
 
         // Creating four squares next to each other
         ((Area) area1).addShape(new Rect(new Point(0, 0), new Point(100, 100)));
@@ -31,7 +31,7 @@ public class Main {
         ((Area) area1).addShape(new Rect(new Point(0, 100), new Point(100, 200)));
 
         assaignment3 = new Environment(areas);
-
+        assaignment3.setWorldSize(200);
 
         // Generate some test missions
         List<IMission> missions = generateMissions();

@@ -8,14 +8,21 @@ public class Area implements IArea{
     private boolean isPhysical;
     private int rewardPoints;
 
-    public Area(boolean isPhysical, int rewardPoints) {
+    private Point2D position;
+
+    public Area(boolean isPhysical, int rewardPoints, Point2D position) {
         this.isPhysical = isPhysical;
         this.rewardPoints = rewardPoints;
+        this.position = position;
     }
 
-    public Area(boolean isPhysical, int rewardPoints, IShape shape) {
-        this(isPhysical, rewardPoints);
+    public Area(boolean isPhysical, int rewardPoints, Point2D position, IShape shape) {
+        this(isPhysical, rewardPoints, position);
         this.shape = shape;
+    }
+
+    public Point2D getPosition() {
+        return position;
     }
 
     public void addShape(IShape shape) {
@@ -23,7 +30,13 @@ public class Area implements IArea{
     }
 
     public boolean isPosIn(Point2D point) {
-        return shape.isPosIn(point);
+        if (point.getX() < position.getX() || point.getY() < position.getY())
+            return false;
+
+        double withinX = point.getX() - position.getX();
+        double withinY = point.getY() - position.getY();
+
+        return shape.isPosIn(new Point2D.Double(withinX, withinY));
     }
 
     public boolean isPhysical() {
