@@ -1,4 +1,14 @@
 package com.group6.RobotRover;
 
-public class Planner {
+import project.AbstractRobotSimulator;
+import project.Point;
+
+public class Planner extends AbstractRobotSimulator {
+
+    public Planner(Point position, String name) {
+        super(position, name);
+    }
+
+    
+
 }
