@@ -13,8 +13,8 @@ public class Mission implements IMission{
 
 
     private List<Point2D> missionPoints;
-    private ArrayList<Integer> pred;
-    private ArrayList<Double> dist;
+    private static ArrayList<Integer> pred;
+    private static ArrayList<Double> dist;
 
     public Mission() {
         this.missionPoints = new ArrayList<Point2D>();
@@ -29,7 +29,7 @@ public class Mission implements IMission{
     }
 
 
-    public void dijkstrasAlgorithm(Graph graph, int start) {
+    public static void dijkstrasAlgorithm(Graph graph, int start) {
 
         int numV = graph.getNumV();
         HashSet<Integer> vMinusS = new HashSet<Integer>(numV);
