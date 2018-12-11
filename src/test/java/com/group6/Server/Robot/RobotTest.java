@@ -7,7 +7,9 @@ import org.junit.Test;
 public class RobotTest {
 
     private Mission mission;
+
     private Robot robot = new Robot(null, null);
+
     private FaultHandler faultHandler;
 
     @Before

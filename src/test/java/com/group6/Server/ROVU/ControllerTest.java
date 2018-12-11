@@ -6,7 +6,10 @@ import org.junit.Before;
 public class ControllerTest {
 
     private Controller controller = new Controller();
+
     private Robot robot = new Robot(null, null);
+
+    //private Robot robot = new Robot();
 
 
     @Before
