@@ -12,8 +12,6 @@ public class Movement {
         this.y = dirY;
         this.speed = speed;
 
-
-
     }
 
 
