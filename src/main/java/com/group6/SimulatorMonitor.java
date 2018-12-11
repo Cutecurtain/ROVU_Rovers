@@ -11,11 +11,6 @@ public class SimulatorMonitor extends AbstractSimulatorMonitor<Planner> {
         super(robots, e);
     }
 
-    public void update(com.group6.Server.Robot.Robot robot) {
-
-    }
-
-
     @Override
     public void update(Planner arg0) {
         System.out.println(arg0.getName());

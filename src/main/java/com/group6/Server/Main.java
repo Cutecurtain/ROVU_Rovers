@@ -16,9 +16,9 @@ public class Main {
 
     Environment assaignment3;
 
-    public static void main (String[] strings) {
-
-    }
+//    public static void main (String[] strings) {
+//
+//    }
 
     public void main() {
         List<IArea> areas = new ArrayList<IArea>();

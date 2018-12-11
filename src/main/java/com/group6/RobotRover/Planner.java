@@ -28,4 +28,9 @@ public class Planner extends AbstractRobotSimulator {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Robot " + super.getName();
+    }
+
 }
