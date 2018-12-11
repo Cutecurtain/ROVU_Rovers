@@ -1,5 +1,6 @@
 package com.group6.Server.Robot;
 
+import com.group6.RobotRover.Laser;
 import com.sun.org.glassfish.gmbal.ParameterNames;
 
 import java.awt.geom.Point2D;
@@ -10,7 +11,10 @@ import java.util.Set;
 
 public class Mission implements IMission{
 
+
     private List<Point2D> missionPoints;
+    private ArrayList<Integer> pred;
+    private ArrayList<Double> dist;
 
     public Mission() {
         this.missionPoints = new ArrayList<Point2D>();
@@ -24,8 +28,8 @@ public class Mission implements IMission{
         return null;
     }
 
-    
-    public static void dijkstrasAlgorithm(Graph graph, int start, int[] pred, double[] dist) {
+
+    public void dijkstrasAlgorithm(Graph graph, int start) {
 
         int numV = graph.getNumV();
         HashSet<Integer> vMinusS = new HashSet<Integer>(numV);
@@ -37,8 +41,8 @@ public class Mission implements IMission{
         }
         //Initialize pred and dist.
         for(int v : vMinusS) {
-            pred[v] = start;
-            dist[v] = graph.getEdge(start, v).getWeight();
+            pred.set(v, start);
+            dist.set(v, graph.getEdge(start, v).getWeight());
         }
         //main loop
         while (vMinusS.size() != 0) {
@@ -46,8 +50,8 @@ public class Mission implements IMission{
             double minDist = Double.POSITIVE_INFINITY;
             int u = -1;
             for(int v : vMinusS) {
-                if(dist[v] < minDist) {
-                    minDist = dist[v];
+                if(dist.get(v) < minDist) {
+                    minDist = dist.get(v);
                     u = v;
                 }
             }
@@ -55,9 +59,9 @@ public class Mission implements IMission{
             for (int v : vMinusS) {
                 if(graph.isEdge(u, v)) {
                     double weight = graph.getEdge(u, v).getWeight();
-                    if(dist[u] + weight < dist[v]) {
-                        dist[v] = dist[u] + weight;
-                        pred[v] = u;
+                    if(dist.get(u) + weight < dist.get(v)) {
+                        dist.set(v, dist.get(u) + weight);
+                        pred.set(v, u);
                     }
                 }
             }
