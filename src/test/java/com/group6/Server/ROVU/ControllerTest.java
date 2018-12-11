@@ -1,12 +1,11 @@
 package com.group6.Server.ROVU;
 
-import com.group6.Server.Robot.Robot;
 import org.junit.Before;
 
 public class ControllerTest {
 
     private Controller controller = new Controller();
-    private Robot robot = new Robot();
+    //private Robot robot = new Robot();
 
 
     @Before
