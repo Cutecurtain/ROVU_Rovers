@@ -4,18 +4,11 @@ public class Main {
 
     private static final Networking NETWORKING = Networking.getInstance();
 
-    private static final long DEFAULT_HALT_TIME = 2000;
-
     private static int nextID = 0;
 
     private Planner planner;
 
-    private boolean halted;
-    private long haltTime;
-
-    public Main() {
-        halted = false;
-    }
+    public Main() {}
 
     public void start() {
         if (connect()) {
@@ -34,8 +27,8 @@ public class Main {
 
     private void main() throws InterruptedException {
         while (true) {
-            if (halted) {
-                planner.halt(haltTime);
+            if (planner.isHalted()) {
+                planner.halt();
             } else {
                 planner.followPath();
                 updateServer();
@@ -47,15 +40,6 @@ public class Main {
         NETWORKING.update(planner);
         if (planner.isAvailable())
             NETWORKING.finishMission(planner);
-    }
-
-    public void setHalted(boolean halted, long millis) {
-        this.halted = halted;
-        this.haltTime = millis;
-    }
-
-    public void setHalted(boolean halted) {
-        setHalted(halted, DEFAULT_HALT_TIME);
     }
 
 }

@@ -11,6 +11,8 @@ import java.util.List;
 
 public class Planner extends AbstractRobotSimulator {
 
+    private static final long DEFAULT_HALT_TIME = 2000;
+
     private List<Point> missionPoints;
 
     private Iterator<Point> missionIterator;
@@ -19,12 +21,18 @@ public class Planner extends AbstractRobotSimulator {
 
     private boolean available;
 
+    private boolean halted;
+
+    private long haltTime;
+
     public Planner(Point position, String name) {
         super(position, name);
         this.missionPoints = new ArrayList<Point>();
         this.missionIterator = this.missionPoints.iterator();
         this.currentGoal = super.getPosition();
         this.available = false;
+        this.halted = false;
+        this.haltTime = DEFAULT_HALT_TIME;
     }
 
     public boolean addMissionPoint(Point2D... points) {
@@ -45,14 +53,27 @@ public class Planner extends AbstractRobotSimulator {
         super.setDestination(currentGoal);
     }
 
-    public void halt(long millis) throws InterruptedException {
+    public void halt() throws InterruptedException {
         available = false;
         super.setDestination(super.getPosition());
-        Thread.sleep(millis);
+        Thread.sleep(haltTime);
     }
 
     public boolean isAvailable() {
         return available;
+    }
+
+    public boolean isHalted() {
+        return halted;
+    }
+
+    public void haltRover(long millis) {
+        this.halted = true;
+        this.haltTime = millis;
+    }
+
+    public void haltRover() {
+        haltRover(DEFAULT_HALT_TIME);
     }
 
     @Override

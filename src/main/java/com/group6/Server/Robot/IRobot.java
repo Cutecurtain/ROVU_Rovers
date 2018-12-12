@@ -7,6 +7,10 @@ public interface IRobot {
     double getX();
     double getY();
 
+    void setAvailable(boolean available);
+
+    boolean isAvailable();
+
     void update(double x, double y);
 
     void enteredRoom();

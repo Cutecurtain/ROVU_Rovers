@@ -50,8 +50,10 @@ public class Networking {
     }
 
     private boolean finnishMission(String id) {
-        // TODO
-        return false;
+        if (!subscribers.containsKey(id))
+            return false;
+        robots.get(id).setAvailable(true);
+        return true;
     }
 
     private boolean fault(String id) {
@@ -77,16 +79,17 @@ public class Networking {
         return false;
     }
 
-    public boolean paus(String id, int seconds) {
+    public boolean halt(String id, int seconds) {
         if (!subscribers.containsKey(id))
             return false;
-        // TODO
+        subscribers.get(id).haltRover();
         return true;
     }
 
     public boolean giveMission(String id, IMission mission) {
-        if (!subscribers.containsKey(id))
+        if (!subscribers.containsKey(id) || !robots.get(id).isAvailable())
             return false;
+        robots.get(id).setAvailable(false);
         Point2D[] missionPoints = (Point2D[]) mission.getMissionPoints().toArray();
         return subscribers.get(id).addMissionPoint(missionPoints);
     }
