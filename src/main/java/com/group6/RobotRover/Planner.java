@@ -45,9 +45,10 @@ public class Planner extends AbstractRobotSimulator {
         super.setDestination(currentGoal);
     }
 
-    public void halt() {
+    public void halt(long millis) throws InterruptedException {
         available = false;
         super.setDestination(super.getPosition());
+        Thread.sleep(millis);
     }
 
     public boolean isAvailable() {
