@@ -27,7 +27,7 @@ public class Networking {
     }
 
     private boolean connect(String id, double x, double y) {
-        if (robots.containsKey(id))
+        if (subscribers.containsKey(id))
             return false;
         IRobot newRobot = new Robot(new Point(x, y), id);
         robots.put(id, newRobot);
@@ -35,13 +35,11 @@ public class Networking {
     }
 
     private boolean update(String id, double x, double y) {
-        IRobot robot = robots.get(id);
-        try {
-            robot.update(x, y);
-            return true;
-        } catch (NullPointerException e) {
+        if (!subscribers.containsKey(id))
             return false;
-        }
+        IRobot robot = robots.get(id);
+        robot.update(x, y);
+        return true;
     }
 
     private boolean finnishMission(String id) {
@@ -73,14 +71,14 @@ public class Networking {
     }
 
     public boolean paus(String id, int seconds) {
-        if (!robots.containsKey(id))
+        if (!subscribers.containsKey(id))
             return false;
         // TODO
         return true;
     }
 
     public boolean giveMission(String id, IMission mission) {
-        if (!robots.containsKey(id))
+        if (!subscribers.containsKey(id))
             return false;
         Point2D[] missionPoints = (Point2D[]) mission.getMissionPoints().toArray();
         subscribers.get(id).addMissionPoint(missionPoints);
