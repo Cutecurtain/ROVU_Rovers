@@ -36,9 +36,17 @@ public class Main {
         while (true) {
             if (halted) {
                 planner.halt(haltTime);
-            } else
+            } else {
                 planner.followPath();
+                updateServer();
+            }
         }
+    }
+
+    private void updateServer() {
+        NETWORKING.update(planner);
+        if (planner.isAvailable())
+            NETWORKING.finishMission(planner);
     }
 
     public void setHalted(boolean halted, long millis) {
