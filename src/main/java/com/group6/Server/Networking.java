@@ -26,6 +26,10 @@ public class Networking {
         return SINGLETON;
     }
 
+    public Map<String, IRobot> getRobots() {
+        return robots;
+    }
+
     private boolean connect(String id, double x, double y) {
         if (subscribers.containsKey(id))
             return false;
