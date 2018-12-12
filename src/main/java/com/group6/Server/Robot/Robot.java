@@ -24,6 +24,14 @@ public class Robot implements IRobot{
         return y;
     }
 
+    public void setAvailable(boolean available) {
+        
+    }
+
+    public boolean isAvailable() {
+        return false;
+    }
+
     public void update(double x, double y) {
         this.x = x;
         this.y = y;
