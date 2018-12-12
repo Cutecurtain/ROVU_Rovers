@@ -37,4 +37,8 @@ public class Robot implements IRobot{
         return false;
     }
 
+    public String getId() {
+        return id;
+    }
+
 }

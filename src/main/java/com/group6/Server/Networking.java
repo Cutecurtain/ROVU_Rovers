@@ -13,12 +13,15 @@ import java.util.Map;
 public class Networking {
 
     private static final Networking SINGLETON = new Networking();
-
+    private Robot robot1 = new Robot(new Point(1,2), "0");
+    private Robot robot2 = new Robot(new Point(1,2), "1");
     private Map<String, IRobot> robots;
     private Map<String, Planner> subscribers; // Just for pretending that we have a connection over the network
 
     private Networking() {
         robots = new HashMap<String, IRobot>();
+        robots.put(robot1.getId(), robot1);
+        robots.put(robot2.getId(), robot2);
         subscribers = new HashMap<String, Planner>();
     }
 
