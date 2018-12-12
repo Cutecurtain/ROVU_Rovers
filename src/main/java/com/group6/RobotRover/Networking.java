@@ -1,6 +1,8 @@
 package com.group6.RobotRover;
 
-public class Networking {
+import com.group6.PretendSocket;
+
+public class Networking extends PretendSocket {
 
     private static final Networking SINGLETON = new Networking();
 
@@ -15,19 +17,19 @@ public class Networking {
     }
 
     public boolean connect(Planner planner) {
-        return server.request(com.group6.Server.Networking.Instruction.CONNECT, planner);
+        return server.request(CONNECT, planner);
     }
 
     public boolean update(Planner planner) {
-        return server.request(com.group6.Server.Networking.Instruction.UPDATE, planner);
+        return server.request(UPDATE, planner);
     }
 
     public boolean finishMission(Planner planner) {
-        return server.request(com.group6.Server.Networking.Instruction.FINISH_MISSION, planner);
+        return server.request(FINNISH_MISSION, planner);
     }
 
     public boolean fault(Planner planner) {
-        return server.request(com.group6.Server.Networking.Instruction.FAULT, planner);
+        return server.request(FAULT, planner);
     }
     
 }

@@ -1,5 +1,6 @@
 package com.group6.Server;
 
+import com.group6.PretendSocket;
 import com.group6.RobotRover.Planner;
 import com.group6.Server.Robot.IMission;
 import com.group6.Server.Robot.IRobot;
@@ -10,7 +11,7 @@ import java.awt.geom.Point2D;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Networking {
+public class Networking extends PretendSocket {
 
     private static final Networking SINGLETON = new Networking();
     private Robot robot1 = new Robot(new Point(1,2), "0");
@@ -61,7 +62,7 @@ public class Networking {
         return false;
     }
 
-    public boolean request(Instruction instruction, Planner planner) {
+    public boolean request(char instruction, Planner planner) {
         switch (instruction) {
             case CONNECT:
                 String id = planner.getName();
@@ -71,7 +72,7 @@ public class Networking {
                 return false;
             case UPDATE:
                 return update(planner.getName(), planner.getPosition().getX(), planner.getPosition().getZ());
-            case FINISH_MISSION:
+            case FINNISH_MISSION:
                 return finnishMission(planner.getName());
             case FAULT:
                 return fault(planner.getName());
@@ -92,13 +93,6 @@ public class Networking {
         robots.get(id).setAvailable(false);
         Point2D[] missionPoints = (Point2D[]) mission.getMissionPoints().toArray();
         return subscribers.get(id).addMissionPoint(missionPoints);
-    }
-
-    public enum Instruction {
-        CONNECT,
-        UPDATE,
-        FINISH_MISSION,
-        FAULT;
     }
 
 }
