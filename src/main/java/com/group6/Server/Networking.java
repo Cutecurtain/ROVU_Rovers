@@ -80,7 +80,7 @@ public class Networking extends PretendSocket {
         return false;
     }
 
-    public boolean halt(String id, int seconds) {
+    public boolean halt(String id) {
         if (!subscribers.containsKey(id))
             return false;
         subscribers.get(id).haltRover();
