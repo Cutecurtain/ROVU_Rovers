@@ -85,8 +85,7 @@ public class Networking {
         if (!subscribers.containsKey(id))
             return false;
         Point2D[] missionPoints = (Point2D[]) mission.getMissionPoints().toArray();
-        subscribers.get(id).addMissionPoint(missionPoints);
-        return true;
+        return subscribers.get(id).addMissionPoint(missionPoints);
     }
 
     public boolean sendInstruction(String id) {
