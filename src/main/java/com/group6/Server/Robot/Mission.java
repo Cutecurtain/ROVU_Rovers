@@ -1,13 +1,8 @@
 package com.group6.Server.Robot;
 
-import com.group6.RobotRover.Laser;
-import com.sun.org.glassfish.gmbal.ParameterNames;
-
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class Mission implements IMission{
 
@@ -29,7 +24,7 @@ public class Mission implements IMission{
     }
 
 
-    public static void dijkstrasAlgorithm(Graph graph, int start) {
+    /*public static void dijkstrasAlgorithm(Graph graph, int start) {
 
         int numV = graph.getNumV();
         HashSet<Integer> vMinusS = new HashSet<Integer>(numV);
@@ -66,5 +61,5 @@ public class Mission implements IMission{
                 }
             }
         }
-    }
+    }*/
 }

@@ -1,17 +1,14 @@
 package com.group6;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import com.group6.RobotRover.Planner;
-import project.Point;
-import project.RobotAgent;
+import com.group6.Server.ROVU.View;
 import project.AbstractSimulatorMonitor;
-import project.AbstractRobotSimulator;
-import simbad.gui.Simbad;
+import project.Point;
 import simbad.sim.*;
 
-import java.awt.Color;
+import java.awt.*;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Main {
 
@@ -19,6 +16,8 @@ public class Main {
 
         // Just the standard example
 
+        View view = new View();
+        view.setVisible(true);
         EnvironmentDescription e = new EnvironmentDescription();
         Color color = Color.GRAY;
 
