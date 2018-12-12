@@ -7,7 +7,7 @@ public interface IRobot {
     double getX();
     double getY();
 
-    void update(int x, int y);
+    void update(double x, double y);
 
     void enteredRoom();
 

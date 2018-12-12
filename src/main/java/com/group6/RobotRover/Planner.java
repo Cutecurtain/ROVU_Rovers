@@ -3,6 +3,7 @@ package com.group6.RobotRover;
 import project.AbstractRobotSimulator;
 import project.Point;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,8 +17,11 @@ public class Planner extends AbstractRobotSimulator {
         this.missionPoints = new ArrayList<Point>();
     }
 
-    public void addMissionPoint(Point... points) {
-        Collections.addAll(this.missionPoints, points);
+    public void addMissionPoint(Point2D... points) {
+        Point[] newPoints = new Point[points.length];
+        for (int i = 0; i < points.length; i++)
+            newPoints[i] = new Point(points[i].getX(), points[i].getY());
+        Collections.addAll(this.missionPoints, newPoints);
     }
 
     public void followPath() {

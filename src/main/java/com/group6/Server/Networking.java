@@ -1,58 +1,95 @@
 package com.group6.Server;
 
 import com.group6.RobotRover.Planner;
+import com.group6.Server.Robot.IMission;
 import com.group6.Server.Robot.IRobot;
 import com.group6.Server.Robot.Robot;
 import project.Point;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.geom.Point2D;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Networking {
 
     private static final Networking SINGLETON = new Networking();
 
-    private List<IRobot> robots;
+    private Map<String, IRobot> robots;
+    private Map<String, Planner> subscribers; // Just for pretending that we have a connection over the network
 
     private Networking() {
-        robots = new ArrayList<IRobot>();
+        robots = new HashMap<String, IRobot>();
+        subscribers = new HashMap<String, Planner>();
     }
 
     public static Networking getInstance() {
         return SINGLETON;
     }
 
-    private void connect(String id, double x, double y) {
-        robots.add(new Robot(new Point(x, y), id));
+    private boolean connect(String id, double x, double y) {
+        if (robots.containsKey(id))
+            return false;
+        IRobot newRobot = new Robot(new Point(x, y), id);
+        robots.put(id, newRobot);
+        return true;
     }
 
-    private void update(String id, double x, double y) {
-
+    private boolean update(String id, double x, double y) {
+        IRobot robot = robots.get(id);
+        try {
+            robot.update(x, y);
+            return true;
+        } catch (NullPointerException e) {
+            return false;
+        }
     }
 
-    private void finnishMission(String id) {
-
+    private boolean finnishMission(String id) {
+        // TODO
+        return false;
     }
 
-    private void fault(String id) {
-
+    private boolean fault(String id) {
+        // TODO
+        return false;
     }
 
-    public void sendInstruction(Instruction instruction, Planner planner) {
+    public boolean request(Instruction instruction, Planner planner) {
         switch (instruction) {
             case CONNECT:
-                connect(planner.getName(), planner.getPosition().getX(), planner.getPosition().getZ());
-                break;
+                String id = planner.getName();
+                if (connect(id, planner.getPosition().getX(), planner.getPosition().getZ())) {
+                    subscribers.put(id, planner);
+                }
+                return false;
             case UPDATE:
-                update(planner.getName(), planner.getPosition().getX(), planner.getPosition().getZ());
-                break;
+                return update(planner.getName(), planner.getPosition().getX(), planner.getPosition().getZ());
             case FINISH_MISSION:
-                finnishMission(planner.getName());
-                break;
+                return finnishMission(planner.getName());
             case FAULT:
-                fault(planner.getName());
-                break;
+                return fault(planner.getName());
         }
+        return false;
+    }
+
+    public boolean paus(String id, int seconds) {
+        if (!robots.containsKey(id))
+            return false;
+        // TODO
+        return true;
+    }
+
+    public boolean giveMission(String id, IMission mission) {
+        if (!robots.containsKey(id))
+            return false;
+        Point2D[] missionPoints = (Point2D[]) mission.getMissionPoints().toArray();
+        subscribers.get(id).addMissionPoint(missionPoints);
+        return true;
+    }
+
+    public boolean sendInstruction(String id) {
+        // TODO
+        return false;
     }
 
     public enum Instruction {

@@ -5,6 +5,8 @@ import project.Point;
 public class Robot implements IRobot{
 
     private String id;
+    private double x;
+    private double y;
 
     public Robot(Point position, String id) {
         this.id = id;
@@ -15,15 +17,16 @@ public class Robot implements IRobot{
     }
 
     public double getX() {
-        return 0;
+        return x;
     }
 
     public double getY() {
-        return 0;
+        return y;
     }
 
-    public void update(int x, int y) {
-
+    public void update(double x, double y) {
+        this.x = x;
+        this.y = y;
     }
 
     public void enteredRoom() {
@@ -32,10 +35,6 @@ public class Robot implements IRobot{
 
     private boolean sendMission() {
         return false;
-    }
-
-    private void update(double x, double y) {
-
     }
 
 }
