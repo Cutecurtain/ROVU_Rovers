@@ -11,7 +11,7 @@ import java.util.Observer;
 public class View extends JFrame implements Observer {
 
     private ArrayList<JButton> buttons = new ArrayList<JButton>();
-    private JTextField robotId = new JTextField(10);
+    private JTextField robotNb = new JTextField(10);
 
 
     public void update(Observable observable, Object o) {
@@ -19,17 +19,18 @@ public class View extends JFrame implements Observer {
     }
 
     public View() {
+
         JPanel jPanel = new JPanel();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(600, 200);
 
-
+        jPanel.add(robotNb);
         Networking networking = Networking.getInstance();
         for(int i = 0; i < networking.getRobots().size(); i++) {
-            jPanel.add(robotId);
-            buttons.add(new JButton("Robot" + networking.getRobots().get(i)));
+            buttons.add(new JButton("Robot" + i));
             jPanel.add(buttons.get(i));
         }
+
 
         this.add(jPanel);
     }
@@ -38,6 +39,14 @@ public class View extends JFrame implements Observer {
         for(int i = 0; i < buttons.size(); i++) {
             buttons.get(i).addActionListener(listener);
         }
+    }
+
+    public int getRobotNb() {
+        return Integer.parseInt(robotNb.getText());
+    }
+
+    public void setRobotNb(int number) {
+        robotNb.setText(Integer.toString(number));
     }
 
 

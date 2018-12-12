@@ -1,6 +1,8 @@
 package com.group6;
 
 import com.group6.RobotRover.Planner;
+import com.group6.Server.ROVU.Controller;
+import com.group6.Server.ROVU.Model;
 import com.group6.Server.ROVU.View;
 import project.AbstractSimulatorMonitor;
 import project.Point;
@@ -17,7 +19,10 @@ public class Main {
         // Just the standard example
 
         View view = new View();
+        Model model = new Model();
+        Controller controller1 = new Controller(view, model);
         view.setVisible(true);
+
         EnvironmentDescription e = new EnvironmentDescription();
         Color color = Color.GRAY;
 

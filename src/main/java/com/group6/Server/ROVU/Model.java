@@ -4,13 +4,30 @@ import java.util.Observable;
 
 public class Model extends Observable {
 
-    private int robotID;
+    private int robotNb;
+    private Position position;
 
-    public void selectRobot(int robotID) {
-        this.robotID = robotID;
+    public void removeRobot() {
+        robotNb--;
     }
 
-    public int getRobotID() {
-        return robotID;
+    class Position {
+        double x;
+        double y;
+
+        public Position(double x, double y) {
+            this.x = x;
+            this.y = y;
+        }
     }
+
+    public void setRobotNb(int size) {
+        this.robotNb = size;
+    }
+
+    public int getRobotNb() {
+        return robotNb;
+    }
+
+
 }
