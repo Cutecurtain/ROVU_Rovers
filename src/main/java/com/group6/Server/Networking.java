@@ -88,11 +88,6 @@ public class Networking {
         return subscribers.get(id).addMissionPoint(missionPoints);
     }
 
-    public boolean sendInstruction(String id) {
-        // TODO
-        return false;
-    }
-
     public enum Instruction {
         CONNECT,
         UPDATE,
