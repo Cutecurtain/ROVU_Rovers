@@ -1,5 +1,6 @@
 package com.group6.Server.Environment;
 
+import com.group6.Server.Environment.Area.Division;
 import com.group6.Server.Environment.Area.IArea;
 import com.group6.Server.Environment.Area.Room;
 import simbad.sim.*;
@@ -94,6 +95,10 @@ public class Environment extends EnvironmentDescription implements IEnvironment{
         for (IArea area : areas) {
             if (area instanceof Room) // Is this a good idea?
                 walls.addAll(getWalls((Room) area));
+            else if (area instanceof Division) {
+                for (Room room : ((Division) area).getRooms())
+                    walls.addAll(getWalls(room));
+            }
         }
 
         return walls;
@@ -126,8 +131,8 @@ public class Environment extends EnvironmentDescription implements IEnvironment{
     private int collectReward(Point2D point, boolean isPhysical) {
         int rewardPoints = 0;
         for (IArea area : areas) {
-            if (area.isPhysical() == isPhysical && area.isPosIn(point))
-                rewardPoints += area.getRewardPoints();
+            if (area.isPhysical() == isPhysical)
+                rewardPoints += area.collectReward(point);
         }
         return rewardPoints;
     }
