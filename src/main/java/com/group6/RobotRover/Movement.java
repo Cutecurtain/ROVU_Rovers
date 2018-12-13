@@ -12,10 +12,16 @@ public class Movement {
         this.y = dirY;
         this.speed = speed;
 
-
-
     }
 
+    public void setDirection(int dirX, int dirY){
+        x = dirX;
+        y = dirY;
+    }
+
+    public void setSpeed(double speed){
+        this.speed = speed;
+    }
 
 
 
