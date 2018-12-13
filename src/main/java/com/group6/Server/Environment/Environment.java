@@ -86,6 +86,10 @@ public class Environment extends EnvironmentDescription implements IEnvironment{
         boundaries[3] = new VerticalBoundary(top - EDGE_DISTANCE,
                                              left - EDGE_DISTANCE,
                                              right + EDGE_DISTANCE, this, color);
+
+        // Don't know if this is needed
+        super.setWorldSize(Math.max(right-left, bottom - top));
+
         return boundaries;
     }
 
