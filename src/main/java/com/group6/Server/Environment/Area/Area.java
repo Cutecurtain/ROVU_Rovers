@@ -2,9 +2,9 @@ package com.group6.Server.Environment.Area;
 
 import java.awt.geom.Point2D;
 
-public class Area implements IArea{
+public class Area<S extends IShape> implements IArea{
 
-    private IShape shape;
+    private S shape;
     private boolean isPhysical;
     private int rewardPoints;
 
@@ -16,7 +16,7 @@ public class Area implements IArea{
         this.position = position;
     }
 
-    public Area(boolean isPhysical, int rewardPoints, Point2D position, IShape shape) {
+    public Area(boolean isPhysical, int rewardPoints, Point2D position, S shape) {
         this(isPhysical, rewardPoints, position);
         this.shape = shape;
     }
@@ -26,6 +26,9 @@ public class Area implements IArea{
     }
 
     public Point2D[] getEdges() {
+        if (shape == null)
+            return null;
+
         Point2D[] edges = new Point2D[2];
         Point2D localMiddlePoint = shape.getLocalMiddlePoint();
         double horizontalRadius = shape.getHorizontalRadius();
@@ -36,11 +39,14 @@ public class Area implements IArea{
         return edges;
     }
 
-    public void addShape(IShape shape) {
+    public void addShape(S shape) {
         this.shape = shape;
     }
 
     public boolean isPosIn(Point2D point) {
+        if (shape == null)
+            return false;
+
         if (point.getX() < position.getX() || point.getY() < position.getY())
             return false;
 
@@ -56,6 +62,10 @@ public class Area implements IArea{
 
     public int getRewardPoints() {
         return rewardPoints;
+    }
+
+    S getShape() {
+        return shape;
     }
 
 

@@ -4,19 +4,19 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Composition implements IShape{
+public class Composition<S extends IShape> implements IShape{
 
-    private List<IShape> shapes;
+    private List<S> shapes;
 
     public Composition() {
-        this.shapes = new ArrayList<IShape>();
+        this.shapes = new ArrayList<S>();
     }
 
-    public Composition(List<IShape> shapes) {
+    public Composition(List<S> shapes) {
         this.shapes = shapes;
     }
 
-    public Composition(IShape shape) {
+    public Composition(S shape) {
         this();
         this.shapes.add(shape);
     }
