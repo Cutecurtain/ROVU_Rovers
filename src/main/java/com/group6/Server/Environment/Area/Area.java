@@ -54,9 +54,4 @@ public class Area<S extends IShape> extends AbstractArea{
         return 0;
     }
 
-    S getShape() {
-        return shape;
-    }
-
-
 }
