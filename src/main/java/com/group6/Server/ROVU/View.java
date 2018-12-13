@@ -1,10 +1,9 @@
 package com.group6.Server.ROVU;
 
-import com.group6.Server.Networking;
-
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -12,7 +11,8 @@ public class View extends JFrame implements Observer {
 
     private ArrayList<JButton> buttons = new ArrayList<JButton>();
     private JTextField robotNb = new JTextField(10);
-
+    private JPanel jPanel = new JPanel();
+    private List<ActionListener> actionListeners = new ArrayList<ActionListener>();
 
     public void update(Observable observable, Object o) {
 
@@ -20,30 +20,35 @@ public class View extends JFrame implements Observer {
 
     public View() {
 
-        JPanel jPanel = new JPanel();
+
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(600, 200);
 
         jPanel.add(robotNb);
-        Networking networking = Networking.getInstance();
-        for(int i = 0; i < networking.getRobots().size(); i++) {
-            buttons.add(new JButton("Robot" + i));
-            jPanel.add(buttons.get(i));
-        }
-
-
         this.add(jPanel);
     }
 
-    public void addButtonListener(ActionListener listener) {
-        for(int i = 0; i < buttons.size(); i++) {
-            buttons.get(i).addActionListener(listener);
+    public void setButtons(int number) {
+        for(int i = 0; i < number; i++) {
+            buttons.add(new JButton("Robot" + i));
+            jPanel.add(buttons.get(i));
         }
+    }
+
+    public void addButtonListener(ActionListener listener, int i) {
+            buttons.get(i).addActionListener(listener);
     }
 
     public void setRobotNb(int number) {
         robotNb.setText(Integer.toString(number));
     }
 
+    public ArrayList<JButton> getButtons() {
+        return buttons;
+    }
+
+    public void setActionListeners(List<ActionListener> actionListeners) {
+        this.actionListeners = actionListeners;
+    }
 
 }

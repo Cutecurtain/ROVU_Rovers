@@ -7,8 +7,10 @@ public class Robot implements IRobot{
     private String id;
     private double x;
     private double y;
+    private Point position;
 
     public Robot(Point position, String id) {
+        this.position = position;
         this.id = id;
     }
 
@@ -22,6 +24,10 @@ public class Robot implements IRobot{
 
     public double getY() {
         return y;
+    }
+
+    public Point getPosition() {
+        return position;
     }
 
     public void setAvailable(boolean available) {

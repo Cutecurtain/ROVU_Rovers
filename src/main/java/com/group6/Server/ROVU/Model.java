@@ -29,5 +29,9 @@ public class Model extends Observable {
         return robotNb;
     }
 
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
 
 }
