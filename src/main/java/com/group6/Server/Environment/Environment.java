@@ -1,24 +1,40 @@
 package com.group6.Server.Environment;
 
 import com.group6.Server.Environment.Area.IArea;
+import simbad.sim.Boundary;
 import simbad.sim.EnvironmentDescription;
+import simbad.sim.HorizontalBoundary;
+import simbad.sim.VerticalBoundary;
 
+import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Environment extends EnvironmentDescription implements IEnvironment{
 
+    private static final Color DEFAULT_COLOR = Color.GRAY;
+
     private List<IArea> areas;
 
-    public Environment() {
+    private Color color;
+
+    public Environment(List<IArea> areas, Color color) {
         super();
-        this.areas = new ArrayList<IArea>();
+        this.areas = areas;
+        this.color = color;
     }
 
     public Environment(List<IArea> areas) {
-        super();
-        this.areas = areas;
+        this(areas, DEFAULT_COLOR);
+    }
+
+    public Environment(Color color) {
+        this(new ArrayList<IArea>(), color);
+    }
+
+    public Environment() {
+        this(new ArrayList<IArea>(), DEFAULT_COLOR);
     }
 
     public void addArea(IArea area) {
@@ -33,6 +49,32 @@ public class Environment extends EnvironmentDescription implements IEnvironment{
         return collectReward(point, true);
     }
 
+    public Boundary[] createBoundaries() {
+        Boundary[] boundaries = new Boundary[4];
+        float left = Float.MAX_VALUE;
+        float right = Float.MIN_VALUE;
+        float top = Float.MAX_VALUE;
+        float bottom = Float.MIN_VALUE;
+        for (IArea area : areas) {
+            Point2D[] edges = area.getEdges();
+            if (edges[0].getX() < left)
+                left = (float) edges[0].getX();
+            if (edges[1].getX() > right)
+                right = (float) edges[1].getX();
+            if (edges[0].getY() < top)
+                top = (float) edges[0].getY();
+            if (edges[1].getY() > bottom)
+                bottom = (float) edges[1].getY();
+        }
+
+        boundaries[0] = new HorizontalBoundary(left, top, bottom, this, color);
+        boundaries[1] = new HorizontalBoundary(right, top, bottom, this, color);
+        boundaries[2] = new VerticalBoundary(bottom, left, right, this, color);
+        boundaries[3] = new VerticalBoundary(top, left, right, this, color);
+
+        return boundaries;
+    }
+
     private int collectReward(Point2D point, boolean isPhysical) {
         int rewardPoints = 0;
         for (IArea area : areas) {
@@ -41,4 +83,5 @@ public class Environment extends EnvironmentDescription implements IEnvironment{
         }
         return rewardPoints;
     }
+
 }

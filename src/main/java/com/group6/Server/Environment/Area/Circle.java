@@ -5,7 +5,7 @@ import java.awt.geom.Point2D;
 public class Circle implements IShape{
 
     private Point2D point;
-    private float radius;
+    private double radius;
 
     public Circle(Point2D middlePoint, float radius) {
         this.point = middlePoint;
@@ -13,11 +13,23 @@ public class Circle implements IShape{
     }
 
     public boolean isPosIn(Point2D point) {
-        double dx = Math.abs(this.point.getX() - point.getX());
-        double dy = Math.abs(this.point.getY() - point.getY());
+        double dx = this.point.getX() - point.getX();
+        double dy = this.point.getY() - point.getY();
 
         double distance = Math.sqrt(dx*dx + dy*dy);
 
         return distance <= radius;
+    }
+
+    public double getHorizontalRadius() {
+        return radius;
+    }
+
+    public double getVerticalRadius() {
+        return radius;
+    }
+
+    public Point2D getLocalMiddlePoint() {
+        return new Point2D.Double(point.getX(), point.getY());
     }
 }

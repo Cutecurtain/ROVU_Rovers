@@ -25,6 +25,17 @@ public class Area implements IArea{
         return position;
     }
 
+    public Point2D[] getEdges() {
+        Point2D[] edges = new Point2D[2];
+        Point2D localMiddlePoint = shape.getLocalMiddlePoint();
+        double horizontalRadius = shape.getHorizontalRadius();
+        double verticalRadius = shape.getVerticalRadius();
+        edges[0] = new Point2D.Double(position.getX(), position.getY());
+        edges[1] = new Point2D.Double(position.getX() + localMiddlePoint.getX() + 2*horizontalRadius,
+                                     position.getY() + localMiddlePoint.getY() + 2*verticalRadius);
+        return edges;
+    }
+
     public void addShape(IShape shape) {
         this.shape = shape;
     }
