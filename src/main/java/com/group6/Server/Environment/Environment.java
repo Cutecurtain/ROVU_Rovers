@@ -1,10 +1,8 @@
 package com.group6.Server.Environment;
 
 import com.group6.Server.Environment.Area.IArea;
-import simbad.sim.Boundary;
-import simbad.sim.EnvironmentDescription;
-import simbad.sim.HorizontalBoundary;
-import simbad.sim.VerticalBoundary;
+import com.group6.Server.Environment.Area.Room;
+import simbad.sim.*;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -73,6 +71,27 @@ public class Environment extends EnvironmentDescription implements IEnvironment{
         boundaries[3] = new VerticalBoundary(top, left, right, this, color);
 
         return boundaries;
+    }
+
+    public AbstractWall[] createWalls() {
+        List<AbstractWall> walls = new ArrayList<AbstractWall>();
+
+        for (IArea area : areas) {
+            if (area instanceof Room) // Is this a good idea?
+                walls.addAll(getWalls((Room) area));
+        }
+
+        return (AbstractWall[]) walls.toArray();
+    }
+
+    private List<AbstractWall> getWalls(Room room) {
+        List<AbstractWall> abstractWalls = new ArrayList<AbstractWall>();
+        Point2D[] edges = room.getEdges();
+        abstractWalls.add(new HorizontalWall((float) edges[0].getX(), (float) edges[0].getY(), (float) edges[1].getY(), this, color));
+        abstractWalls.add(new HorizontalWall((float) edges[1].getX(), (float) edges[0].getY(), (float) edges[1].getY(), this, color));
+        abstractWalls.add(new VerticalWall((float) edges[1].getY(), (float) edges[0].getX(), (float) edges[1].getX(), this, color));
+        abstractWalls.add(new VerticalWall((float) edges[0].getY(), (float) edges[0].getX(), (float) edges[1].getX(), this, color));
+        return abstractWalls;
     }
 
     private int collectReward(Point2D point, boolean isPhysical) {
