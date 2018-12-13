@@ -14,6 +14,14 @@ public class Movement {
 
     }
 
+    public void setDirection(int dirX, int dirY){
+        x = dirX;
+        y = dirY;
+    }
+
+    public void setSpeed(double speed){
+        this.speed = speed;
+    }
 
 
 
