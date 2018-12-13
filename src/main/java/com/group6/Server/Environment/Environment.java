@@ -50,7 +50,9 @@ public class Environment extends EnvironmentDescription implements IEnvironment{
     }
 
     public Boundary[] createBoundaries() {
+        // x1, x2, y1, y2
         Boundary[] boundaries = new Boundary[4];
+
         float left = Float.MAX_VALUE;
         float right = Float.MIN_VALUE;
         float top = Float.MAX_VALUE;
@@ -67,11 +69,22 @@ public class Environment extends EnvironmentDescription implements IEnvironment{
                 bottom = (float) edges[1].getY();
         }
 
-        boundaries[0] = new HorizontalBoundary(left - EDGE_DISTANCE, top - EDGE_DISTANCE, bottom + EDGE_DISTANCE, this, color);
-        boundaries[1] = new HorizontalBoundary(right + EDGE_DISTANCE, top - EDGE_DISTANCE, bottom + EDGE_DISTANCE, this, color);
-        boundaries[2] = new VerticalBoundary(bottom + EDGE_DISTANCE, left - EDGE_DISTANCE, right + EDGE_DISTANCE, this, color);
-        boundaries[3] = new VerticalBoundary(top - EDGE_DISTANCE, left - EDGE_DISTANCE, right + EDGE_DISTANCE, this, color);
-
+        // x1
+        boundaries[0] = new HorizontalBoundary(left - EDGE_DISTANCE,
+                                               top - EDGE_DISTANCE,
+                                               bottom + EDGE_DISTANCE, this, color);
+        // x2
+        boundaries[1] = new HorizontalBoundary(right + EDGE_DISTANCE,
+                                               top - EDGE_DISTANCE,
+                                               bottom + EDGE_DISTANCE, this, color);
+        // y1
+        boundaries[2] = new VerticalBoundary(bottom + EDGE_DISTANCE,
+                                             left - EDGE_DISTANCE,
+                                             right + EDGE_DISTANCE, this, color);
+        // y2
+        boundaries[3] = new VerticalBoundary(top - EDGE_DISTANCE,
+                                             left - EDGE_DISTANCE,
+                                             right + EDGE_DISTANCE, this, color);
         return boundaries;
     }
 
@@ -87,12 +100,26 @@ public class Environment extends EnvironmentDescription implements IEnvironment{
     }
 
     private List<AbstractWall> getWalls(Room room) {
+        // x1, x2, y1 ,y2
         List<AbstractWall> abstractWalls = new ArrayList<AbstractWall>();
         Point2D[] edges = room.getEdges();
-        abstractWalls.add(new HorizontalWall((float) edges[0].getX(), (float) edges[0].getY(), (float) edges[1].getY(), this, color));
-        abstractWalls.add(new HorizontalWall((float) edges[1].getX(), (float) edges[0].getY(), (float) edges[1].getY(), this, color));
-        abstractWalls.add(new VerticalWall((float) edges[1].getY(), (float) edges[0].getX(), (float) edges[1].getX(), this, color));
-        abstractWalls.add(new VerticalWall((float) edges[0].getY(), (float) edges[0].getX(), (float) edges[1].getX(), this, color));
+
+        // x1
+        abstractWalls.add(new HorizontalWall((float) edges[0].getX(),
+                                             (float) edges[0].getY(),
+                                             (float) edges[1].getY(), this, color));
+        // x2
+        abstractWalls.add(new HorizontalWall((float) edges[1].getX(),
+                                             (float) edges[0].getY(),
+                                             (float) edges[1].getY(), this, color));
+        // y1
+        abstractWalls.add(new VerticalWall((float) edges[1].getY(),
+                                           (float) edges[0].getX(),
+                                           (float) edges[1].getX(), this, color));
+        // y2
+        abstractWalls.add(new VerticalWall((float) edges[0].getY(),
+                                           (float) edges[0].getX(),
+                                           (float) edges[1].getX(), this, color));
         return abstractWalls;
     }
 
