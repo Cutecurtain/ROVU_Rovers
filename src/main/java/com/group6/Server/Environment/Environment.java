@@ -13,6 +13,8 @@ public class Environment extends EnvironmentDescription implements IEnvironment{
 
     private static final Color DEFAULT_COLOR = Color.GRAY;
 
+    private static final float EDGE_DISTANCE = 0.5f;
+
     private List<IArea> areas;
 
     private Color color;
@@ -65,10 +67,10 @@ public class Environment extends EnvironmentDescription implements IEnvironment{
                 bottom = (float) edges[1].getY();
         }
 
-        boundaries[0] = new HorizontalBoundary(left, top, bottom, this, color);
-        boundaries[1] = new HorizontalBoundary(right, top, bottom, this, color);
-        boundaries[2] = new VerticalBoundary(bottom, left, right, this, color);
-        boundaries[3] = new VerticalBoundary(top, left, right, this, color);
+        boundaries[0] = new HorizontalBoundary(left - EDGE_DISTANCE, top - EDGE_DISTANCE, bottom + EDGE_DISTANCE, this, color);
+        boundaries[1] = new HorizontalBoundary(right + EDGE_DISTANCE, top - EDGE_DISTANCE, bottom + EDGE_DISTANCE, this, color);
+        boundaries[2] = new VerticalBoundary(bottom + EDGE_DISTANCE, left - EDGE_DISTANCE, right + EDGE_DISTANCE, this, color);
+        boundaries[3] = new VerticalBoundary(top - EDGE_DISTANCE, left - EDGE_DISTANCE, right + EDGE_DISTANCE, this, color);
 
         return boundaries;
     }
