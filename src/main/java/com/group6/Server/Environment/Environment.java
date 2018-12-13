@@ -73,7 +73,7 @@ public class Environment extends EnvironmentDescription implements IEnvironment{
         return boundaries;
     }
 
-    public AbstractWall[] createWalls() {
+    public List<AbstractWall> createWalls() {
         List<AbstractWall> walls = new ArrayList<AbstractWall>();
 
         for (IArea area : areas) {
@@ -81,7 +81,7 @@ public class Environment extends EnvironmentDescription implements IEnvironment{
                 walls.addAll(getWalls((Room) area));
         }
 
-        return (AbstractWall[]) walls.toArray();
+        return walls;
     }
 
     private List<AbstractWall> getWalls(Room room) {

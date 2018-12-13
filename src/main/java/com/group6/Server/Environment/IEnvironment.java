@@ -4,6 +4,7 @@ import simbad.sim.AbstractWall;
 import simbad.sim.Boundary;
 
 import java.awt.geom.Point2D;
+import java.util.List;
 
 public interface IEnvironment {
 
@@ -13,6 +14,6 @@ public interface IEnvironment {
 
     Boundary[] createBoundaries();
 
-    AbstractWall[] createWalls();
+    List<AbstractWall> createWalls();
 
 }
