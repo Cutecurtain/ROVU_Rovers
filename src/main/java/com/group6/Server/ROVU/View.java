@@ -41,10 +41,6 @@ public class View extends JFrame implements Observer {
         }
     }
 
-    public int getRobotNb() {
-        return Integer.parseInt(robotNb.getText());
-    }
-
     public void setRobotNb(int number) {
         robotNb.setText(Integer.toString(number));
     }
