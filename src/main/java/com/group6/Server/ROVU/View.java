@@ -30,7 +30,7 @@ public class View extends JFrame implements Observer {
 
     public void setButtons(int number) {
         for(int i = 0; i < number; i++) {
-            buttons.add(new JButton("Robot" + i));
+            buttons.add(new JButton("Emergency Stop Robot " + i));
             jPanel.add(buttons.get(i));
         }
     }

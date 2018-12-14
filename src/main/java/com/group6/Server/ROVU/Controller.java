@@ -30,6 +30,8 @@ public class Controller {
     class ButtonListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
+            String s = e.getActionCommand();
+            networking.getRobots().remove(Character.toString(s.charAt((s.length() - 1))));
             emergencyStop();
         }
 
