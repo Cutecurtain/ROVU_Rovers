@@ -10,12 +10,13 @@ import com.group6.Server.Networking;
 import com.group6.Server.ROVU.Controller;
 import com.group6.Server.ROVU.Model;
 import com.group6.Server.ROVU.View;
+import com.group6.Server.Robot.Mission;
 import project.AbstractSimulatorMonitor;
-import project.Point;
 import simbad.sim.AbstractWall;
 import simbad.sim.Boundary;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -24,11 +25,6 @@ import java.util.Set;
 public class Main {
 
     public static void main (String[] args) throws InterruptedException {
-
-        View view = new View();
-        Model model = new Model();
-        Controller controller1 = new Controller(view, model);
-        view.setVisible(true);
 
         /*
         // Just the standard example
@@ -80,15 +76,25 @@ public class Main {
         Boundary[] boundaries = e.createBoundaries();
         List<AbstractWall> walls = e.createWalls();
 
-        Set<Planner> robots = new HashSet<Planner>();
-        Planner robot1 = new Planner(new Point(0, 0), "Robot 1");
-        Planner robot2 = new Planner(new Point(1, 3), "Robot 2");
+        com.group6.RobotRover.Main robot1 = new com.group6.RobotRover.Main(1,3 );
 
-        networking.getRobots();
-        robots.add(robot1);
-        robots.add(robot2);
+        robot1.start();
 
-        AbstractSimulatorMonitor controller = new SimulatorMonitor(robots, e);
+        Set<Planner> planners = new HashSet<Planner>();
+        planners.addAll(Networking.getInstance().getSubscribers().values());
+
+        AbstractSimulatorMonitor controller = new SimulatorMonitor(planners, e);
+
+        View view = new View();
+        Model model = new Model();
+        Controller controller1 = new Controller(view, model);
+        view.setVisible(true);
+
+        List<Point2D> missionPoints = new ArrayList<Point2D>();
+
+        missionPoints.add(new Point2D.Double(4,4));
+
+        networking.getRobots().get("0").setMission(new Mission(missionPoints));
 
     }
 

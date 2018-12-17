@@ -1,5 +1,7 @@
 package com.group6.RobotRover;
 
+import project.Point;
+
 public class Main {
 
     private static final Networking NETWORKING = Networking.getInstance();
@@ -8,16 +10,30 @@ public class Main {
 
     private Planner planner;
 
-    public Main() {}
+    private double x, z;
+
+    public Main(double x, double z) {
+        this.x = x;
+        this.z = z;
+    }
 
     public void start() {
         if (connect()) {
-            // TODO create new thread for the main loop method
+            Thread thread = new Thread() {
+                public void run() {
+                    try {
+                        main();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+            thread.start();
         }
     }
 
     private boolean connect() {
-        planner = new Planner(null, Integer.toString(nextID++));
+        planner = new Planner(new Point(x, z), Integer.toString(nextID++));
         if (!NETWORKING.connect(planner)) {
             nextID--;
             return false;
@@ -26,7 +42,7 @@ public class Main {
     }
 
     private void main() throws InterruptedException {
-        while (true) {
+        while (!planner.isStopped()) {
             if (planner.isHalted()) {
                 planner.halt();
             } else {

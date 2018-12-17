@@ -1,5 +1,6 @@
 package com.group6.Server.Robot;
 
+import com.group6.Server.Networking;
 import project.Point;
 
 public class Robot implements IRobot{
@@ -15,7 +16,7 @@ public class Robot implements IRobot{
     }
 
     public void setMission(IMission mission) {
-
+        Networking.getInstance().giveMission(id, mission);
     }
 
     public double getX() {

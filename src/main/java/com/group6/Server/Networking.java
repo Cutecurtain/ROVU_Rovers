@@ -23,8 +23,6 @@ public class Networking extends PretendSocket {
 
     private Networking() {
         robots = new HashMap<String, IRobot>();
-        robots.put(robot1.getId(), robot1);
-        robots.put(robot2.getId(), robot2);
         subscribers = new HashMap<String, Planner>();
     }
 
@@ -34,6 +32,10 @@ public class Networking extends PretendSocket {
 
     public Map<String, IRobot> getRobots() {
         return robots;
+    }
+
+    public Map<String, Planner> getSubscribers() {
+        return subscribers;
     }
 
     private boolean connect(Planner planner, double x, double y) {
@@ -69,7 +71,7 @@ public class Networking extends PretendSocket {
         switch (instruction) {
             case CONNECT:
                 String id = planner.getName();
-                if (connect(id, planner.getPosition().getX(), planner.getPosition().getZ())) {
+                if (connect(planner, planner.getPosition().getX(), planner.getPosition().getZ())) {
                     subscribers.put(id, planner);
                 }
                 return false;
@@ -96,6 +98,17 @@ public class Networking extends PretendSocket {
         robots.get(id).setAvailable(false);
         Point2D[] missionPoints = (Point2D[]) mission.getMissionPoints().toArray();
         return subscribers.get(id).addMissionPoint(missionPoints);
+    }
+
+    public boolean emergencyStop(String id)  {
+        if (!subscribers.containsKey(id))
+            return false;
+        try{
+            subscribers.get(id).emergencyStop();
+        } catch (InterruptedException e) {
+            return false;
+        }
+        return true;
     }
 
 }

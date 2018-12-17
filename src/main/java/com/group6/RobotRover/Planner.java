@@ -23,15 +23,19 @@ public class Planner extends AbstractRobotSimulator {
 
     private boolean halted;
 
+    private boolean stopped;
+
     private long haltTime;
 
     public Planner(Point position, String name) {
         super(position, name);
+        super.setDestination(super.getPosition());
         this.missionPoints = new ArrayList<Point>();
         this.missionIterator = this.missionPoints.iterator();
         this.currentGoal = super.getPosition();
         this.available = false;
         this.halted = false;
+        this.stopped = false;
         this.haltTime = DEFAULT_HALT_TIME;
     }
 
@@ -58,12 +62,23 @@ public class Planner extends AbstractRobotSimulator {
         Thread.sleep(haltTime);
     }
 
+    public boolean emergencyStop() throws InterruptedException {
+        available = false;
+        halt();
+        stopped = true;
+        return true;
+    }
+
     public boolean isAvailable() {
         return available;
     }
 
     public boolean isHalted() {
         return halted;
+    }
+
+    public boolean isStopped() {
+        return stopped;
     }
 
     public void haltRover(long millis) {
