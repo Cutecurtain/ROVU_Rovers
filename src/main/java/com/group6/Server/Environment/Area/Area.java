@@ -26,8 +26,8 @@ public class Area<S extends IShape> extends AbstractArea{
         double horizontalRadius = shape.getHorizontalRadius();
         double verticalRadius = shape.getVerticalRadius();
         edges[0] = new Point2D.Double(super.getPosition().getX(), super.getPosition().getY());
-        edges[1] = new Point2D.Double(super.getPosition().getX() + localMiddlePoint.getX() + 2*horizontalRadius,
-                                     super.getPosition().getY() + localMiddlePoint.getY() + 2*verticalRadius);
+        edges[1] = new Point2D.Double(super.getPosition().getX() + localMiddlePoint.getX() + horizontalRadius,
+                                     super.getPosition().getY() + localMiddlePoint.getY() + verticalRadius);
         return edges;
     }
 

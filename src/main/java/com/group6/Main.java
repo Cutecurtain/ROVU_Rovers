@@ -59,7 +59,7 @@ public class Main {
         rooms.add(new Room(4, new Point2D.Double(0,0), new Rect(new Point2D.Double(0,0), new Point2D.Double(5,5))));
 
         // A Division with all the rooms
-        IArea division = new Division(0, new Point2D.Double(-5,-5), rooms);
+        IArea division = new Division(0, rooms);
 
         // Our Environment
         Environment e = new Environment();

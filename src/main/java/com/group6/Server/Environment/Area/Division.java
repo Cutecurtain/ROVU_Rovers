@@ -1,7 +1,6 @@
 package com.group6.Server.Environment.Area;
 
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Division extends AbstractArea {
@@ -11,14 +10,14 @@ public class Division extends AbstractArea {
 
     private List<Room> rooms;
 
-    public Division(int rewardPoints, Point2D position, List<Room> rooms) {
-        super(true, position);
+    public Division(int rewardPoints, List<Room> rooms) {
+        super(true, null);
         divisionReward = rewardPoints;
         this.rooms = rooms;
     }
 
     public Division(Point2D position, List<Room> rooms) {
-        this(0, position, rooms);
+        this(0, rooms);
     }
 
     public Point2D[] getEdges() {

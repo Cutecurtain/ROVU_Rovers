@@ -14,6 +14,8 @@ public class Environment extends EnvironmentDescription implements IEnvironment{
 
     private static final Color DEFAULT_COLOR = Color.GRAY;
 
+    private static final Color TRANSPARENT = new Color(0,0,0,0);
+
     private static final float EDGE_DISTANCE = 0.5f;
 
     private List<IArea> areas;
@@ -73,19 +75,19 @@ public class Environment extends EnvironmentDescription implements IEnvironment{
         // x1
         boundaries[0] = new HorizontalBoundary(left - EDGE_DISTANCE,
                                                top - EDGE_DISTANCE,
-                                               bottom + EDGE_DISTANCE, this, color);
+                                               bottom + EDGE_DISTANCE, this, TRANSPARENT);
         // x2
         boundaries[1] = new HorizontalBoundary(right + EDGE_DISTANCE,
                                                top - EDGE_DISTANCE,
-                                               bottom + EDGE_DISTANCE, this, color);
+                                               bottom + EDGE_DISTANCE, this, TRANSPARENT);
         // y1
         boundaries[2] = new VerticalBoundary(bottom + EDGE_DISTANCE,
                                              left - EDGE_DISTANCE,
-                                             right + EDGE_DISTANCE, this, color);
+                                             right + EDGE_DISTANCE, this, TRANSPARENT);
         // y2
         boundaries[3] = new VerticalBoundary(top - EDGE_DISTANCE,
                                              left - EDGE_DISTANCE,
-                                             right + EDGE_DISTANCE, this, color);
+                                             right + EDGE_DISTANCE, this, TRANSPARENT);
 
         // Don't know if this is needed
         super.setWorldSize(Math.max(right-left, bottom - top));
