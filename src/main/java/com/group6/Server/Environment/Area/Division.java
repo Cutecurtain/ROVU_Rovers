@@ -61,4 +61,9 @@ public class Division extends AbstractArea {
         return rooms;
     }
 
+    @Override
+    public Point2D getPosition() {
+        return getEdges()[0];
+    }
+
 }
