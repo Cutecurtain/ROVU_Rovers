@@ -119,39 +119,39 @@ public class Environment extends EnvironmentDescription implements IEnvironment{
         // x1 1
         abstractWalls.add(new HorizontalWall((float) edges[0].getX(),
                                              (float) edges[0].getY(),
-                                             (float) ((float) edges[0].getY() + yQuarterSize*3/8), this, color));
+                                             (float) ((float) edges[0].getY() + yQuarterSize*5/8), this, color));
         // x1 2
         abstractWalls.add(new HorizontalWall((float) edges[0].getX(),
                                              (float) edges[1].getY(),
-                                             (float) ((float) edges[1].getY() - yQuarterSize*3/8), this, color));
+                                             (float) ((float) edges[1].getY() - yQuarterSize*5/8), this, color));
 
         // x2 1
         abstractWalls.add(new HorizontalWall((float) edges[1].getX(),
                                              (float) edges[0].getY(),
-                                             (float) ((float) edges[0].getY() + yQuarterSize * 3/8), this, color));
+                                             (float) ((float) edges[0].getY() + yQuarterSize * 5/8), this, color));
         // x2 2
         abstractWalls.add(new HorizontalWall((float) edges[1].getX(),
                                              (float) edges[1].getY(),
-                                             (float) ((float) edges[1].getY() - yQuarterSize * 3/8), this, color));
+                                             (float) ((float) edges[1].getY() - yQuarterSize * 5/8), this, color));
 
 
         // y1 1
         abstractWalls.add(new VerticalWall((float) edges[0].getY(),
                                            (float) edges[0].getX(),
-                                           (float) ((float) edges[0].getX() + xQuarterSize * 3/8), this, color));
+                                           (float) ((float) edges[0].getX() + xQuarterSize * 5/8), this, color));
         // y1 2
         abstractWalls.add(new VerticalWall((float) edges[0].getY(),
                                            (float) edges[1].getX(),
-                                           (float) ((float) edges[1].getX() - xQuarterSize * 3/8), this, color));
+                                           (float) ((float) edges[1].getX() - xQuarterSize * 5/8), this, color));
 
         // y2 1
         abstractWalls.add(new VerticalWall((float) edges[1].getY(),
                                            (float) edges[0].getX(),
-                                           (float) ((float) edges[0].getX() + xQuarterSize * 3/8), this, color));
+                                           (float) ((float) edges[0].getX() + xQuarterSize * 5/8), this, color));
         // y2 2
         abstractWalls.add(new VerticalWall((float) edges[1].getY(),
                                            (float) edges[1].getX(),
-                                           (float) ((float) edges[1].getX() - xQuarterSize * 3/8), this, color));
+                                           (float) ((float) edges[1].getX() - xQuarterSize * 5/8), this, color));
         return abstractWalls;
     }
 
