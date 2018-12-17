@@ -6,6 +6,7 @@ import com.group6.Server.Environment.Area.Division;
 import com.group6.Server.Environment.Area.IArea;
 import com.group6.Server.Environment.Area.Room;
 import com.group6.Server.Environment.Environment;
+import com.group6.Server.Networking;
 import com.group6.Server.ROVU.Controller;
 import com.group6.Server.ROVU.Model;
 import com.group6.Server.ROVU.View;
@@ -51,6 +52,7 @@ public class Main {
 
         AreaFactory areaFactory = new AreaFactory();
 
+        Networking networking = Networking.getInstance();
 
         // Example room 1
         rooms.add(areaFactory.createRoom(1, -5,-5, 5, Color.red));
@@ -82,6 +84,7 @@ public class Main {
         Planner robot1 = new Planner(new Point(0, 0), "Robot 1");
         Planner robot2 = new Planner(new Point(1, 3), "Robot 2");
 
+        networking.getRobots();
         robots.add(robot1);
         robots.add(robot2);
 

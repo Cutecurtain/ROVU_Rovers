@@ -16,6 +16,8 @@ public class Networking extends PretendSocket {
     private static final Networking SINGLETON = new Networking();
     private Robot robot1 = new Robot(new Point(1,2), "0");
     private Robot robot2 = new Robot(new Point(1,2), "1");
+    private Robot robot3 = new Robot(new Point(1,2), "2");
+    private Robot robot4 = new Robot(new Point(1,2), "3");
     private Map<String, IRobot> robots;
     private Map<String, Planner> subscribers; // Just for pretending that we have a connection over the network
 
@@ -34,11 +36,12 @@ public class Networking extends PretendSocket {
         return robots;
     }
 
-    private boolean connect(String id, double x, double y) {
-        if (subscribers.containsKey(id))
+    private boolean connect(Planner planner, double x, double y) {
+        if (subscribers.containsValue(planner))
             return false;
-        IRobot newRobot = new Robot(new Point(x, y), id);
-        robots.put(id, newRobot);
+        subscribers.put(planner.getName(), planner);
+        IRobot newRobot = new Robot(new Point(x, y), planner.getName());
+        robots.put(planner.getName(), newRobot);
         return true;
     }
 
