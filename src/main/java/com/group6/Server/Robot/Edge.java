@@ -1,8 +1,5 @@
 package com.group6.Server.Robot;
 
-/**
- * Created by Alice on 2018-12-13.
- */
 public class Edge  {
     private final String id;
     private final Vertex source;

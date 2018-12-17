@@ -1,7 +1,10 @@
 package com.group6;
 
 import com.group6.RobotRover.Planner;
-import com.group6.Server.Environment.Area.*;
+import com.group6.Server.Environment.Area.AreaFactory;
+import com.group6.Server.Environment.Area.Division;
+import com.group6.Server.Environment.Area.IArea;
+import com.group6.Server.Environment.Area.Room;
 import com.group6.Server.Environment.Environment;
 import com.group6.Server.ROVU.Controller;
 import com.group6.Server.ROVU.Model;
@@ -11,7 +14,6 @@ import project.Point;
 import simbad.sim.AbstractWall;
 import simbad.sim.Boundary;
 
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -46,17 +48,21 @@ public class Main {
         // A list of rooms
         List<Room> rooms = new ArrayList<Room>();
 
+        AreaFactory areaFactory = new AreaFactory();
+
+
         // Example room 1
-        rooms.add(new Room(1, new Point2D.Double(-5,-5), new Rect(new Point2D.Double(0,0), new Point2D.Double(5,5))));
+        rooms.add(areaFactory.createRoom(1, -5,-5, 5));
 
         // Example room 2
-        rooms.add(new Room(2, new Point2D.Double(0,-5), new Rect(new Point2D.Double(0,0), new Point2D.Double(5,5))));
+        rooms.add(areaFactory.createRoom(2, 0,-5, 5));
 
         // Example room 3
-        rooms.add(new Room(3, new Point2D.Double(-5,0), new Rect(new Point2D.Double(0,0), new Point2D.Double(5,5))));
+        rooms.add(areaFactory.createRoom(3, -5,0, 5));
+        //rooms.add(new Room(3, new Point2D.Double(-5,0), new Rect(new Point2D.Double(0,0), new Point2D.Double(5,5))));
 
         // Example room 4
-        rooms.add(new Room(4, new Point2D.Double(0,0), new Rect(new Point2D.Double(0,0), new Point2D.Double(5,5))));
+        rooms.add(areaFactory.createRoom(4, 0,0, 5));
 
         // A Division with all the rooms
         IArea division = new Division(0, rooms);
