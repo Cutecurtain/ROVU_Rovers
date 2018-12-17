@@ -14,6 +14,7 @@ import project.Point;
 import simbad.sim.AbstractWall;
 import simbad.sim.Boundary;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -52,13 +53,13 @@ public class Main {
 
 
         // Example room 1
-        rooms.add(areaFactory.createRoom(1, -5,-5, 5));
+        rooms.add(areaFactory.createRoom(1, -5,-5, 5, Color.red));
 
         // Example room 2
-        rooms.add(areaFactory.createRoom(2, 0,-5, 5));
+        rooms.add(areaFactory.createRoom(2, 0,-5, 5, Color.BLUE));
 
         // Example room 3
-        rooms.add(areaFactory.createRoom(3, -5,0, 5));
+        rooms.add(areaFactory.createRoom(3, -5,0, 5, Color.GREEN));
         //rooms.add(new Room(3, new Point2D.Double(-5,0), new Rect(new Point2D.Double(0,0), new Point2D.Double(5,5))));
 
         // Example room 4
