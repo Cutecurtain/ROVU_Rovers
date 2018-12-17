@@ -49,11 +49,13 @@ public class Division extends AbstractArea {
     }
 
     public int collectReward(Point2D point) {
-        int total = 0;
+        int total = divisionReward;
         for (Room room : rooms) {
             total += room.collectReward(point);
+            if (total > divisionReward) // Logically, you can only be in one room at a time
+                return total;
         }
-        return total == 0 ? 0 : total + divisionReward;
+        return 0;
     }
 
     public List<Room> getRooms() {
