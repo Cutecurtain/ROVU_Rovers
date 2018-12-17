@@ -10,8 +10,6 @@ import java.util.List;
 
 public class Environment extends EnvironmentDescription implements IEnvironment{
 
-    private static final Color DEFAULT_COLOR = Color.GRAY;
-
     private static final Color TRANSPARENT = new Color(0,0,0,0);
 
     private static final float EDGE_DISTANCE = 0.5f;
@@ -20,22 +18,22 @@ public class Environment extends EnvironmentDescription implements IEnvironment{
 
     private Color color;
 
-    public Environment(List<IArea> areas, Color color) {
+    public Environment(List<IArea> areas, Color boundaryColor) {
         super();
         this.areas = areas;
-        this.color = color;
+        this.color = boundaryColor;
     }
 
     public Environment(List<IArea> areas) {
-        this(areas, DEFAULT_COLOR);
+        this(areas, TRANSPARENT);
     }
 
-    public Environment(Color color) {
-        this(new ArrayList<IArea>(), color);
+    public Environment(Color boundaryColor) {
+        this(new ArrayList<IArea>(), boundaryColor);
     }
 
     public Environment() {
-        this(new ArrayList<IArea>(), DEFAULT_COLOR);
+        this(TRANSPARENT);
     }
 
     public void addArea(IArea area) {
@@ -73,19 +71,19 @@ public class Environment extends EnvironmentDescription implements IEnvironment{
         // x1
         boundaries[0] = new HorizontalBoundary(left - EDGE_DISTANCE,
                                                top - EDGE_DISTANCE,
-                                               bottom + EDGE_DISTANCE, this, TRANSPARENT);
+                                               bottom + EDGE_DISTANCE, this, color);
         // x2
         boundaries[1] = new HorizontalBoundary(right + EDGE_DISTANCE,
                                                top - EDGE_DISTANCE,
-                                               bottom + EDGE_DISTANCE, this, TRANSPARENT);
+                                               bottom + EDGE_DISTANCE, this, color);
         // y1
         boundaries[2] = new VerticalBoundary(bottom + EDGE_DISTANCE,
                                              left - EDGE_DISTANCE,
-                                             right + EDGE_DISTANCE, this, TRANSPARENT);
+                                             right + EDGE_DISTANCE, this, color);
         // y2
         boundaries[3] = new VerticalBoundary(top - EDGE_DISTANCE,
                                              left - EDGE_DISTANCE,
-                                             right + EDGE_DISTANCE, this, TRANSPARENT);
+                                             right + EDGE_DISTANCE, this, color);
 
         // Don't know if this is needed
         super.setWorldSize(Math.max(right-left, bottom - top));
@@ -108,50 +106,50 @@ public class Environment extends EnvironmentDescription implements IEnvironment{
         return walls;
     }
 
-    private List<AbstractWall> getWalls(Area<Rect> area) {
+    private List<AbstractWall> getWalls(Room room) {
         // x1, x2, y1 ,y2
         List<AbstractWall> abstractWalls = new ArrayList<AbstractWall>();
-        Point2D[] edges = area.getEdges();
+        Point2D[] edges = room.getEdges();
 
         double xWallLength = (edges[1].getX() - edges[0].getX()) * 3/8;
-        double yWallLenght = (edges[1].getY() - edges[0].getY()) * 3/8;
+        double yWallLength = (edges[1].getY() - edges[0].getY()) * 3/8;
 
         // x1 1
         abstractWalls.add(new HorizontalWall((float) edges[0].getX(),
                                              (float) edges[0].getY(),
-                                             (float) ((float) edges[0].getY() + yWallLenght), this, color));
+                                             (float) ((float) edges[0].getY() + yWallLength), this, room.getColor()));
         // x1 2
         abstractWalls.add(new HorizontalWall((float) edges[0].getX(),
                                              (float) edges[1].getY(),
-                                             (float) ((float) edges[1].getY() - yWallLenght), this, color));
+                                             (float) ((float) edges[1].getY() - yWallLength), this, room.getColor()));
 
         // x2 1
         abstractWalls.add(new HorizontalWall((float) edges[1].getX(),
                                              (float) edges[0].getY(),
-                                             (float) ((float) edges[0].getY() + yWallLenght), this, color));
+                                             (float) ((float) edges[0].getY() + yWallLength), this, room.getColor()));
         // x2 2
         abstractWalls.add(new HorizontalWall((float) edges[1].getX(),
                                              (float) edges[1].getY(),
-                                             (float) ((float) edges[1].getY() - yWallLenght), this, color));
+                                             (float) ((float) edges[1].getY() - yWallLength), this, room.getColor()));
 
 
         // y1 1
         abstractWalls.add(new VerticalWall((float) edges[0].getY(),
                                            (float) edges[0].getX(),
-                                           (float) ((float) edges[0].getX() + xWallLength), this, color));
+                                           (float) ((float) edges[0].getX() + xWallLength), this, room.getColor()));
         // y1 2
         abstractWalls.add(new VerticalWall((float) edges[0].getY(),
                                            (float) edges[1].getX(),
-                                           (float) ((float) edges[1].getX() - xWallLength), this, color));
+                                           (float) ((float) edges[1].getX() - xWallLength), this, room.getColor()));
 
         // y2 1
         abstractWalls.add(new VerticalWall((float) edges[1].getY(),
                                            (float) edges[0].getX(),
-                                           (float) ((float) edges[0].getX() + xWallLength), this, color));
+                                           (float) ((float) edges[0].getX() + xWallLength), this, room.getColor()));
         // y2 2
         abstractWalls.add(new VerticalWall((float) edges[1].getY(),
                                            (float) edges[1].getX(),
-                                           (float) ((float) edges[1].getX() - xWallLength), this, color));
+                                           (float) ((float) edges[1].getX() - xWallLength), this, room.getColor()));
         return abstractWalls;
     }
 
