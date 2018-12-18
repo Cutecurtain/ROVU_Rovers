@@ -30,7 +30,9 @@ public class PretendSocket {
     }
 
     static Set<Planner> getSubscribers() {
-        return new HashSet<Planner>(SOCKET.getSubscribers().values());
+        Set<Planner> set = new HashSet<Planner>();
+        set.addAll(SOCKET.getSubscribers().values());
+        return set;
     }
 
     static void loadRobots() {
@@ -47,10 +49,10 @@ public class PretendSocket {
 
         // Here are all the robots, that exist in the simulation, added
         private void loadRobots() {
-            Main robot1 = new Main(1,3);
-            Main robot2 = new Main(3,1);
+            Main robot1 = new Main(-2.5,-2.5);
+            //Main robot2 = new Main(3,1);
             robot1.start();
-            robot2.start();
+            //robot2.start();
         }
 
         void addSubscriber(Planner planner) {

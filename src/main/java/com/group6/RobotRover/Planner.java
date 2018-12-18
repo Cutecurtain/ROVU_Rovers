@@ -39,15 +39,13 @@ public class Planner extends AbstractRobotSimulator {
         this.haltTime = DEFAULT_HALT_TIME;
     }
 
-    public boolean addMissionPoint(Point2D... points) {
+    public boolean addMissionPoint(List<Point2D> missionPoints) {
         if (!available)
             return false;
-        Point[] newPoints = new Point[points.length];
-        for (int i = 0; i < points.length; i++)
-            newPoints[i] = new Point(points[i].getX(), points[i].getY());
         this.missionPoints = new ArrayList<Point>();
-        Collections.addAll(this.missionPoints, newPoints);
-        this.missionIterator = missionPoints.iterator();
+        for (int i = 0; i < missionPoints.size(); i++)
+            this.missionPoints.add(new Point(missionPoints.get(i).getX(), missionPoints.get(i).getY()));
+        this.missionIterator = this.missionPoints.iterator();
         return true;
     }
 

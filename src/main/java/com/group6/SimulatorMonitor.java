@@ -13,7 +13,6 @@ public class SimulatorMonitor extends AbstractSimulatorMonitor<Planner> {
 
     public SimulatorMonitor(EnvironmentDescription e) {
         this(PretendSocket.getSubscribers(), e);
-        PretendSocket.loadRobots();
     }
 
     @Override

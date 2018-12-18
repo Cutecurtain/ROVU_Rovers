@@ -82,8 +82,7 @@ public class Networking extends PretendSocket {
         if (!hasSubscriber(id) || !robots.get(id).isAvailable())
             return false;
         robots.get(id).setAvailable(false);
-        Point2D[] missionPoints = (Point2D[]) mission.getMissionPoints().toArray();
-        return getSubscriber(id).addMissionPoint(missionPoints);
+        return getSubscriber(id).addMissionPoint(mission.getMissionPoints());
     }
 
     public boolean emergencyStop(String id)  {
