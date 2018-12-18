@@ -60,11 +60,7 @@ public class Networking extends PretendSocket {
     public boolean request(char instruction, Planner planner) {
         switch (instruction) {
             case CONNECT:
-                String id = planner.getName();
-                if (connect(planner, planner.getPosition().getX(), planner.getPosition().getZ())) {
-                    addSubscriber(planner);
-                }
-                return false;
+                return connect(planner, planner.getPosition().getX(), planner.getPosition().getZ());
             case UPDATE:
                 return update(planner.getName(), planner.getPosition().getX(), planner.getPosition().getZ());
             case FINNISH_MISSION:

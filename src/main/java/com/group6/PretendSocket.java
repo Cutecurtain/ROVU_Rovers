@@ -8,29 +8,29 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public abstract class PretendSocket {
+public class PretendSocket {
 
     protected static final char CONNECT = 0;
     protected static final char UPDATE = 1;
     protected static final char FINNISH_MISSION = 2;
     protected static final char FAULT = 3;
 
-    private static Socket socket = new Socket();
+    private static final Socket SOCKET = new Socket();
 
     protected static void addSubscriber(Planner planner) {
-        socket.addSubscriber(planner);
+        SOCKET.addSubscriber(planner);
     }
 
     protected static boolean hasSubscriber(String id) {
-        return socket.hasSubscriber(id);
+        return SOCKET.hasSubscriber(id);
     }
 
     protected static Planner getSubscriber(String id) {
-        return socket.getSubscriber(id);
+        return SOCKET.getSubscriber(id);
     }
 
     static Set<Planner> getSubscribers() {
-        return new HashSet<Planner>(socket.getSubscribers().values());
+        return new HashSet<Planner>(SOCKET.getSubscribers().values());
     }
 
     private static class Socket {
