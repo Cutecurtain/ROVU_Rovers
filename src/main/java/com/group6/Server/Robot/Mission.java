@@ -19,7 +19,7 @@ public class Mission implements IMission{
     }
 
     public List<Point2D> getMissionPoints() {
-        return null;
+        return missionPoints;
     }
 
     public void addMissionPoint(Point2D point) {
