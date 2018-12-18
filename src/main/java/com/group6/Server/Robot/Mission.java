@@ -26,6 +26,8 @@ public class Mission implements IMission{
         missionPoints.add(point);
     }
 
+
+    /*
     private class DijkstraAlgorithm {
 
         private final List<Vertex> nodes;
@@ -122,7 +124,7 @@ public class Mission implements IMission{
          * This method returns the path from the source to the selected target and
          * NULL if no path exists
          */
-        public LinkedList<Vertex> getPath(Vertex target) {
+        /*public LinkedList<Vertex> getPath(Vertex target) {
             LinkedList<Vertex> path = new LinkedList<Vertex>();
             Vertex step = target;
             // check if a path exists
@@ -193,7 +195,7 @@ public class Mission implements IMission{
         }
 
 
-    }
+    }*/
 
 
 }
