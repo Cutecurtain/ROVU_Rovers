@@ -14,12 +14,15 @@ public class Strategy {
 
     }
 
-    void nearestPath(List<Point2D> points) {
+    List<Point2D> nearestPath(List<Point2D> points) {
         ArrayList<Point2D> pointsVisited = new ArrayList<Point2D>();
         missionPoints.set(0, points.get(0));
-        pointsVisited.set(0, points.get(0));
 
+        if(points.size() == 1) {
+            return points;
+        }
         for(int i = 0; i < points.size(); i++) {
+            pointsVisited.set(0, points.get(0));
 
             double distance = 0;
             double newDistance;
@@ -27,7 +30,7 @@ public class Strategy {
             double y1 = points.get(i).getY();
 
 
-            for(int l = 0; i < points.size(); i++) {
+            for(int l = 1; i < points.size(); i++) {
                 for(int m = 0; m < pointsVisited.size(); m++) {
                     if(missionPoints.get(m) == points.get(l)) {
                         l++;
@@ -42,10 +45,11 @@ public class Strategy {
                 if(distance > newDistance) {
                     distance = newDistance;
                     missionPoints.set(i, points.get(l));
+                    pointsVisited.set(i, points.get(l));
                 }
             }
         }
-
+        return missionPoints;
     }
 
     List<Point2D> getMissionPoints() {
