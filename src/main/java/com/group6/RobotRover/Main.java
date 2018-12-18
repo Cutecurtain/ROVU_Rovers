@@ -20,6 +20,7 @@ public class Main {
     public void start() {
         if (connect()) {
             Thread thread = new Thread() {
+                @Override
                 public void run() {
                     try {
                         main();

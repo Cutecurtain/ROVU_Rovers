@@ -35,7 +35,7 @@ public class PretendSocket {
         return set;
     }
 
-    static void loadRobots() {
+    public static void loadRobots() {
         SOCKET.loadRobots();
     }
 

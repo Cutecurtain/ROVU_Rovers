@@ -1,91 +1,81 @@
 package com.group6.Server;
 
-import com.group6.Server.Environment.Area.Area;
+import com.group6.Server.Environment.Area.AreaFactory;
+import com.group6.Server.Environment.Area.Division;
 import com.group6.Server.Environment.Area.IArea;
-import com.group6.Server.Environment.Area.Rect;
+import com.group6.Server.Environment.Area.Room;
 import com.group6.Server.Environment.Environment;
-import com.group6.Server.Robot.IMission;
-import com.group6.Server.Robot.Mission;
+import simbad.sim.AbstractWall;
+import simbad.sim.Boundary;
+import simbad.sim.EnvironmentDescription;
 
 import java.awt.*;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
 
-    Environment assaignment3;
+    private Environment environment;
 
-//    public static void main (String[] strings) {
-//
-//    }
+    public void start() {
+        createEnvironment();
 
-    public void main() {
-        List<IArea> areas = new ArrayList<IArea>();
-        IArea area1 = new Area(true, 1, new Point(0,0));
-
-        // Creating four squares next to each other
-        ((Area) area1).addShape(new Rect(new Point(0, 0), new Point(100, 100)));
-        ((Area) area1).addShape(new Rect(new Point(100, 0), new Point(200, 100)));
-        ((Area) area1).addShape(new Rect(new Point(100, 100), new Point(200, 200)));
-        ((Area) area1).addShape(new Rect(new Point(0, 100), new Point(100, 200)));
-
-        assaignment3 = new Environment(areas);
-        assaignment3.setWorldSize(200);
-
-        // Generate some test missions
-        List<IMission> missions = generateMissions();
-        
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                //main();
+            }
+        };
+        thread.start();
     }
 
-    private List<IMission> generateMissions() {
-        List<IMission> missions = new ArrayList<IMission>();
-
-        // Robot 1:  Enter Room 1, then go to Room 2, then exit
-        List<Point2D> mission1 = new ArrayList<Point2D>();
-        mission1.add(new Point(50, 50));
-        mission1.add(new Point(150, 50));
-        mission1.add(new Point(250, 50));
-
-        // Robot 2:  Enter Room 2, then go to Room 3, then exit
-        List<Point2D> mission2 = new ArrayList<Point2D>();
-        mission2.add(new Point(150, 50));
-        mission2.add(new Point(150, 150));
-        mission2.add(new Point(250, 150));
-
-
-        // Robot 3:  Enter Room 3, then go to Room 4, then exit
-        List<Point2D> mission3 = new ArrayList<Point2D>();
-        mission3.add(new Point(150, 150));
-        mission3.add(new Point(50, 150));
-        mission3.add(new Point(-50, 150));
-
-
-        // Robot 4:  Enter Room 4, then go to Room 1, then exit
-        List<Point2D> mission4 = new ArrayList<Point2D>();
-        mission4.add(new Point(50, 150));
-        mission4.add(new Point(50, 50));
-        mission4.add(new Point(-50, 50));
-
-        // Instantiate the missions from the mission points
-        IMission m1 = new Mission(mission1);
-        IMission m2 = new Mission(mission2);
-        IMission m3 = new Mission(mission3);
-        IMission m4 = new Mission(mission4);
-
-        missions.add(m1);
-        missions.add(m2);
-        missions.add(m3);
-        missions.add(m4);
-
-        return missions;
+    public EnvironmentDescription getEnvironment() {
+        return environment;
     }
 
-    public void procedureA() {
+    private void createEnvironment() {
+        List<Room> rooms = new ArrayList<Room>();
+
+        AreaFactory areaFactory = new AreaFactory();
+
+        // Example room 1
+        rooms.add(areaFactory.createRoom(1, -5,-5, 5, Color.red));
+
+        // Example room 2
+        rooms.add(areaFactory.createRoom(2, 0,-5, 5, Color.BLUE));
+
+        // Example room 3
+        rooms.add(areaFactory.createRoom(3, -5,0, 5, Color.GREEN));
+        //rooms.add(new Room(3, new Point2D.Double(-5,0), new Rect(new Point2D.Double(0,0), new Point2D.Double(5,5))));
+
+        // Example room 4
+        rooms.add(areaFactory.createRoom(4, 0,0, 5));
+
+        // A Division with all the rooms
+        IArea division = new Division(0, rooms);
+
+        // Our Environment
+        environment = new Environment();
+
+        // Add the created division to the environment
+        environment.addArea(division);
+
+        // Create the boundaries and the walls
+        Boundary[] boundaries = environment.createBoundaries();
+        List<AbstractWall> walls = environment.createWalls();
+    }
+
+    private void main() {
+        while (true) {
+            // Do something
+        }
+    }
+
+    private void procedureA() {
 
     }
 
-    public void procedureB() {
+    private void procedureB() {
 
     }
 
