@@ -32,7 +32,7 @@ public class Planner extends AbstractRobotSimulator {
         super.setDestination(super.getPosition());
         this.missionPoints = new ArrayList<Point>();
         this.missionIterator = this.missionPoints.iterator();
-        this.currentGoal = super.getPosition();
+        this.currentGoal = position;
         this.available = false;
         this.halted = false;
         this.stopped = false;

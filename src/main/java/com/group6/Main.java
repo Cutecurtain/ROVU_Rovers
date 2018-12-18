@@ -89,12 +89,13 @@ public class Main {
         view.setVisible(true);
 
         IMission mission = new Mission();
-        mission.addMissionPoint(new Point2D.Double(2.5,-2.5));
-        mission.addMissionPoint(new Point2D.Double(-2.5,-2.5));
+
         mission.addMissionPoint(new Point2D.Double(-2.5,2.5));
         mission.addMissionPoint(new Point2D.Double(2.5,2.5));
+        mission.addMissionPoint(new Point2D.Double(2.5,-2.5));
+        mission.addMissionPoint(new Point2D.Double( -2.5, -2.5));
 
-        Networking.getInstance().giveMission("0", mission);
+         Networking.getInstance().giveMission("0", mission);
 
     }
 
