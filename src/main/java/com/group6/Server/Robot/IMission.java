@@ -7,5 +7,6 @@ public interface IMission {
 
     List<Point2D> getMissionPoints();
 
+    void addMissionPoint(Point2D point);
 
 }

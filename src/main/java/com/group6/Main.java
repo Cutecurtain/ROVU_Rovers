@@ -10,6 +10,7 @@ import com.group6.Server.Networking;
 import com.group6.Server.ROVU.Controller;
 import com.group6.Server.ROVU.Model;
 import com.group6.Server.ROVU.View;
+import com.group6.Server.Robot.IMission;
 import com.group6.Server.Robot.Mission;
 import project.AbstractSimulatorMonitor;
 import simbad.sim.AbstractWall;
@@ -85,11 +86,12 @@ public class Main {
         Controller controller1 = new Controller(view, model);
         view.setVisible(true);
 
-        List<Point2D> missionPoints = new ArrayList<Point2D>();
+        IMission mission = new Mission();
+        mission.getMissionPoints().add(new Point2D.Double(2.5,2.5));
+        mission.getMissionPoints().add(new Point2D.Double(-2.5,2.5));
+        mission.getMissionPoints().add(new Point2D.Double(-2.5,-2.5));
 
-        missionPoints.add(new Point2D.Double(1,4));
-
-        networking.getRobots().get("0").setMission(new Mission(missionPoints));
+        Networking.getInstance().giveMission("1", mission);
 
     }
 

@@ -23,6 +23,7 @@ public class Mission implements IMission{
         return null;
     }
 
-
-
+    public void addMissionPoint(Point2D point) {
+        missionPoints.add(point);
+    }
 }
