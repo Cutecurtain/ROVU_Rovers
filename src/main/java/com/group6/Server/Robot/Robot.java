@@ -1,5 +1,6 @@
 package com.group6.Server.Robot;
 
+import com.group6.RobotRover.Lights;
 import com.group6.Server.Networking;
 import project.Point;
 
@@ -9,6 +10,7 @@ public class Robot implements IRobot{
     private double x;
     private double y;
     private Point position;
+    private Lights lights;
 
     private boolean available;
 
@@ -16,6 +18,7 @@ public class Robot implements IRobot{
         this.position = position;
         this.id = id;
         this.available = true;
+        this.lights = new Lights();
     }
 
     public void setMission(IMission mission) {
@@ -57,6 +60,16 @@ public class Robot implements IRobot{
 
     public String getId() {
         return id;
+    }
+
+    public void turnOnLights(int lightId) {
+
+        switch(lightId) {
+            case 1: lights.turnOnLights();
+            case 2: lights.turnOnHazardLights();
+            break;
+        }
+
     }
 
 }

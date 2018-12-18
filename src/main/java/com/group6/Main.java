@@ -87,7 +87,7 @@ public class Main {
 
         List<Point2D> missionPoints = new ArrayList<Point2D>();
 
-        missionPoints.add(new Point2D.Double(4,4));
+        missionPoints.add(new Point2D.Double(1,4));
 
         networking.getRobots().get("0").setMission(new Mission(missionPoints));
 
