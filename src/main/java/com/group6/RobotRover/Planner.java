@@ -45,6 +45,7 @@ public class Planner extends AbstractRobotSimulator {
         Point[] newPoints = new Point[points.length];
         for (int i = 0; i < points.length; i++)
             newPoints[i] = new Point(points[i].getX(), points[i].getY());
+        this.missionPoints = new ArrayList<Point>();
         Collections.addAll(this.missionPoints, newPoints);
         this.missionIterator = missionPoints.iterator();
         return true;

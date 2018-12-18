@@ -7,8 +7,12 @@ import java.util.Set;
 
 
 public class SimulatorMonitor extends AbstractSimulatorMonitor<Planner> {
-    public SimulatorMonitor(Set<Planner> robots, EnvironmentDescription e) {
+    private SimulatorMonitor(Set<Planner> robots, EnvironmentDescription e) {
         super(robots, e);
+    }
+
+    public SimulatorMonitor(EnvironmentDescription e) {
+        this(PretendSocket.getSubscribers(), e);
     }
 
     @Override

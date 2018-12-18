@@ -76,14 +76,9 @@ public class Main {
         Boundary[] boundaries = e.createBoundaries();
         List<AbstractWall> walls = e.createWalls();
 
-        com.group6.RobotRover.Main robot1 = new com.group6.RobotRover.Main(1,3 );
 
-        robot1.start();
-
-        Set<Planner> planners = new HashSet<Planner>();
-        planners.addAll(Networking.getInstance().getSubscribers().values());
-
-        AbstractSimulatorMonitor controller = new SimulatorMonitor(planners, e);
+        // Start the simulation
+        AbstractSimulatorMonitor controller = new SimulatorMonitor(e);
 
         View view = new View();
         Model model = new Model();

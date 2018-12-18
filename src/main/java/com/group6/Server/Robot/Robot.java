@@ -10,9 +10,12 @@ public class Robot implements IRobot{
     private double y;
     private Point position;
 
+    private boolean available;
+
     public Robot(Point position, String id) {
         this.position = position;
         this.id = id;
+        this.available = true;
     }
 
     public void setMission(IMission mission) {
@@ -32,11 +35,11 @@ public class Robot implements IRobot{
     }
 
     public void setAvailable(boolean available) {
-        
+        this.available = available;
     }
 
     public boolean isAvailable() {
-        return false;
+        return available;
     }
 
     public void update(double x, double y) {
@@ -45,11 +48,11 @@ public class Robot implements IRobot{
     }
 
     public void enteredRoom() {
-
+        Networking.getInstance().halt(id);
     }
 
-    private boolean sendMission() {
-        return false;
+    private boolean sendMission(IMission mission) {
+        return Networking.getInstance().giveMission(id, mission);
     }
 
     public String getId() {
