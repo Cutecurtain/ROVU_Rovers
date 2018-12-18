@@ -33,13 +33,16 @@ public class PretendSocket {
         return new HashSet<Planner>(SOCKET.getSubscribers().values());
     }
 
+    static void loadRobots() {
+        SOCKET.loadRobots();
+    }
+
     private static class Socket {
 
         private Map<String, Planner> subscribers;
 
         Socket() {
             subscribers = new HashMap<String, Planner>(); // Just for pretending that we have a connection over the network
-            loadRobots();
         }
 
         // Here are all the robots, that exist in the simulation, added
