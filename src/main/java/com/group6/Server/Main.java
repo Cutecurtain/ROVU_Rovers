@@ -6,9 +6,9 @@ import com.group6.Server.Environment.Area.IArea;
 import com.group6.Server.Environment.Area.Room;
 import com.group6.Server.Environment.Environment;
 import com.group6.Server.Environment.IEnvironment;
+import com.group6.Server.Robot.IRobot;
 import simbad.sim.AbstractWall;
 import simbad.sim.Boundary;
-import simbad.sim.EnvironmentDescription;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -28,11 +28,13 @@ public class Main {
 
     public void start() {
         createEnvironment();
+        for (IRobot robot : Networking.getInstance().getRobots().values())
+            environment.addActor(robot);
 
         Thread thread = new Thread() {
             @Override
             public void run() {
-                //main();
+                main();
             }
         };
         thread.start();
@@ -78,6 +80,7 @@ public class Main {
         long tStart = System.currentTimeMillis();
         while (true) {
             // ToDo all the server stuff
+            environment.updateAreas();
 
             long tEnd = System.currentTimeMillis();
             long tDelta = tEnd - tStart;

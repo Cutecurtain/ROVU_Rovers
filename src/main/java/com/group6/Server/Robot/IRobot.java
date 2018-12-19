@@ -1,11 +1,12 @@
 package com.group6.Server.Robot;
 
+import java.awt.geom.Point2D;
+
 public interface IRobot {
 
     void setMission(IMission mission);
 
-    double getX();
-    double getY();
+    Point2D getPosition();
 
     void setAvailable(boolean available);
 

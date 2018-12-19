@@ -2,19 +2,20 @@ package com.group6.Server.Robot;
 
 import com.group6.RobotRover.Lights;
 import com.group6.Server.Networking;
-import project.Point;
+
+import java.awt.geom.Point2D;
 
 public class Robot implements IRobot{
 
     private String id;
     private double x;
     private double y;
-    private Point position;
+    private Point2D position;
     private Lights lights;
 
     private boolean available;
 
-    public Robot(Point position, String id) {
+    public Robot(Point2D position, String id) {
         this.position = position;
         this.id = id;
         this.available = true;
@@ -25,15 +26,7 @@ public class Robot implements IRobot{
         Networking.getInstance().giveMission(id, mission);
     }
 
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public Point getPosition() {
+    public Point2D getPosition() {
         return position;
     }
 
@@ -46,8 +39,7 @@ public class Robot implements IRobot{
     }
 
     public void update(double x, double y) {
-        this.x = x;
-        this.y = y;
+        position.setLocation(x, y);
     }
 
     public void enteredRoom() {

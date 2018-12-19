@@ -1,6 +1,7 @@
 package com.group6.Server.Environment;
 
 import com.group6.Server.Environment.Area.*;
+import com.group6.Server.Robot.IRobot;
 import simbad.sim.*;
 
 import java.awt.*;
@@ -20,10 +21,13 @@ public class Environment implements IEnvironment{
 
     private Color color;
 
+    private List<ActorInArea> actorsInAreas;
+
     public Environment(List<IArea> areas, Color boundaryColor) {
         this.environMentDescription = new EnvironmentDescription();
         this.areas = areas;
         this.color = boundaryColor;
+        this.actorsInAreas = new ArrayList<ActorInArea>();
     }
 
     public Environment(List<IArea> areas) {
@@ -112,6 +116,15 @@ public class Environment implements IEnvironment{
         return environMentDescription;
     }
 
+    public void addActor(IRobot robot) {
+        actorsInAreas.add(new ActorInArea(robot));
+    }
+
+    public void updateAreas() {
+        for (ActorInArea actorInArea : actorsInAreas)
+            actorInArea.hasEnterNewRoom();
+    }
+
     private List<AbstractWall> getWalls(Room room) {
         // x1, x2, y1 ,y2
         List<AbstractWall> abstractWalls = new ArrayList<AbstractWall>();
@@ -123,39 +136,39 @@ public class Environment implements IEnvironment{
         // x1 1
         abstractWalls.add(new HorizontalWall((float) edges[0].getX(),
                                              (float) edges[0].getY(),
-                                             (float) ((float) edges[0].getY() + yWallLength), environMentDescription, room.getColor()));
+                                             (float) (edges[0].getY() + yWallLength), environMentDescription, room.getColor()));
         // x1 2
         abstractWalls.add(new HorizontalWall((float) edges[0].getX(),
                                              (float) edges[1].getY(),
-                                             (float) ((float) edges[1].getY() - yWallLength), environMentDescription, room.getColor()));
+                                             (float) (edges[1].getY() - yWallLength), environMentDescription, room.getColor()));
 
         // x2 1
         abstractWalls.add(new HorizontalWall((float) edges[1].getX(),
                                              (float) edges[0].getY(),
-                                             (float) ((float) edges[0].getY() + yWallLength), environMentDescription, room.getColor()));
+                                             (float) (edges[0].getY() + yWallLength), environMentDescription, room.getColor()));
         // x2 2
         abstractWalls.add(new HorizontalWall((float) edges[1].getX(),
                                              (float) edges[1].getY(),
-                                             (float) ((float) edges[1].getY() - yWallLength), environMentDescription, room.getColor()));
+                                             (float) (edges[1].getY() - yWallLength), environMentDescription, room.getColor()));
 
 
         // y1 1
         abstractWalls.add(new VerticalWall((float) edges[0].getY(),
                                            (float) edges[0].getX(),
-                                           (float) ((float) edges[0].getX() + xWallLength), environMentDescription, room.getColor()));
+                                           (float) (edges[0].getX() + xWallLength), environMentDescription, room.getColor()));
         // y1 2
         abstractWalls.add(new VerticalWall((float) edges[0].getY(),
                                            (float) edges[1].getX(),
-                                           (float) ((float) edges[1].getX() - xWallLength), environMentDescription, room.getColor()));
+                                           (float) (edges[1].getX() - xWallLength), environMentDescription, room.getColor()));
 
         // y2 1
         abstractWalls.add(new VerticalWall((float) edges[1].getY(),
                                            (float) edges[0].getX(),
-                                           (float) ((float) edges[0].getX() + xWallLength), environMentDescription, room.getColor()));
+                                           (float) (edges[0].getX() + xWallLength), environMentDescription, room.getColor()));
         // y2 2
         abstractWalls.add(new VerticalWall((float) edges[1].getY(),
                                            (float) edges[1].getX(),
-                                           (float) ((float) edges[1].getX() - xWallLength), environMentDescription, room.getColor()));
+                                           (float) (edges[1].getX() - xWallLength), environMentDescription, room.getColor()));
         return abstractWalls;
     }
 
@@ -166,6 +179,37 @@ public class Environment implements IEnvironment{
                 rewardPoints += area.collectReward(point);
         }
         return rewardPoints;
+    }
+
+    private class ActorInArea {
+        private IRobot robot;
+        private List<IArea> areas;
+
+        ActorInArea(IRobot robot) {
+            this.robot = robot;
+            findAreas();
+        }
+
+        void hasEnterNewRoom() {
+            List<IArea> previous = areas;
+            findAreas();
+            for (IArea area : areas) {
+                if (area instanceof Room) {
+                    if (!previous.contains(area))
+                        robot.enteredRoom();
+                }
+            }
+            robot.enteredRoom();
+        }
+
+        private void findAreas() {
+            areas = new ArrayList<IArea>();
+            for (IArea area : areas) {
+                if (area.isPosIn(robot.getPosition()))
+                    areas.add(area);
+            }
+        }
+
     }
 
 }
