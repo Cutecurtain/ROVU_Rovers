@@ -15,6 +15,8 @@ import java.util.List;
 
 public class Main {
 
+    private static final long PROCEDURE_WAIT_TIME = 20000;
+
     private enum Procedure {
         A, B
     }
@@ -78,9 +80,10 @@ public class Main {
 
             long tEnd = System.currentTimeMillis();
             long tDelta = tEnd - tStart;
-            if (tDelta >= 20000) {
+            if (tDelta >= PROCEDURE_WAIT_TIME) {
                 changeProcedure();
                 runProcedure();
+                tStart = System.currentTimeMillis();
             }
         }
     }
