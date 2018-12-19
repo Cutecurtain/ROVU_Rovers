@@ -13,4 +13,8 @@ public class AreaFactory {
         return new Room(rewardPoints, new Point2D.Double(posX,posY), new Rect(new Point2D.Double(0,0), new Point2D.Double(size,size)));
     }
 
+    public static Room createRoom(int rewardPoints, int posX, int posY, double length, double breadth,Color color) {
+        return new Room(rewardPoints, new Point2D.Double(posX,posY), new Rect(new Point2D.Double(0,0), new Point2D.Double(length,breadth)),color);
+    }
+
 }

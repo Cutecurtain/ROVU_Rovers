@@ -32,14 +32,20 @@ public class Main {
         Controller controller1 = new Controller(view, model);
         view.setVisible(true);
 
-        IMission mission = new Mission();
+        IMission mission1 = new Mission();
+        IMission mission2 = new Mission();
 
-        mission.addMissionPoint(new Point2D.Double(-2.5,2.5));
-        mission.addMissionPoint(new Point2D.Double(2.5,2.5));
-        mission.addMissionPoint(new Point2D.Double(2.5,-2.5));
-        mission.addMissionPoint(new Point2D.Double( -2.5, -2.5));
+        mission1.addMissionPoint(new Point2D.Double(-2.5,2.5));
+        mission1.addMissionPoint(new Point2D.Double( -2.5, -2.5));
 
-        Networking.getInstance().giveMission("0", mission);
+        mission2.addMissionPoint(new Point2D.Double(2.5,2.5));
+        mission2.addMissionPoint(new Point2D.Double( -2.5, 2.5));
+
+
+        Networking.getInstance().giveMission("0", mission1);
+        Networking.getInstance().giveMission("1", mission2);
+
+
 
     }
 

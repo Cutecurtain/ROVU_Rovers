@@ -45,11 +45,17 @@ public class Main {
         rooms.add(areaFactory.createRoom(2, 0,-5, 5, Color.BLUE));
 
         // Example room 3
-        rooms.add(areaFactory.createRoom(3, -5,0, 5, Color.GREEN));
+        rooms.add(areaFactory.createRoom(3, -5,0, 5, Color.BLUE));
         //rooms.add(new Room(3, new Point2D.Double(-5,0), new Rect(new Point2D.Double(0,0), new Point2D.Double(5,5))));
 
         // Example room 4
-        rooms.add(areaFactory.createRoom(4, 0,0, 5));
+        rooms.add(areaFactory.createRoom(4, 0,0,5,2, Color.BLUE));
+
+
+        // Example room 5
+        rooms.add(areaFactory.createRoom(4, 0,3,5,2, Color.BLUE));
+
+
 
         // A Division with all the rooms
         IArea division = new Division(0, rooms);
