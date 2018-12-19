@@ -122,7 +122,7 @@ public class Environment implements IEnvironment{
 
     public void updateAreas() {
         for (ActorInArea actorInArea : actorsInAreas)
-            actorInArea.hasEnterNewRoom();
+            actorInArea.hasEnteredNewRoom();
     }
 
     private List<AbstractWall> getWalls(Room room) {
@@ -183,30 +183,31 @@ public class Environment implements IEnvironment{
 
     private class ActorInArea {
         private IRobot robot;
-        private List<IArea> areas;
+        private List<IArea> activeAreas;
 
         ActorInArea(IRobot robot) {
             this.robot = robot;
             findAreas();
         }
 
-        void hasEnterNewRoom() {
-            List<IArea> previous = areas;
+        void hasEnteredNewRoom() {
+            List<IArea> previous = activeAreas;
             findAreas();
-            for (IArea area : areas) {
+            for (IArea area : activeAreas) {
                 if (area instanceof Room) {
-                    if (!previous.contains(area))
+                    if (!previous.contains(area)) {
                         robot.enteredRoom();
+                        return;
+                    }
                 }
             }
-            robot.enteredRoom();
         }
 
         private void findAreas() {
-            areas = new ArrayList<IArea>();
+            activeAreas = new ArrayList<IArea>();
             for (IArea area : areas) {
                 if (area.isPosIn(robot.getPosition()))
-                    areas.add(area);
+                    activeAreas.add(area);
             }
         }
 
