@@ -6,7 +6,8 @@ import java.util.List;
 
 public class Strategy {
 
-    List<Point2D> missionPoints;
+    private List<Point2D> missionPoints;
+
 
     Strategy(List<Point2D> missionPoints) {
 
@@ -14,46 +15,54 @@ public class Strategy {
 
     }
 
-    List<Point2D> nearestPath(List<Point2D> points) {
-        ArrayList<Point2D> pointsVisited = new ArrayList<Point2D>();
-        missionPoints.set(0, points.get(0));
+        List<Point2D> nearestPath() {
+        missionPoints = new ArrayList<Point2D>();
+        List<Point2D> orderedPoints = new ArrayList<Point2D>();
+        List<Point2D> pointsVisited = new ArrayList<Point2D>();
+        orderedPoints.add(0, missionPoints.get(0));
+        pointsVisited.add(0, missionPoints.get(0));
+        double distance = 100;
 
-        if(points.size() == 1) {
-            return points;
+        if(missionPoints.size() == 1) {
+            return missionPoints;
         }
-        for(int i = 0; i < points.size(); i++) {
-            pointsVisited.add(0, points.get(0));
 
-            double distance = 0;
+        for(int i = 0; i < missionPoints.size(); i++) {
+
             double newDistance;
-            double x1 = points.get(i).getX();
-            double y1 = points.get(i).getY();
+            double x1 = missionPoints.get(i).getX();
+            double y1 = missionPoints.get(i).getY();
 
 
-            for(int l = 1; i < points.size(); i++) {
-                for(int m = 0; m < pointsVisited.size(); m++) {
-                    if(missionPoints.get(m) == points.get(l)) {
-                        l++;
-                        break;
+            for(int l = 0; l < missionPoints.size(); l++) {
+
+                if(visited(pointsVisited, missionPoints, l) && l < missionPoints.size()) {
+                    l++;
+                }
+                if(x1 != missionPoints.get(l).getX() && y1 != missionPoints.get(l).getY()) {
+                    double x2 = missionPoints.get(l).getX();
+                    double y2 = missionPoints.get(l).getY();
+                    newDistance = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow(y2 - y1, 2));
+
+                    if(newDistance < distance) {
+                        distance = newDistance;
+                        orderedPoints.add(i+1, missionPoints.get(l));
+                        pointsVisited.add(i, missionPoints.get(l));
                     }
                 }
 
-                double x2 = points.get(l).getX();
-                double y2 = points.get(l).getY();
-                newDistance = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow(y2 - y1, 2));
 
-                if(distance > newDistance) {
-                    distance = newDistance;
-                    missionPoints.set(i, points.get(l));
-                    pointsVisited.set(i, points.get(l));
-                }
             }
         }
-        return missionPoints;
+        return orderedPoints;
     }
 
-    List<Point2D> getMissionPoints() {
-        return missionPoints;
+    private boolean visited(List<Point2D> pointsVisited, List<Point2D> missionPoints, int l) {
+        for(int i = 0; i < pointsVisited.size(); i++) {
+            if(pointsVisited.get(i) == missionPoints.get(l)) {
+                return true;
+            }
+        } return false;
     }
 
 
