@@ -15,7 +15,13 @@ import java.util.List;
 
 public class Main {
 
+    private enum Procedure {
+        A, B
+    }
+
     private Environment environment;
+
+    private Procedure procedure;
 
     public void start() {
         createEnvironment();
@@ -39,17 +45,17 @@ public class Main {
         AreaFactory areaFactory = new AreaFactory();
 
         // Example room 1
-        rooms.add(areaFactory.createRoom(1, -5,-5, 5, Color.red));
+        rooms.add(areaFactory.createRoom(1, -5, -5, 5, Color.red));
 
         // Example room 2
-        rooms.add(areaFactory.createRoom(2, 0,-5, 5, Color.BLUE));
+        rooms.add(areaFactory.createRoom(2, 0, -5, 5, Color.BLUE));
 
         // Example room 3
-        rooms.add(areaFactory.createRoom(3, -5,0, 5, Color.GREEN));
+        rooms.add(areaFactory.createRoom(3, -5, 0, 5, Color.GREEN));
         //rooms.add(new Room(3, new Point2D.Double(-5,0), new Rect(new Point2D.Double(0,0), new Point2D.Double(5,5))));
 
         // Example room 4
-        rooms.add(areaFactory.createRoom(4, 0,0, 5));
+        rooms.add(areaFactory.createRoom(4, 0, 0, 5));
 
         // A Division with all the rooms
         IArea division = new Division(0, rooms);
@@ -66,17 +72,50 @@ public class Main {
     }
 
     private void main() {
+        long tStart = System.currentTimeMillis();
         while (true) {
-            // Do something
+            // ToDo all the server stuff
+
+            long tEnd = System.currentTimeMillis();
+            long tDelta = tEnd - tStart;
+            if (tDelta >= 20000) {
+                changeProcedure();
+                runProcedure();
+            }
         }
     }
 
-    private void procedureA() {
+    private void runProcedure() {
+        switch (procedure) {
+            case A:
+                procedureA();
+                break;
+            case B:
+                procedureB();
+                break;
+        }
+    }
 
+    private void changeProcedure() {
+        switch (procedure) {
+            case A:
+                // ToDo check if a rover is in logical area, if so set the procedure to B
+                break;
+            case B:
+                // ToDo check if a rover is in physical area, if so set the procedure to A
+                break;
+            default:
+                // ToDo select a procedure if none has been set
+        }
+    }
+
+
+    private void procedureA() {
+        // ToDo collect physical reward points for the rovers
     }
 
     private void procedureB() {
-
+        // ToDo collect logical reward points for the rovers
     }
 
 
