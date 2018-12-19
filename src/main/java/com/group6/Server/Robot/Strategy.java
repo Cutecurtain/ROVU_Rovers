@@ -22,7 +22,7 @@ public class Strategy {
             return points;
         }
         for(int i = 0; i < points.size(); i++) {
-            pointsVisited.set(0, points.get(0));
+            pointsVisited.add(0, points.get(0));
 
             double distance = 0;
             double newDistance;
