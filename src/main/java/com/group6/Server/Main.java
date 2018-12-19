@@ -5,6 +5,7 @@ import com.group6.Server.Environment.Area.Division;
 import com.group6.Server.Environment.Area.IArea;
 import com.group6.Server.Environment.Area.Room;
 import com.group6.Server.Environment.Environment;
+import com.group6.Server.Environment.IEnvironment;
 import simbad.sim.AbstractWall;
 import simbad.sim.Boundary;
 import simbad.sim.EnvironmentDescription;
@@ -21,7 +22,7 @@ public class Main {
         A, B
     }
 
-    private Environment environment;
+    private IEnvironment environment;
 
     private Procedure procedure;
 
@@ -37,7 +38,7 @@ public class Main {
         thread.start();
     }
 
-    public EnvironmentDescription getEnvironment() {
+    public IEnvironment getEnvironment() {
         return environment;
     }
 
