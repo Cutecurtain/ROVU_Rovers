@@ -5,7 +5,6 @@ import com.group6.RobotRover.Planner;
 import com.group6.Server.Robot.IMission;
 import com.group6.Server.Robot.IRobot;
 import com.group6.Server.Robot.Robot;
-import project.Point;
 
 import java.awt.geom.Point2D;
 import java.util.HashMap;
@@ -32,7 +31,7 @@ public class Networking extends PretendSocket {
         if (hasSubscriber(planner.getName()))
             return false;
         addSubscriber(planner);
-        IRobot newRobot = new Robot(new Point(x, y), planner.getName());
+        IRobot newRobot = new Robot(new Point2D.Double(x, y), planner.getName());
         robots.put(planner.getName(), newRobot);
         return true;
     }

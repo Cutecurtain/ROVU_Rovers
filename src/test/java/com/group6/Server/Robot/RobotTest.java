@@ -48,16 +48,20 @@ public class RobotTest {
         List<Point2D> results ;
 
         missionPoints.add(new Point2D.Double(1,1));
+
+        missionPoints.add(new Point2D.Double(1,3));
+        missionPoints.add(new Point2D.Double(2,20));
+
         missionPoints.add(new Point2D.Double(2,6));
         missionPoints.add(new Point2D.Double(1,3));
         missionPoints.add(new Point2D.Double(2,2));
 
         Strategy strategy = new Strategy(missionPoints);
 
-        results = strategy.nearestPath(missionPoints);
+        results = strategy.nearestPath();
+
 
         System.out.println(results);
-        System.out.println(missionPoints);
     }
 
 

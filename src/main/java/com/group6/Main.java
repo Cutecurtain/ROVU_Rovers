@@ -18,11 +18,11 @@ public class Main {
         // Create s server instance
         com.group6.Server.Main server = new com.group6.Server.Main();
 
-        // Start the server
-        server.start();
-
         // Start the rovers
         PretendSocket.loadRobots();
+
+        // Start the server
+        server.start();
 
         // Start the simulation
         AbstractSimulatorMonitor controller = new SimulatorMonitor(server.getEnvironment());
@@ -43,7 +43,7 @@ public class Main {
 
 
         Networking.getInstance().giveMission("0", mission1);
-        Networking.getInstance().giveMission("1", mission2);
+        //Networking.getInstance().giveMission("1", mission2);
 
 
 

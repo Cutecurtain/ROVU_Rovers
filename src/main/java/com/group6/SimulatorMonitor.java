@@ -1,5 +1,6 @@
 package com.group6;
 import com.group6.RobotRover.Planner;
+import com.group6.Server.Environment.IEnvironment;
 import project.AbstractSimulatorMonitor;
 import simbad.sim.EnvironmentDescription;
 
@@ -11,8 +12,8 @@ public class SimulatorMonitor extends AbstractSimulatorMonitor<Planner> {
         super(robots, e);
     }
 
-    public SimulatorMonitor(EnvironmentDescription e) {
-        this(PretendSocket.getSubscribers(), e);
+    public SimulatorMonitor(IEnvironment environment) {
+        this(PretendSocket.getSubscribers(), environment.getEnvironmentDescription());
     }
 
     @Override

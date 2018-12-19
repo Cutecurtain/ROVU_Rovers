@@ -50,14 +50,14 @@ public class PretendSocket {
         // Here are all the robots, that exist in the simulation, added
         private void loadRobots() {
             Main robot1 = new Main(-2.5,-2.5);
-            Main robot2 = new Main(-2.5,2.5);
-            Main robot3 = new Main(2.5,2.5);
-            Main robot4 = new Main(2.5,-2.5);
+            //Main robot2 = new Main(-2.5,2.5);
+            //Main robot3 = new Main(2.5,2.5);
+            //Main robot4 = new Main(2.5,-2.5);
 
             robot1.start();
-            robot2.start();
-            robot3.start();
-            robot4.start();
+            //robot2.start();
+            //robot3.start();
+            //robot4.start();
         }
 
         void addSubscriber(Planner planner) {
