@@ -20,7 +20,7 @@ class Strategy {
         double distance = 100;
 
         if(missionPoints.size() == 1) {
-            return missionPoints;
+            return this.missionPoints;
         }
 
         for(int i = 0; i < missionPoints.size(); i++) {

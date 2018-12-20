@@ -37,9 +37,8 @@ public class Planner extends AbstractRobotSimulator {
         super(position, name);
         super.setDestination(super.getPosition());
         this.missionPoints = new ArrayList<Point>();
-        for(int i = missionPoints.size(); i > 0; i++) {
-            this.missionStack.push(this.missionPoints.get(i));
-        }
+        //this.missionIterator = this.missionPoints.iterator();
+        this.missionStack = new Stack<Point>();
 
         this.currentGoal = position;
         this.available = false;
@@ -47,28 +46,29 @@ public class Planner extends AbstractRobotSimulator {
         this.stopped = false;
         this.haltTime = DEFAULT_HALT_TIME;
         this.proximitySensorFactory = new ProximitySensorFactory();
-        this.proximitySensorFactory.getSensor("laser");
+
     }
 
     public boolean addMissionPoint(List<Point2D> missionPoints) {
-        if (!available)
-            return false;
+        /*if (!available)
+            return false;*/
         this.missionPoints = new ArrayList<Point>();
         for (int i = 0; i < missionPoints.size(); i++)
             this.missionPoints.add(new Point(missionPoints.get(i).getX(), missionPoints.get(i).getY()));
-        for(int i = missionPoints.size(); i > 0; i++) {
+        for (int i = missionPoints.size()-1; i > -1; i--) {
             this.missionStack.push(this.missionPoints.get(i));
         }
+        //this.missionIterator = this.missionPoints.iterator();
         return true;
     }
 
     public void followPath() {
-        if (super.isAtPosition(currentGoal) && !missionStack.empty())
+        if (super.isAtPosition(currentGoal) && missionStack.size()>1)
             currentGoal = missionStack.pop();
-        available = !missionStack.empty();
+        available = missionStack.size()>2;
         super.setDestination(currentGoal);
         if(super.checkObstacle()) {
-
+            proximitySensorFactory.getSensor("laser");
         }
     }
 

@@ -15,6 +15,15 @@ public class Mission implements IMission{
         this.missionPoints = new ArrayList<Point2D>();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Point2D point : missionPoints
+             ) {
+            sb.append(point.toString());
+        } return sb.toString();
+    }
+
     public Mission(List<Point2D> missionPoints) {
         this.missionPoints = missionPoints;
     }
