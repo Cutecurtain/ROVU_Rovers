@@ -35,7 +35,7 @@ public class Main {
         IMission mission1 = new Mission();
         IMission mission2 = new Mission();
 
-        mission1.addMissionPoint(new Point2D.Double(-2.5,2.5));
+        mission1.addMissionPoint(new Point2D.Double(-1,2.5));
         mission1.addMissionPoint(new Point2D.Double( -2.5, -2.5));
         mission1.addMissionPoint(new Point2D.Double( 2.5, -2.5));
         mission1.addMissionPoint(new Point2D.Double( 2.5, 2.5));
