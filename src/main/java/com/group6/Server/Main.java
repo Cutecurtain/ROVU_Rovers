@@ -26,10 +26,14 @@ public class Main {
 
     private Procedure procedure;
 
+    private boolean running;
+
     public void start() {
         createEnvironment();
         for (IRobot robot : Networking.getInstance().getRobots().values())
             environment.addActor(robot);
+
+        running = true;
 
         Thread thread = new Thread() {
             @Override
@@ -38,6 +42,10 @@ public class Main {
             }
         };
         thread.start();
+    }
+
+    public void stop() {
+        running = false;
     }
 
     public IEnvironment getEnvironment() {
@@ -83,7 +91,7 @@ public class Main {
 
     private void main() {
         long tStart = System.currentTimeMillis();
-        while (true) {
+        while (running) {
             // ToDo all the server stuff
             environment.updateAreas();
 
