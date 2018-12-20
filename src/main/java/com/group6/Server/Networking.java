@@ -87,12 +87,7 @@ public class Networking extends PretendSocket {
     public boolean emergencyStop(String id)  {
         if (!hasSubscriber(id))
             return false;
-        try{
-            getSubscriber(id).emergencyStop();
-        } catch (InterruptedException e) {
-            return false;
-        }
-        return true;
+        return getSubscriber(id).emergencyStop();
     }
 
 }
