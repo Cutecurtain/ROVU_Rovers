@@ -206,8 +206,17 @@ public class Environment implements IEnvironment{
         private void findAreas() {
             activeAreas = new ArrayList<IArea>();
             for (IArea area : areas) {
-                if (area.isPosIn(robot.getPosition()))
+                if (area instanceof Division)
+                    inDivision((Division) area);
+                else if (area.isPosIn(robot.getPosition()))
                     activeAreas.add(area);
+            }
+        }
+
+        private void inDivision(Division division) {
+            for (Room room : division.getRooms()) {
+                if (room.isPosIn(robot.getPosition()))
+                    activeAreas.add(room);
             }
         }
 
