@@ -9,4 +9,6 @@ public interface IMission {
 
     void addMissionPoint(Point2D point);
 
+    void chooseStrategy(int i);
+
 }

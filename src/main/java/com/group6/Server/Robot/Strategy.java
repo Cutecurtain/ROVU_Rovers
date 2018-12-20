@@ -4,19 +4,15 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Strategy {
+class Strategy {
 
-    private List<Point2D> missionPoints;
+        private List<Point2D> missionPoints;
 
-
-    Strategy(List<Point2D> missionPoints) {
-
-        this.missionPoints = missionPoints;
-
-    }
+        Strategy(List<Point2D> missionPoints) {
+            this.missionPoints = missionPoints;
+        }
 
         List<Point2D> nearestPath() {
-        missionPoints = new ArrayList<Point2D>();
         List<Point2D> orderedPoints = new ArrayList<Point2D>();
         List<Point2D> pointsVisited = new ArrayList<Point2D>();
         orderedPoints.add(0, missionPoints.get(0));
@@ -57,7 +53,7 @@ public class Strategy {
         return orderedPoints;
     }
 
-    private boolean visited(List<Point2D> pointsVisited, List<Point2D> missionPoints, int l) {
+    boolean visited(List<Point2D> pointsVisited, List<Point2D> missionPoints, int l) {
         for(int i = 0; i < pointsVisited.size(); i++) {
             if(pointsVisited.get(i) == missionPoints.get(l)) {
                 return true;

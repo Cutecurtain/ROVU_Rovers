@@ -37,9 +37,13 @@ public class Main {
 
         mission1.addMissionPoint(new Point2D.Double(-2.5,2.5));
         mission1.addMissionPoint(new Point2D.Double( -2.5, -2.5));
+        mission1.addMissionPoint(new Point2D.Double( 2.5, -2.5));
+        mission1.addMissionPoint(new Point2D.Double( 2.5, 2.5));
+        mission1.chooseStrategy(1);
 
         mission2.addMissionPoint(new Point2D.Double(2.5,2.5));
         mission2.addMissionPoint(new Point2D.Double( -2.5, 2.5));
+
 
 
         Networking.getInstance().giveMission("0", mission1);
