@@ -57,15 +57,15 @@ public class Main {
 
         // Example room 3
 
-        rooms.add(areaFactory.createRoom(3, -5,0, 5, Color.BLUE));
+        rooms.add(areaFactory.createRoom(3, -5, 0, 5, Color.BLUE));
         //rooms.add(new Room(3, new Point2D.Double(-5,0), new Rect(new Point2D.Double(0,0), new Point2D.Double(5,5))));
 
         // Example room 4
-        rooms.add(areaFactory.createRoom(4, 0,0,5,2, Color.BLUE));
+        rooms.add(areaFactory.createRoom(4, 0, 0, 5, 2, Color.BLUE));
 
 
         // Example room 5
-        rooms.add(areaFactory.createRoom(4, 0,3,5,2, Color.BLUE));
+        rooms.add(areaFactory.createRoom(4, 0, 3, 5, 2, Color.BLUE));
 
         // A Division with all the rooms
         IArea division = new Division(0, rooms);
@@ -90,8 +90,8 @@ public class Main {
             long tEnd = System.currentTimeMillis();
             long tDelta = tEnd - tStart;
             if (tDelta >= PROCEDURE_WAIT_TIME) {
-                changeProcedure();
-                runProcedure();
+                if (changeProcedure())
+                    runProcedure();
                 tStart = System.currentTimeMillis();
             }
         }
@@ -108,21 +108,32 @@ public class Main {
         }
     }
 
-    private void changeProcedure() {
+    private boolean changeProcedure() {
         switch (procedure) {
             case A:
-                if (environment.isActorInLogical())
-                    procedure = Procedure.B;
-                break;
+                return setProcedureB();
             case B:
-                if (environment.isActorInPhysical())
-                    procedure = Procedure.A;
-                break;
-            default:
-                procedure = Procedure.A;
+                return setProcedureA();
         }
+        return setProcedureA() || setProcedureB();
     }
 
+
+    private boolean setProcedureA() {
+        if (environment.isActorInPhysical()) {
+            procedure = Procedure.A;
+            return true;
+        }
+        return false;
+    }
+
+    private boolean setProcedureB() {
+        if (environment.isActorInLogical()) {
+            procedure = Procedure.B;
+            return true;
+        }
+        return false;
+    }
 
     private void procedureA() {
         for (IRobot robot : Networking.getInstance().getRobots().values())
