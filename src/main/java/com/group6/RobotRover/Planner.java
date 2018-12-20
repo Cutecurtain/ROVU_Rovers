@@ -5,8 +5,8 @@ import project.Point;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Stack;
 
 public class Planner extends AbstractRobotSimulator {
 
@@ -14,9 +14,15 @@ public class Planner extends AbstractRobotSimulator {
 
     private List<Point> missionPoints;
 
-    private Iterator<Point> missionIterator;
+    //private Iterator<Point> missionIterator;
+
+    private Stack<Point> missionStack;
 
     private Point currentGoal;
+
+    private ProximitySensorFactory proximitySensorFactory;
+
+    private Point tempGoal;
 
     private boolean available;
 
@@ -26,16 +32,22 @@ public class Planner extends AbstractRobotSimulator {
 
     private long haltTime;
 
+
     public Planner(Point position, String name) {
         super(position, name);
         super.setDestination(super.getPosition());
         this.missionPoints = new ArrayList<Point>();
-        this.missionIterator = this.missionPoints.iterator();
+        for(int i = missionPoints.size(); i > 0; i++) {
+            this.missionStack.push(this.missionPoints.get(i));
+        }
+
         this.currentGoal = position;
         this.available = false;
         this.halted = false;
         this.stopped = false;
         this.haltTime = DEFAULT_HALT_TIME;
+        this.proximitySensorFactory = new ProximitySensorFactory();
+        this.proximitySensorFactory.getSensor("laser");
     }
 
     public boolean addMissionPoint(List<Point2D> missionPoints) {
@@ -44,15 +56,20 @@ public class Planner extends AbstractRobotSimulator {
         this.missionPoints = new ArrayList<Point>();
         for (int i = 0; i < missionPoints.size(); i++)
             this.missionPoints.add(new Point(missionPoints.get(i).getX(), missionPoints.get(i).getY()));
-        this.missionIterator = this.missionPoints.iterator();
+        for(int i = missionPoints.size(); i > 0; i++) {
+            this.missionStack.push(this.missionPoints.get(i));
+        }
         return true;
     }
 
     public void followPath() {
-        if (super.isAtPosition(currentGoal) && missionIterator.hasNext())
-            currentGoal = missionIterator.next();
-        available = !missionIterator.hasNext();
+        if (super.isAtPosition(currentGoal) && !missionStack.empty())
+            currentGoal = missionStack.pop();
+        available = !missionStack.empty();
         super.setDestination(currentGoal);
+        if(super.checkObstacle()) {
+
+        }
     }
 
     void halt() throws InterruptedException {
