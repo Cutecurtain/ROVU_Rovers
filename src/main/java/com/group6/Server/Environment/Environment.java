@@ -149,45 +149,71 @@ public class Environment implements IEnvironment{
         List<AbstractWall> abstractWalls = new ArrayList<AbstractWall>();
         Point2D[] edges = room.getEdges();
 
-        double xWallLength = (edges[1].getX() - edges[0].getX()) * 3/8;
-        double yWallLength = (edges[1].getY() - edges[0].getY()) * 3/8;
+        double yWallLength = (edges[1].getX() - edges[0].getX());
+        double xWallLength = (edges[1].getY() - edges[0].getY());
+
+        double[] doorX1 = room.getDoorX1();
+        double[] doorX2 = room.getDoorX2();
+        double[] doorY1 = room.getDoorY1();
+        double[] doorY2 = room.getDoorY2();
+
+        double x12 = xWallLength - doorX1[0] - doorX1[1];
+        double x22 = xWallLength - doorX2[0] - doorX2[1];
+        double y12 = yWallLength - doorY1[0] - doorY1[1];
+        double y22 = yWallLength - doorY2[0] - doorY2[1];
 
         // x1 1
-        abstractWalls.add(new HorizontalWall((float) edges[0].getX(),
-                                             (float) edges[0].getY(),
-                                             (float) (edges[0].getY() + yWallLength), environMentDescription, room.getColor()));
+        if (doorX1[0] > 0) {
+            abstractWalls.add(new HorizontalWall((float) edges[0].getX(),
+                                                 (float) edges[0].getY(),
+                                                 (float) (edges[0].getY() + doorX1[0]), environMentDescription, room.getColor()));
+        }
         // x1 2
-        abstractWalls.add(new HorizontalWall((float) edges[0].getX(),
-                                             (float) edges[1].getY(),
-                                             (float) (edges[1].getY() - yWallLength), environMentDescription, room.getColor()));
+        if (x12 > 0) {
+            abstractWalls.add(new HorizontalWall((float) edges[0].getX(),
+                                                 (float) edges[1].getY(),
+                                                 (float) (edges[1].getY() - x12), environMentDescription, room.getColor()));
+        }
 
         // x2 1
-        abstractWalls.add(new HorizontalWall((float) edges[1].getX(),
-                                             (float) edges[0].getY(),
-                                             (float) (edges[0].getY() + yWallLength), environMentDescription, room.getColor()));
+        if (doorX2[0] > 0) {
+            abstractWalls.add(new HorizontalWall((float) edges[1].getX(),
+                                                 (float) edges[0].getY(),
+                                                 (float) (edges[0].getY() + doorX2[0]), environMentDescription, room.getColor()));
+        }
         // x2 2
-        abstractWalls.add(new HorizontalWall((float) edges[1].getX(),
-                                             (float) edges[1].getY(),
-                                             (float) (edges[1].getY() - yWallLength), environMentDescription, room.getColor()));
+        if (x22 > 0) {
+            abstractWalls.add(new HorizontalWall((float) edges[1].getX(),
+                                                 (float) edges[1].getY(),
+                                                 (float) (edges[1].getY() - x22), environMentDescription, room.getColor()));
+        }
 
 
         // y1 1
-        abstractWalls.add(new VerticalWall((float) edges[0].getY(),
-                                           (float) edges[0].getX(),
-                                           (float) (edges[0].getX() + xWallLength), environMentDescription, room.getColor()));
+        if (doorY1[0] > 0) {
+            abstractWalls.add(new VerticalWall((float) edges[0].getY(),
+                                               (float) edges[0].getX(),
+                                               (float) (edges[0].getX() + doorY1[0]), environMentDescription, room.getColor()));
+        }
         // y1 2
-        abstractWalls.add(new VerticalWall((float) edges[0].getY(),
-                                           (float) edges[1].getX(),
-                                           (float) (edges[1].getX() - xWallLength), environMentDescription, room.getColor()));
+        if (y12 > 0) {
+            abstractWalls.add(new VerticalWall((float) edges[0].getY(),
+                                               (float) edges[1].getX(),
+                                               (float) (edges[1].getX() - y12), environMentDescription, room.getColor()));
+        }
 
         // y2 1
-        abstractWalls.add(new VerticalWall((float) edges[1].getY(),
-                                           (float) edges[0].getX(),
-                                           (float) (edges[0].getX() + xWallLength), environMentDescription, room.getColor()));
-        // y2 2
-        abstractWalls.add(new VerticalWall((float) edges[1].getY(),
-                                           (float) edges[1].getX(),
-                                           (float) (edges[1].getX() - xWallLength), environMentDescription, room.getColor()));
+        if (doorY2[0] > 0) {
+            abstractWalls.add(new VerticalWall((float) edges[1].getY(),
+                                               (float) edges[0].getX(),
+                                               (float) (edges[0].getX() + doorY2[0]), environMentDescription, room.getColor()));
+        }
+        if (y22 > 0) {
+            // y2 2
+            abstractWalls.add(new VerticalWall((float) edges[1].getY(),
+                                               (float) edges[1].getX(),
+                                               (float) (edges[1].getX() - y22), environMentDescription, room.getColor()));
+        }
         return abstractWalls;
     }
 
