@@ -32,6 +32,7 @@ public class Controller {
         public void actionPerformed(ActionEvent e) {
             String s = e.getActionCommand();
             networking.getRobots().get(Character.toString(s.charAt((s.length() - 1))));
+            networking.emergencyStop("0");
             emergencyStop();
         }
 
