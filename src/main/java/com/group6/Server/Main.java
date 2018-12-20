@@ -55,22 +55,20 @@ public class Main {
     private void createEnvironment() {
         List<Room> rooms = new ArrayList<Room>();
 
-        AreaFactory areaFactory = new AreaFactory();
-
         // Example room 1
-        Room room1 = areaFactory.createRoom(1, -5, -5, 5, Color.red);
+        Room room1 = AreaFactory.createRoom(1, -5, -5, 5, Color.red);
         rooms.add(room1);
 
         // Example room 2
-        Room room2 = areaFactory.createRoom(2, 0, -5, 5, Color.BLUE);
+        Room room2 = AreaFactory.createRoom(2, 0, -5, 5, Color.BLUE);
         rooms.add(room2);
 
         // Example room 3
-        Room room3 = areaFactory.createRoom(3, -5, 0, 5, Color.BLUE);
+        Room room3 = AreaFactory.createRoom(3, -5, 0, 5, Color.BLUE);
         rooms.add(room3);
 
         // Example room 4
-        Room room4 = areaFactory.createRoom(4, 0, 0, 5, Color.BLUE);
+        Room room4 = AreaFactory.createRoom(4, 0, 0, 5, Color.BLUE);
         rooms.add(room4);
 
         room1.setX2Door(5/4);
