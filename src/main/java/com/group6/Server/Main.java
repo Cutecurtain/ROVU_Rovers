@@ -58,22 +58,32 @@ public class Main {
         AreaFactory areaFactory = new AreaFactory();
 
         // Example room 1
-        rooms.add(areaFactory.createRoom(1, -5, -5, 5, Color.red));
+        Room room1 = areaFactory.createRoom(1, -5, -5, 5, Color.red);
+        rooms.add(room1);
 
         // Example room 2
-        rooms.add(areaFactory.createRoom(2, 0, -5, 5, Color.BLUE));
+        Room room2 = areaFactory.createRoom(2, 0, -5, 5, Color.BLUE);
+        rooms.add(room2);
 
         // Example room 3
-
-        rooms.add(areaFactory.createRoom(3, -5, 0, 5, Color.BLUE));
-        //rooms.add(new Room(3, new Point2D.Double(-5,0), new Rect(new Point2D.Double(0,0), new Point2D.Double(5,5))));
+        Room room3 = areaFactory.createRoom(3, -5, 0, 5, Color.BLUE);
+        rooms.add(room3);
 
         // Example room 4
-        rooms.add(areaFactory.createRoom(4, 0, 0, 5, 2, Color.BLUE));
+        Room room4 = areaFactory.createRoom(4, 0, 0, 5, Color.BLUE);
+        rooms.add(room4);
 
+        room1.setX2Door(5/4);
+        room1.setY2Door(5/4);
 
-        // Example room 5
-        rooms.add(areaFactory.createRoom(4, 0, 3, 5, 2, Color.BLUE));
+        room2.setX1Door(5/4);
+        room2.setY2Door(5/4);
+
+        room3.setX2Door(5/4);
+        room3.setY1Door(5/4);
+
+        room4.setX1Door(5/4);
+        room4.setY1Door(5/4);
 
         // A Division with all the rooms
         IArea division = new Division(0, rooms);
