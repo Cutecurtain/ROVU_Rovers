@@ -5,7 +5,6 @@ import project.Point;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -62,9 +61,9 @@ public class Planner extends AbstractRobotSimulator {
         halted = false;
     }
 
-    public boolean emergencyStop() throws InterruptedException {
+    public boolean emergencyStop() {
         available = false;
-        halt();
+        super.setDestination(super.getPosition());
         stopped = true;
         return true;
     }
