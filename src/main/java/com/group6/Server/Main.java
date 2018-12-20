@@ -111,23 +111,27 @@ public class Main {
     private void changeProcedure() {
         switch (procedure) {
             case A:
-                // ToDo check if a rover is in logical area, if so set the procedure to B
+                if (environment.isActorInLogical())
+                    procedure = Procedure.B;
                 break;
             case B:
-                // ToDo check if a rover is in physical area, if so set the procedure to A
+                if (environment.isActorInPhysical())
+                    procedure = Procedure.A;
                 break;
             default:
-                // ToDo select a procedure if none has been set
+                procedure = Procedure.A;
         }
     }
 
 
     private void procedureA() {
-        // ToDo collect physical reward points for the rovers
+        for (IRobot robot : Networking.getInstance().getRobots().values())
+            robot.giveRewardPoints(environment.physicalReward(robot.getPosition()));
     }
 
     private void procedureB() {
-        // ToDo collect logical reward points for the rovers
+        for (IRobot robot : Networking.getInstance().getRobots().values())
+            robot.giveRewardPoints(environment.logicalReward(robot.getPosition()));
     }
 
 

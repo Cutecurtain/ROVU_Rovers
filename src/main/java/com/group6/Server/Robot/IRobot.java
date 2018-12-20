@@ -16,4 +16,8 @@ public interface IRobot {
 
     void enteredRoom();
 
+    void giveRewardPoints(int reward);
+
+    int getRewardPoints();
+
 }

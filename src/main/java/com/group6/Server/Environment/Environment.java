@@ -120,6 +120,25 @@ public class Environment implements IEnvironment{
         actorsInAreas.add(new ActorInArea(robot));
     }
 
+    public boolean isActorInPhysical() {
+        return isActorInTypeArea(true);
+    }
+
+    public boolean isActorInLogical() {
+        return isActorInTypeArea(false);
+    }
+
+    private boolean isActorInTypeArea(boolean physical) {
+        for (ActorInArea actorInArea : actorsInAreas) {
+            for (IArea area : actorInArea.activeAreas) {
+                if (area.isPhysical() == physical) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public void updateAreas() {
         for (ActorInArea actorInArea : actorsInAreas)
             actorInArea.hasEnteredNewRoom();

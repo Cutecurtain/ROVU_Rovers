@@ -15,11 +15,14 @@ public class Robot implements IRobot{
 
     private boolean available;
 
+    private int rewardPoints;
+
     public Robot(Point2D position, String id) {
         this.position = position;
         this.id = id;
         this.available = true;
         this.lights = new Lights();
+        this.rewardPoints = 0;
     }
 
     public void setMission(IMission mission) {
@@ -44,6 +47,14 @@ public class Robot implements IRobot{
 
     public void enteredRoom() {
         Networking.getInstance().halt(id);
+    }
+
+    public void giveRewardPoints(int reward) {
+        rewardPoints += reward;
+    }
+
+    public int getRewardPoints() {
+        return rewardPoints;
     }
 
     private boolean sendMission(IMission mission) {

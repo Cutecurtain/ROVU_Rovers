@@ -25,6 +25,10 @@ public interface IEnvironment {
 
     void addActor(IRobot robot);
 
+    boolean isActorInPhysical();
+
+    boolean isActorInLogical();
+
     void updateAreas();
 
 }
