@@ -19,47 +19,51 @@ class Strategy {
         pointsVisited.add(0, missionPoints.get(0));
         double distance = 100;
 
+
         if(missionPoints.size() == 1) {
             return this.missionPoints;
         }
 
         for(int i = 0; i < missionPoints.size(); i++) {
-
             double newDistance;
             double x1 = missionPoints.get(i).getX();
             double y1 = missionPoints.get(i).getY();
+            int count = 0;
 
-
-            for(int l = 0; l < missionPoints.size(); l++) {
-
-                if(visited(pointsVisited, missionPoints, l) && l < missionPoints.size()) {
-                    l++;
+            for(int l = 0; l < pointsVisited.size(); l++) {
+                if(visited(pointsVisited, missionPoints, l)) {
+                    count++;
                 }
-                if(x1 != missionPoints.get(l).getX() && y1 != missionPoints.get(l).getY()) {
+            }
+
+            for(int l = count; l < missionPoints.size(); l++) {
                     double x2 = missionPoints.get(l).getX();
                     double y2 = missionPoints.get(l).getY();
                     newDistance = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow(y2 - y1, 2));
-
-                    if(newDistance < distance) {
+                    if(newDistance < distance && l > 2) {
                         distance = newDistance;
-                        orderedPoints.add(i+1, missionPoints.get(l));
-                        pointsVisited.add(i, missionPoints.get(l));
+                        pointsVisited.add(missionPoints.get(l));
+                        orderedPoints.add(l-1, missionPoints.get(l));
+                    } else {
+                        pointsVisited.add(missionPoints.get(l));
+                        orderedPoints.add(l, missionPoints.get(l));
                     }
                 }
 
 
-            }
+
         }
         return orderedPoints;
     }
 
-    boolean visited(List<Point2D> pointsVisited, List<Point2D> missionPoints, int l) {
-        for(int i = 0; i < pointsVisited.size(); i++) {
-            if(pointsVisited.get(i) == missionPoints.get(l)) {
-                return true;
+    boolean visited(List<Point2D> pointsVisited, List<Point2D> missionPoint, int l) {
+            for(int i = 0; i < missionPoint.size(); i++) {
+                if(pointsVisited.get(l) == missionPoint.get(i)) {
+                    return true;
             }
-        } return false;
+            } return false;
+        }
     }
 
 
-}
+
