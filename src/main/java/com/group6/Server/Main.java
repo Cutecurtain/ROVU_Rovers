@@ -55,21 +55,25 @@ public class Main {
     private void createEnvironment() {
         List<Room> rooms = new ArrayList<Room>();
 
-        // Example room 1
-        Room room1 = AreaFactory.createRoom(1, -5, -5, 5, Color.red);
+        // Example room 1 - S001
+        Room room1 = AreaFactory.createRoom(1, -5, -5, 5, Color.BLUE);
         rooms.add(room1);
 
-        // Example room 2
+        // Example room 2 - S002
         Room room2 = AreaFactory.createRoom(2, 0, -5, 5, Color.BLUE);
         rooms.add(room2);
 
-        // Example room 3
-        Room room3 = AreaFactory.createRoom(3, -5, 0, 5, Color.BLUE);
+        // Example room 3 - S003
+        Room room3 = AreaFactory.createRoom(3, -5, 0, 2,5, Color.BLUE);
         rooms.add(room3);
 
-        // Example room 4
-        Room room4 = AreaFactory.createRoom(4, 0, 0, 5, Color.BLUE);
+        // Example room 4 - S004
+        Room room4 = AreaFactory.createRoom(3, -2, 0, 2,5, Color.BLUE);
         rooms.add(room4);
+
+        // Example room 5 - C001
+        Room room5 = AreaFactory.createRoom(4, 0, 0, 5, Color.red);
+        rooms.add(room5);
 
         room1.setX2Door(5/4);
         room1.setY2Door(5/4);
@@ -78,10 +82,12 @@ public class Main {
         room2.setY2Door(5/4);
 
         room3.setX2Door(5/4);
-        room3.setY1Door(5/4);
 
         room4.setX1Door(5/4);
-        room4.setY1Door(5/4);
+        room4.setX2Door(5/4);
+
+        room5.setX1Door(5/4);
+        room5.setY1Door(5/4);
 
         // A Division with all the rooms
         IArea division = new Division(0, rooms);

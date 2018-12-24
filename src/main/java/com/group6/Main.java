@@ -34,22 +34,40 @@ public class Main {
 
         IMission mission1 = new Mission();
         IMission mission2 = new Mission();
+        IMission mission3 = new Mission();
+        IMission mission4 = new Mission();
 
-        mission1.addMissionPoint(new Point2D.Double(-2.5,2.5));
-        mission1.addMissionPoint(new Point2D.Double( -2.5, -2.5));
-        mission1.addMissionPoint(new Point2D.Double( 2.5, -2.5));
+        // Robot 1 mission
         mission1.addMissionPoint(new Point2D.Double( 2.5, 2.5));
-        mission1.chooseStrategy(1);
+        mission1.addMissionPoint(new Point2D.Double( 2.5, -2.5));
+        mission1.addMissionPoint(new Point2D.Double( 2.5, -2.5));
+        //mission1.chooseStrategy(1);
 
-        mission2.addMissionPoint(new Point2D.Double(2.5,2.5));
-        mission2.addMissionPoint(new Point2D.Double( -2.5, 2.5));
+        // Robot 2 mission
+        mission2.addMissionPoint(new Point2D.Double( 2.5, -2.5));
+        mission2.addMissionPoint(new Point2D.Double( 2.5, 2.5));
+        mission2.addMissionPoint(new Point2D.Double( 2.5, -2.5));
+        mission2.addMissionPoint(new Point2D.Double( -2.5, -2.5));
+        mission2.addMissionPoint(new Point2D.Double( -2.5, -2.5));
+        //mission2.chooseStrategy(1);
 
+        // Robot 3 mission
+        mission3.addMissionPoint(new Point2D.Double( 2.5, 2.5));
+        mission3.addMissionPoint(new Point2D.Double( -3.9, 2.5));
+        mission3.addMissionPoint(new Point2D.Double( -4, 2.5));
+        //mission3.chooseStrategy(1);
 
+        // Robot 4 mission
+        mission4.addMissionPoint(new Point2D.Double( 2.5, 2.5));
+        mission4.addMissionPoint(new Point2D.Double( -1, 2.5));
+        mission4.addMissionPoint(new Point2D.Double( -1, 2.5));
+        //mission4.chooseStrategy(1);
 
+        // id starts from ´0´´
         Networking.getInstance().giveMission("0", mission1);
-        //Networking.getInstance().giveMission("1", mission2);
-
-
+        Networking.getInstance().giveMission("1", mission2);
+        Networking.getInstance().giveMission("2", mission3);
+        Networking.getInstance().giveMission("3", mission4);
 
     }
 
