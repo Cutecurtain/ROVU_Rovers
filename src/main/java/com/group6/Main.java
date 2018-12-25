@@ -1,5 +1,6 @@
 package com.group6;
 
+
 import com.group6.Server.Networking;
 import com.group6.Server.ROVU.Controller;
 import com.group6.Server.ROVU.Model;
@@ -41,7 +42,7 @@ public class Main {
         mission1.addMissionPoint(new Point2D.Double( 2.5, 2.5));
         mission1.addMissionPoint(new Point2D.Double( 2.5, -2.5));
         mission1.addMissionPoint(new Point2D.Double( 2.5, -2.5));
-        //mission1.chooseStrategy(1);
+        mission1.chooseStrategy(1);
 
         // Robot 2 mission
         mission2.addMissionPoint(new Point2D.Double( 2.5, -2.5));
@@ -55,13 +56,13 @@ public class Main {
         mission3.addMissionPoint(new Point2D.Double( 2.5, 2.5));
         mission3.addMissionPoint(new Point2D.Double( -3.9, 2.5));
         mission3.addMissionPoint(new Point2D.Double( -4, 2.5));
-        //mission3.chooseStrategy(1);
+        mission3.chooseStrategy(1);
 
         // Robot 4 mission
         mission4.addMissionPoint(new Point2D.Double( 2.5, 2.5));
         mission4.addMissionPoint(new Point2D.Double( -1, 2.5));
         mission4.addMissionPoint(new Point2D.Double( -1, 2.5));
-        //mission4.chooseStrategy(1);
+        mission4.chooseStrategy(1);
 
         // id starts from ´0´´
         Networking.getInstance().giveMission("0", mission1);
