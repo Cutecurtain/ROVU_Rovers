@@ -63,7 +63,7 @@ public class Planner extends AbstractRobotSimulator {
     }
 
     public void followPath() {
-        if (super.isAtPosition(currentGoal) && missionStack.size()>1)
+        if (super.isAtPosition(currentGoal) && missionStack.size()>0)
             currentGoal = missionStack.pop();
         available = missionStack.size()>2;
         super.setDestination(currentGoal);
