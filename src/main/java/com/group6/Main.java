@@ -47,10 +47,10 @@ public class Main {
         // Robot 2 mission
         mission2.addMissionPoint(new Point2D.Double( 2.5, -2.5));
         mission2.addMissionPoint(new Point2D.Double( 2.5, 2.5));
-        mission2.addMissionPoint(new Point2D.Double( 2.5, -2.5));
+        mission2.addMissionPoint(new Point2D.Double( -1, 2.5));
+        mission2.addMissionPoint(new Point2D.Double( -2.5, 2.5));
         mission2.addMissionPoint(new Point2D.Double( -2.5, -2.5));
-        mission2.addMissionPoint(new Point2D.Double( -2.5, -2.5));
-        //mission2.chooseStrategy(1);
+        mission2.chooseStrategy(1);
 
         // Robot 3 mission
         mission3.addMissionPoint(new Point2D.Double( 2.5, 2.5));
