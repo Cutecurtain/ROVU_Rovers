@@ -62,7 +62,7 @@ public class RobotTest {
         mission.addMissionPoint(new Point2D.Double( 2.5, -2.5));
         mission.addMissionPoint(new Point2D.Double( 2.5, -2.4));
         mission.addMissionPoint(new Point2D.Double( -2.5, -2.5));
-        mission.chooseStrategy(1);
+        //mission.chooseStrategy(1);
 
         System.out.print(mission.toString());
 
