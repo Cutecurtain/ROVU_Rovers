@@ -1,7 +1,6 @@
 package com.group6.Server.Environment;
 
 import com.group6.Server.Environment.Area.*;
-import com.group6.Server.Robot.IRobot;
 import simbad.sim.*;
 
 import java.awt.*;
@@ -15,17 +14,27 @@ public class Environment implements IEnvironment{
 
     private static final float EDGE_DISTANCE = 0.5f;
 
-    private EnvironmentDescription environMentDescription;
+    private EnvironmentDescription environmentDescription;
 
     private List<IArea> areas;
+
+    private List<double[]> verticalWalls;
+    private List<double[]> horizontalWalls;
+
+    private List<double[]> verticalDoors;
+    private List<double[]> horizontalDoors;
 
     private Color color;
 
     private List<ActorInArea> actorsInAreas;
 
     public Environment(List<IArea> areas, Color boundaryColor) {
-        this.environMentDescription = new EnvironmentDescription();
+        this.environmentDescription = new EnvironmentDescription();
         this.areas = areas;
+        this.verticalWalls = new ArrayList<double[]>();
+        this.horizontalWalls = new ArrayList<double[]>();
+        this.verticalDoors = new ArrayList<double[]>();
+        this.horizontalDoors = new ArrayList<double[]>();
         this.color = boundaryColor;
         this.actorsInAreas = new ArrayList<ActorInArea>();
     }
@@ -54,6 +63,22 @@ public class Environment implements IEnvironment{
         return collectReward(point, true);
     }
 
+    public List<double[]> getVerticalWalls() {
+        return verticalWalls;
+    }
+
+    public List<double[]> getHorizontalWalls() {
+        return horizontalWalls;
+    }
+
+    public List<double[]> getVerticalDoors() {
+        return verticalDoors;
+    }
+
+    public List<double[]> getHorizontalDoors() {
+        return horizontalDoors;
+    }
+
     public Boundary[] createBoundaries() {
         // x1, x2, y1, y2
         Boundary[] boundaries = new Boundary[4];
@@ -77,22 +102,22 @@ public class Environment implements IEnvironment{
         // x1
         boundaries[0] = new HorizontalBoundary(left - EDGE_DISTANCE,
                                                top - EDGE_DISTANCE,
-                                               bottom + EDGE_DISTANCE, environMentDescription, color);
+                                               bottom + EDGE_DISTANCE, environmentDescription, color);
         // x2
         boundaries[1] = new HorizontalBoundary(right + EDGE_DISTANCE,
                                                top - EDGE_DISTANCE,
-                                               bottom + EDGE_DISTANCE, environMentDescription, color);
+                                               bottom + EDGE_DISTANCE, environmentDescription, color);
         // y1
         boundaries[2] = new VerticalBoundary(bottom + EDGE_DISTANCE,
                                              left - EDGE_DISTANCE,
-                                             right + EDGE_DISTANCE, environMentDescription, color);
+                                             right + EDGE_DISTANCE, environmentDescription, color);
         // y2
         boundaries[3] = new VerticalBoundary(top - EDGE_DISTANCE,
                                              left - EDGE_DISTANCE,
-                                             right + EDGE_DISTANCE, environMentDescription, color);
+                                             right + EDGE_DISTANCE, environmentDescription, color);
 
         // Don't know if this is needed
-        environMentDescription.setWorldSize(Math.max(right-left, bottom - top));
+        environmentDescription.setWorldSize(Math.max(right-left, bottom - top));
 
         return boundaries;
     }
@@ -109,15 +134,18 @@ public class Environment implements IEnvironment{
             }
         }
 
+        initWalls();
+        initDoors();
+
         return walls;
     }
 
     public EnvironmentDescription getEnvironmentDescription() {
-        return environMentDescription;
+        return environmentDescription;
     }
 
-    public void addActor(IRobot robot) {
-        actorsInAreas.add(new ActorInArea(robot));
+    public void addActor(IActor actor) {
+        actorsInAreas.add(new ActorInArea(actor));
     }
 
     public boolean isActorInPhysical() {
@@ -166,26 +194,26 @@ public class Environment implements IEnvironment{
         if (doorX1[0] > 0) {
             abstractWalls.add(new HorizontalWall((float) edges[0].getX(),
                                                  (float) edges[0].getY(),
-                                                 (float) (edges[0].getY() + doorX1[0]), environMentDescription, room.getColor()));
+                                                 (float) (edges[0].getY() + doorX1[0]), environmentDescription, room.getColor()));
         }
         // x1 2
         if (x12 > 0) {
             abstractWalls.add(new HorizontalWall((float) edges[0].getX(),
                                                  (float) edges[1].getY(),
-                                                 (float) (edges[1].getY() - x12), environMentDescription, room.getColor()));
+                                                 (float) (edges[1].getY() - x12), environmentDescription, room.getColor()));
         }
 
         // x2 1
         if (doorX2[0] > 0) {
             abstractWalls.add(new HorizontalWall((float) edges[1].getX(),
                                                  (float) edges[0].getY(),
-                                                 (float) (edges[0].getY() + doorX2[0]), environMentDescription, room.getColor()));
+                                                 (float) (edges[0].getY() + doorX2[0]), environmentDescription, room.getColor()));
         }
         // x2 2
         if (x22 > 0) {
             abstractWalls.add(new HorizontalWall((float) edges[1].getX(),
                                                  (float) edges[1].getY(),
-                                                 (float) (edges[1].getY() - x22), environMentDescription, room.getColor()));
+                                                 (float) (edges[1].getY() - x22), environmentDescription, room.getColor()));
         }
 
 
@@ -193,28 +221,72 @@ public class Environment implements IEnvironment{
         if (doorY1[0] > 0) {
             abstractWalls.add(new VerticalWall((float) edges[0].getY(),
                                                (float) edges[0].getX(),
-                                               (float) (edges[0].getX() + doorY1[0]), environMentDescription, room.getColor()));
+                                               (float) (edges[0].getX() + doorY1[0]), environmentDescription, room.getColor()));
         }
         // y1 2
         if (y12 > 0) {
             abstractWalls.add(new VerticalWall((float) edges[0].getY(),
                                                (float) edges[1].getX(),
-                                               (float) (edges[1].getX() - y12), environMentDescription, room.getColor()));
+                                               (float) (edges[1].getX() - y12), environmentDescription, room.getColor()));
         }
 
         // y2 1
         if (doorY2[0] > 0) {
             abstractWalls.add(new VerticalWall((float) edges[1].getY(),
                                                (float) edges[0].getX(),
-                                               (float) (edges[0].getX() + doorY2[0]), environMentDescription, room.getColor()));
+                                               (float) (edges[0].getX() + doorY2[0]), environmentDescription, room.getColor()));
         }
         if (y22 > 0) {
             // y2 2
             abstractWalls.add(new VerticalWall((float) edges[1].getY(),
                                                (float) edges[1].getX(),
-                                               (float) (edges[1].getX() - y22), environMentDescription, room.getColor()));
+                                               (float) (edges[1].getX() - y22), environmentDescription, room.getColor()));
         }
         return abstractWalls;
+    }
+
+    private void initWalls() {
+        for (IArea area : areas) {
+            if (area instanceof Room) {
+                Point2D[] edges = area.getEdges();
+                double x1 = edges[0].getX();
+                double x2 = edges[1].getX();
+                double y1 = edges[0].getY();
+                double y2 = edges[1].getY();
+                verticalWalls.add(new double[]{x1, y1, y2});
+                verticalWalls.add(new double[]{x2, y1, y2});
+                horizontalDoors.add(new double[]{y1, x1, x2});
+                horizontalDoors.add(new double[]{y2, x1, x2});
+            }
+        }
+    }
+
+    private void initDoors() {
+        for (IArea area : areas) {
+            if (area instanceof Room) {
+                Point2D[] edges = area.getEdges();
+                if (((Room) area).getDoorX1()[1] > 0) {
+                    double x = edges[0].getX();
+                    double y = edges[0].getY() + ((Room) area).getDoorX1()[0] + (((Room) area).getDoorX1()[1] / 2);
+                    verticalDoors.add(new double[]{x, y});
+                }
+                if (((Room) area).getDoorX2()[1] > 0) {
+                    double x = edges[1].getX();
+                    double y = edges[0].getY() + ((Room) area).getDoorX2()[0] + (((Room) area).getDoorX2()[1] / 2);
+                    verticalDoors.add(new double[]{x, y});
+                }
+                if (((Room) area).getDoorY1()[1] > 0) {
+                    double y = edges[0].getY();
+                    double x = edges[0].getX() + ((Room) area).getDoorY1()[0] + (((Room) area).getDoorY1()[1] / 2);
+                    horizontalDoors.add(new double[]{x, y});
+                }
+                if (((Room) area).getDoorY2()[1] > 0) {
+                    double y = edges[1].getY();
+                    double x = edges[0].getX() + ((Room) area).getDoorY2()[0] + (((Room) area).getDoorY2()[1] / 2);
+                    horizontalDoors.add(new double[]{x, y});
+                }
+            }
+        }
     }
 
     private int collectReward(Point2D point, boolean isPhysical) {
@@ -227,11 +299,11 @@ public class Environment implements IEnvironment{
     }
 
     private class ActorInArea {
-        private IRobot robot;
+        private IActor actor;
         private List<IArea> activeAreas;
 
-        ActorInArea(IRobot robot) {
-            this.robot = robot;
+        ActorInArea(IActor actor) {
+            this.actor = actor;
             findAreas();
         }
 
@@ -241,7 +313,7 @@ public class Environment implements IEnvironment{
             for (IArea area : activeAreas) {
                 if (area instanceof Room) {
                     if (!previous.contains(area)) {
-                        robot.enteredRoom();
+                        actor.enteredRoom();
                         return;
                     }
                 }
@@ -253,14 +325,14 @@ public class Environment implements IEnvironment{
             for (IArea area : areas) {
                 if (area instanceof Division)
                     inDivision((Division) area);
-                else if (area.isPosIn(robot.getPosition()))
+                else if (area.isPosIn(actor.getPosition()))
                     activeAreas.add(area);
             }
         }
 
         private void inDivision(Division division) {
             for (Room room : division.getRooms()) {
-                if (room.isPosIn(robot.getPosition()))
+                if (room.isPosIn(actor.getPosition()))
                     activeAreas.add(room);
             }
         }

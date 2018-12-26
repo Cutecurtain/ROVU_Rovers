@@ -1,5 +1,7 @@
 package com.group6.Server.Robot;
 
+import com.group6.Server.Environment.IEnvironment;
+
 import java.awt.geom.Point2D;
 import java.util.*;
 
@@ -36,9 +38,10 @@ public class Mission implements IMission{
         missionPoints.add(point);
     }
 
-    public void chooseStrategy(int i) {
+    public void chooseStrategy(int i, IEnvironment environment) {
         Strategy strategy = new Strategy(this.missionPoints);
         switch (i) {
+            case 0: this.missionPoints = strategy.throughDoors(environment);
             case 1: this.missionPoints = strategy.nearestPath();
             break;
         }

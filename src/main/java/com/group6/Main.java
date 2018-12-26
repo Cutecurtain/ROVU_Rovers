@@ -41,7 +41,7 @@ public class Main {
         // Robot 1 mission
         mission1.addMissionPoint(new Point2D.Double( 2.5, 2.5));
         mission1.addMissionPoint(new Point2D.Double( 2.5, -2.5));
-        mission1.chooseStrategy(1);
+        mission1.chooseStrategy(1, server.getEnvironment());
 
         // Robot 2 mission
         mission2.addMissionPoint(new Point2D.Double( 2.5, -2.5));
@@ -49,17 +49,17 @@ public class Main {
         mission2.addMissionPoint(new Point2D.Double( 2.5, -2.5));
         mission2.addMissionPoint(new Point2D.Double( 2.5, -2.4));
         mission2.addMissionPoint(new Point2D.Double( -2.5, -2.5));
-        mission2.chooseStrategy(1);
+        mission2.chooseStrategy(1, server.getEnvironment());
 
         // Robot 3 mission
         mission3.addMissionPoint(new Point2D.Double( 2.5, 2.5));
         mission3.addMissionPoint(new Point2D.Double( -3.9, 2.5));
-        mission3.chooseStrategy(1);
+        mission3.chooseStrategy(1, server.getEnvironment());
 
         // Robot 4 mission
         mission4.addMissionPoint(new Point2D.Double( 2.5, 2.5));
         mission4.addMissionPoint(new Point2D.Double( -1, 2.5));
-        mission4.chooseStrategy(1);
+        mission4.chooseStrategy(1, server.getEnvironment());
 
         // id starts from ´0´´
         Networking.getInstance().giveMission("0", mission1);

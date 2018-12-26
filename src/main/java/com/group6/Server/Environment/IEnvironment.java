@@ -17,13 +17,19 @@ public interface IEnvironment {
 
     int physicalReward(Point2D point);
 
+    List<double[]> getVerticalWalls();   // returns: x y1 y2
+    List<double[]> getHorizontalWalls(); // returns: y x1 x2
+
+    List<double[]> getVerticalDoors();   // returns: x y
+    List<double[]> getHorizontalDoors(); // returns: x y
+
     Boundary[] createBoundaries();
 
     List<AbstractWall> createWalls();
 
     EnvironmentDescription getEnvironmentDescription();
 
-    void addActor(IRobot robot);
+    void addActor(IActor actor);
 
     boolean isActorInPhysical();
 

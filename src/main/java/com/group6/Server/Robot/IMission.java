@@ -1,5 +1,7 @@
 package com.group6.Server.Robot;
 
+import com.group6.Server.Environment.IEnvironment;
+
 import java.awt.geom.Point2D;
 import java.util.List;
 
@@ -9,6 +11,6 @@ public interface IMission {
 
     void addMissionPoint(Point2D point);
 
-    void chooseStrategy(int i);
+    void chooseStrategy(int i, IEnvironment environment);
 
 }

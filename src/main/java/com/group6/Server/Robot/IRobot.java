@@ -1,20 +1,16 @@
 package com.group6.Server.Robot;
 
-import java.awt.geom.Point2D;
+import com.group6.Server.Environment.IActor;
 
-public interface IRobot {
+public interface IRobot extends IActor {
 
     void setMission(IMission mission);
-
-    Point2D getPosition();
 
     void setAvailable(boolean available);
 
     boolean isAvailable();
 
     void update(double x, double y);
-
-    void enteredRoom();
 
     void giveRewardPoints(int reward);
 
