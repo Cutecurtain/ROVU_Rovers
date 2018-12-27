@@ -20,10 +20,9 @@ public class Mission implements IMission{
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (Point2D point : missionPoints
-             ) {
+        for (Point2D point : missionPoints)
             sb.append(point.toString());
-        } return sb.toString();
+        return sb.toString();
     }
 
     public Mission(List<Point2D> missionPoints) {
@@ -42,6 +41,7 @@ public class Mission implements IMission{
         Strategy strategy = new Strategy(this.missionPoints);
         switch (i) {
             case 0: this.missionPoints = strategy.throughDoors(environment);
+            break;
             case 1: this.missionPoints = strategy.nearestPath();
             break;
         }

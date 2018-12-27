@@ -73,8 +73,8 @@ public class MissionTest {
         List<AbstractWall> walls = environment.createWalls();
 
         mission = new Mission();
-        mission.addMissionPoint(new Point2D.Double(2.5, 2.5));
-        mission.addMissionPoint(new Point2D.Double(1, 2.5));
+        mission.addMissionPoint(new Point2D.Double(2.5, -2.5));
+        mission.addMissionPoint(new Point2D.Double(-3.9, 2.5));
     }
 
     @Test

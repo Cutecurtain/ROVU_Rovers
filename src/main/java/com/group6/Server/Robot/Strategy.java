@@ -31,31 +31,32 @@ class Strategy {
 
         for (int i = 1; i < missionPoints.size(); ) {
             if (pq.peek() == null)
-                return null;
+                break;
             Path shortest = pq.poll();
             Point2D current = shortest.getPath().get(shortest.getPath().size() - 1);
             Point2D goal = missionPoints.get(i);
 
-            if (current == goal)
+            if (current == goal) {
+                if (missionPoints.size() >= ++i)
+                    return shortest.getPath();
                 goal = missionPoints.get(++i);
+            }
 
             List<Path> possiblePaths = pathDoors(shortest, goal, doors, verticalWalls, horizontalWalls);
 
             if (possiblePaths.size() > 0)
                 pq.addAll(possiblePaths);
-
         }
-
-        return pq.peek() == null ? null : pq.poll().getPath();
+        return null;
     }
 
     private List<Path> pathDoors(Path path, Point2D goal, List<Point2D> doors, List<double[]> vWalls, List<double[]> hWalls) {
         List<Path> newPaths = new ArrayList<>();
         Point2D current = path.getPath().get(path.getPath().size() - 1);
 
-        if (isWallsBetween(current, goal, vWalls, hWalls)) {
+        if (!isInSameRoom(current, goal, vWalls, hWalls)) {
             for (Point2D door : doors) {
-                if (!path.visited(door) && !isWallsBetween(current, door, vWalls, hWalls)) {
+                if (!path.visited(door) && isInSameRoom(current, door, vWalls, hWalls)) {
                     path.visit(door);
                     Path newPath = new Path(path);
                     newPath.add(door);
@@ -63,29 +64,88 @@ class Strategy {
                 }
             }
         } else {
+            path.visit(goal);
+            path.add(goal);
             newPaths.add(path);
         }
 
         return newPaths;
     }
 
-    private boolean isWallsBetween(Point2D current, Point2D goal, List<double[]> vWalls, List<double[]> hWalls) {
+    private boolean isInSameRoom(Point2D current, Point2D goal, List<double[]> vWalls, List<double[]> hWalls) {
+        double leftToCurrent = Double.MIN_VALUE;
+        double rightToCurrent = Double.MAX_VALUE;
+        double leftToGoal = Double.MIN_VALUE;
+        double rightToGoal = Double.MAX_VALUE;
+
         for (double[] vWall : vWalls) {
-            if (isBetween(vWall[0], current.getX(), goal.getX())) {
-                if (isBetween(current.getY(), vWall[1], vWall[2]) && isBetween(goal.getY(), vWall[1], vWall[2])) {
-                    return true;
+            if (isBetween(current.getY(), vWall[1], vWall[2])) {
+                if (vWall[0] < current.getX() && vWall[0] > leftToCurrent)
+                    leftToCurrent = vWall[0];
+                else if (vWall[0] > current.getX() && vWall[0] < rightToCurrent)
+                    rightToCurrent = vWall[0];
+                else if (vWall[0] == current.getX()) {
+                    leftToCurrent = vWall[0];
+                    rightToCurrent = vWall[0];
+                }
+            }
+            if (isBetween(goal.getY(), vWall[1], vWall[2])) {
+                if (vWall[0] < goal.getX() && vWall[0] > leftToGoal)
+                    leftToGoal = vWall[0];
+                else if (vWall[0] > goal.getX() && vWall[0] < rightToGoal)
+                    rightToGoal = vWall[0];
+                else if (vWall[0] == goal.getX()) {
+                    leftToGoal = vWall[0];
+                    rightToGoal = vWall[0];
                 }
             }
         }
 
+        double topToCurrent = Double.MIN_VALUE;
+        double bottomToCurrent = Double.MAX_VALUE;
+        double topToGoal = Double.MIN_VALUE;
+        double bottomToGoal = Double.MAX_VALUE;
+
         for (double[] hWall : hWalls) {
-            if (isBetween(hWall[0], current.getY(), goal.getY())) {
-                if (isBetween(current.getX(), hWall[1], hWall[2]) && isBetween(goal.getX(), hWall[1], hWall[2])) {
-                    return true;
+            if (isBetween(current.getX(), hWall[1], hWall[2])) {
+                if (hWall[0] < current.getY() && hWall[0] > topToCurrent)
+                    topToCurrent = hWall[0];
+                else if (hWall[0] > current.getY() && hWall[0] < bottomToCurrent)
+                    bottomToCurrent = hWall[0];
+                else if (hWall[0] == current.getY()) {
+                    topToCurrent = hWall[0];
+                    bottomToCurrent = hWall[0];
+                }
+            }
+            if (isBetween(goal.getX(), hWall[1], hWall[2])) {
+                if (hWall[0] < goal.getY() && hWall[0] > topToGoal)
+                    topToGoal = hWall[0];
+                else if (hWall[0] > goal.getY() && hWall[0] < bottomToGoal)
+                    bottomToGoal = hWall[0];
+                else if (hWall[0] == goal.getY()) {
+                    topToGoal = hWall[0];
+                    bottomToGoal = hWall[0];
                 }
             }
         }
-        return false;
+
+        // Check if two doors the the same room
+        if ((leftToCurrent == rightToCurrent && leftToGoal == rightToGoal) ||
+                (leftToCurrent == rightToCurrent && topToGoal == bottomToGoal) ||
+                (topToCurrent == bottomToCurrent && leftToGoal == rightToGoal) ||
+                (topToCurrent == bottomToCurrent && topToGoal == bottomToGoal))
+            return true;
+
+        // Check if one of the points is a door to the room the other point is in
+        if ((leftToCurrent == rightToCurrent && (leftToCurrent == leftToGoal || leftToCurrent == rightToGoal)) ||
+                (topToCurrent == bottomToCurrent && (topToCurrent == topToGoal || topToCurrent == bottomToGoal)) ||
+                (leftToGoal == rightToGoal && (leftToGoal == leftToCurrent || leftToGoal == rightToCurrent)) ||
+                (topToGoal == bottomToGoal && (topToGoal == topToCurrent || topToGoal == bottomToCurrent)))
+            return true;
+
+        // Check if the points are inside the same room
+        return leftToCurrent == leftToGoal && rightToCurrent == rightToGoal
+                && topToCurrent == topToGoal && bottomToCurrent == bottomToGoal;
     }
 
     private boolean isBetween(double d, double v1, double v2) {
