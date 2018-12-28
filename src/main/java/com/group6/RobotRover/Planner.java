@@ -3,6 +3,7 @@ package com.group6.RobotRover;
 import project.AbstractRobotSimulator;
 import project.Point;
 
+import javax.vecmath.Vector3d;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +56,7 @@ public class Planner extends AbstractRobotSimulator {
         this.missionPoints = new ArrayList<Point>();
         for (int i = 0; i < missionPoints.size(); i++)
             this.missionPoints.add(new Point(missionPoints.get(i).getX(), missionPoints.get(i).getY()));
-        for (int i = missionPoints.size()-1; i > -1; i--) {
+        for (int i = missionPoints.size() - 1; i > -1; i--) {
             this.missionStack.push(this.missionPoints.get(i));
         }
         //this.missionIterator = this.missionPoints.iterator();
@@ -63,11 +64,13 @@ public class Planner extends AbstractRobotSimulator {
     }
 
     public void followPath() {
-        if (super.isAtPosition(currentGoal) && missionStack.size()>0)
-            currentGoal = missionStack.pop();
-        available = missionStack.size()>2;
-        super.setDestination(currentGoal);
-        if(super.checkObstacle()) {
+        if (this.isAtPosition(currentGoal)) {
+            if (missionStack.size() > 0)
+                currentGoal = missionStack.pop();
+            super.setDestination(currentGoal);
+        }
+        available = missionStack.size() > 2;
+        if (super.checkObstacle()) {
             proximitySensorFactory.getSensor("laser");
         }
     }
@@ -75,6 +78,7 @@ public class Planner extends AbstractRobotSimulator {
     void halt() throws InterruptedException {
         super.setDestination(super.getPosition());
         Thread.sleep(haltTime);
+        super.setDestination(currentGoal);
         halted = false;
     }
 
@@ -106,11 +110,20 @@ public class Planner extends AbstractRobotSimulator {
         haltRover(DEFAULT_HALT_TIME);
     }
 
+    // In order to increase the margin
+    @Override
+    public boolean isAtPosition(Point dest) {
+        if (dest == null)
+            throw new NullPointerException("The destination cannot be null");
+        Vector3d position = this.getAgent().getPosition();
+        return Math.abs(dest.getZ() - position.z) <= 0.4 && Math.abs(dest.getX() - position.x) <= 0.4;
+
+    }
+
     @Override
     public String toString() {
         return "Robot " + super.getName();
     }
-
 
 
 }

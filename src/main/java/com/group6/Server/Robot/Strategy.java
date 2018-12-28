@@ -37,9 +37,10 @@ class Strategy {
             Point2D goal = missionPoints.get(i);
 
             if (current == goal) {
-                if (missionPoints.size() >= ++i)
+                if (missionPoints.size() == ++i)
                     return shortest.getPath();
-                goal = missionPoints.get(++i);
+                goal = missionPoints.get(i);
+                pq = new PriorityQueue<>();
             }
 
             List<Path> possiblePaths = pathDoors(shortest, goal, doors, verticalWalls, horizontalWalls);
@@ -241,7 +242,7 @@ class Strategy {
 
         @Override
         public int compareTo(Path path) {
-            return path.path.size() - this.path.size();
+            return this.path.size() - path.path.size();
         }
     }
 }

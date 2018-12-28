@@ -63,9 +63,9 @@ public class Main {
         mission4.chooseStrategy(1, server.getEnvironment());
 
         testStrat0.addMissionPoint(new Point2D.Double(2.5, -2.5));
-        //testStrat0.addMissionPoint(new Point2D.Double(-2.5, -2.5));
+        testStrat0.addMissionPoint(new Point2D.Double(2.5, 2.5));
         testStrat0.addMissionPoint(new Point2D.Double(-3.9, 2.5));
-        testStrat0.chooseStrategy(0, server.getEnvironment());
+        //testStrat0.chooseStrategy(0, server.getEnvironment());
 
         // id starts from ´0´´
         //Networking.getInstance().giveMission("0", mission1);

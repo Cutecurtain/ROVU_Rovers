@@ -20,8 +20,10 @@ public class Mission implements IMission{
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        sb.append("< i: [x, y] >\n");
+        int i = 0;
         for (Point2D point : missionPoints)
-            sb.append(point.toString());
+            sb.append(i++ + ": [" + point.getX() + ", " + point.getY() + "]\n");
         return sb.toString();
     }
 

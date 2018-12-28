@@ -6,6 +6,7 @@ import com.group6.Server.Environment.Area.IArea;
 import com.group6.Server.Environment.Area.Room;
 import com.group6.Server.Environment.Environment;
 import com.group6.Server.Environment.IEnvironment;
+import junit.framework.Assert;
 import org.junit.Test;
 import simbad.sim.AbstractWall;
 import simbad.sim.Boundary;
@@ -74,6 +75,7 @@ public class MissionTest {
 
         mission = new Mission();
         mission.addMissionPoint(new Point2D.Double(2.5, -2.5));
+        mission.addMissionPoint(new Point2D.Double(2.5, 2.5));
         mission.addMissionPoint(new Point2D.Double(-3.9, 2.5));
     }
 
@@ -81,7 +83,12 @@ public class MissionTest {
     public void chooseStrategy() {
         setUp();
         System.out.println("Before: " + mission.toString());
+        Point2D first1 = mission.getMissionPoints().get(0);
+        Point2D last1 = mission.getMissionPoints().get(2);
         mission.chooseStrategy(0, environment);
         System.out.println("After: "+ mission.toString());
+        Point2D first2 = mission.getMissionPoints().get(0);
+        Point2D last2 = mission.getMissionPoints().get(2);
+        Assert.assertFalse(first1.equals(first2) && last1.equals(last2) && mission.getMissionPoints().size() > 3);
     }
 }
