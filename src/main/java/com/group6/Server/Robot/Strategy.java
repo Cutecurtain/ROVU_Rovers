@@ -73,9 +73,9 @@ class Strategy {
     }
 
     private boolean isInSameRoom(Point2D current, Point2D goal, List<double[]> vWalls, List<double[]> hWalls) {
-        double leftToCurrent = Double.MIN_VALUE;
+        double leftToCurrent = -Double.MAX_VALUE;
         double rightToCurrent = Double.MAX_VALUE;
-        double leftToGoal = Double.MIN_VALUE;
+        double leftToGoal = -Double.MAX_VALUE;
         double rightToGoal = Double.MAX_VALUE;
 
         for (double[] vWall : vWalls) {
@@ -101,9 +101,9 @@ class Strategy {
             }
         }
 
-        double topToCurrent = Double.MIN_VALUE;
+        double topToCurrent = -Double.MAX_VALUE;
         double bottomToCurrent = Double.MAX_VALUE;
-        double topToGoal = Double.MIN_VALUE;
+        double topToGoal = -Double.MAX_VALUE;
         double bottomToGoal = Double.MAX_VALUE;
 
         for (double[] hWall : hWalls) {
@@ -137,11 +137,15 @@ class Strategy {
             return true;
 
         // Check if one of the points is a door to the room the other point is in
-        if ((leftToCurrent == rightToCurrent && (leftToCurrent == leftToGoal || leftToCurrent == rightToGoal)) ||
-                (topToCurrent == bottomToCurrent && (topToCurrent == topToGoal || topToCurrent == bottomToGoal)) ||
-                (leftToGoal == rightToGoal && (leftToGoal == leftToCurrent || leftToGoal == rightToCurrent)) ||
-                (topToGoal == bottomToGoal && (topToGoal == topToCurrent || topToGoal == bottomToCurrent)))
-            return true;
+        if (topToCurrent == topToGoal && bottomToCurrent == bottomToGoal) {
+            if ((leftToCurrent == rightToCurrent && (leftToCurrent == leftToGoal || leftToCurrent == rightToGoal)) ||
+                    (leftToGoal == rightToGoal && (leftToGoal == leftToCurrent || leftToGoal == rightToCurrent)))
+                return true;
+        } else if (leftToCurrent == leftToGoal && rightToCurrent == rightToGoal) {
+            if ((topToCurrent == bottomToCurrent && (topToCurrent == topToGoal || topToCurrent == bottomToGoal)) ||
+                    (topToGoal == bottomToGoal && (topToGoal == topToCurrent || topToGoal == bottomToCurrent)))
+                return true;
+        }
 
         // Check if the points are inside the same room
         return leftToCurrent == leftToGoal && rightToCurrent == rightToGoal
@@ -149,7 +153,7 @@ class Strategy {
     }
 
     private boolean isBetween(double d, double v1, double v2) {
-        return v1 < v2 ? d > v1 && d < v2 : d > v2 && d < v1; // An open interval
+        return v1 < v2 ? d >= v1 && d <= v2 : d >= v2 && d <= v1; // A closed interval
     }
 
     List<Point2D> nearestPath() {
