@@ -56,38 +56,43 @@ public class Main {
         List<Room> rooms = new ArrayList<Room>();
 
         // Example room 1 - S001
-        Room room1 = AreaFactory.createRoom(20, -5, -5, 5, Color.BLUE);
+        Room room1 = AreaFactory.createRoom(20, 0, -4,4, Color.BLUE);
         rooms.add(room1);
 
         // Example room 2 - S002
-        Room room2 = AreaFactory.createRoom(20, 0, -5, 5, Color.BLUE);
+        Room room2 = AreaFactory.createRoom(20, -4, -4, 4, Color.BLUE);
         rooms.add(room2);
 
         // Example room 3 - S003
-        Room room3 = AreaFactory.createRoom(20, -5, 0, 2,5, Color.BLUE);
+        Room room3 = AreaFactory.createRoom(20, -4, 0, 2,4, Color.BLUE);
         rooms.add(room3);
 
         // Example room 4 - S004
-        Room room4 = AreaFactory.createRoom(20, -2, 0, 2,5, Color.BLUE);
+        Room room4 = AreaFactory.createRoom(20, -2, 0, 2,4, Color.BLUE);
         rooms.add(room4);
 
         // Example room 5 - C001
-        Room room5 = AreaFactory.createRoom(10, 0, 0, 5, Color.red);
+        Room room5 = AreaFactory.createRoom(10, 0, 0, 4, Color.red);
         rooms.add(room5);
 
-        room1.setX2Door(5/4);
+        room1.setY1Door(5/4);
+        room1.setX1Door(5/4);
         room1.setY2Door(5/4);
 
-        room2.setX1Door(5/4);
-        room2.setY2Door(5/4);
+        room2.setY1Door(5/4);
+        //room2.setY2Door(5/4);
+        room2.setX2Door(5/4);
 
         room3.setX2Door(5/4);
+        room3.setY2Door(5/4);
 
         room4.setX1Door(5/4);
         room4.setX2Door(5/4);
+        room4.setY2Door(5/4);
 
         room5.setX1Door(5/4);
         room5.setY1Door(5/4);
+        room5.setY2Door(5/4);
 
         // A Division with all the rooms
         IArea division = new Division(0, rooms);

@@ -12,7 +12,7 @@ public class Environment implements IEnvironment{
 
     private static final Color TRANSPARENT = new Color(0,0,0,0);
 
-    private static final float EDGE_DISTANCE = 0.5f;
+    private static final float EDGE_DISTANCE = 2;
 
     private EnvironmentDescription environmentDescription;
 
@@ -117,7 +117,7 @@ public class Environment implements IEnvironment{
                                              right + EDGE_DISTANCE, environmentDescription, color);
 
         // Don't know if this is needed
-        environmentDescription.setWorldSize(Math.max(right-left, bottom - top));
+        environmentDescription.setWorldSize(Math.max(right-left, bottom - top)+3);
 
         return boundaries;
     }

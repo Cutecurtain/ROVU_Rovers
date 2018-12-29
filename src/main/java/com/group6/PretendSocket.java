@@ -49,10 +49,10 @@ public class PretendSocket {
 
         // Here are all the robots, that exist in the simulation, added
         private void loadRobots() {
-            Main robot1 = new Main(2.5,-2.5);
-            Main robot2 = new Main(-2.5,-2.5);
-            Main robot3 = new Main(-4,2.5);
-            Main robot4 = new Main(-1,2.5);
+            Main robot1 = new Main(2,-5);
+            Main robot2 = new Main(-2,-5);
+            Main robot3 = new Main(-3.2,5);
+            Main robot4 = new Main(-1,5);
 
             robot1.start();
             robot2.start();
