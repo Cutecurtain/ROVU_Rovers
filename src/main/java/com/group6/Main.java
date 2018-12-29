@@ -69,17 +69,17 @@ public class Main {
         mission4.addMissionPoint(new Point2D.Double( -1, 5));
         //mission4.chooseStrategy(1, server.getEnvironment());
 
-        testStrat0.addMissionPoint(new Point2D.Double(2.5, -2.5));
-        testStrat0.addMissionPoint(new Point2D.Double(2.5, 2.5));
-        testStrat0.addMissionPoint(new Point2D.Double(-3.9, 2.5));
+        //testStrat0.addMissionPoint(new Point2D.Double(2.5, -2.5));
+        //testStrat0.addMissionPoint(new Point2D.Double(2.5, 2.5));
+        //testStrat0.addMissionPoint(new Point2D.Double(-3.9, 2.5));
         //testStrat0.chooseStrategy(0, server.getEnvironment());
 
         // id starts from ´0´´
-        //Networking.getInstance().giveMission("0", mission1);
-        //Networking.getInstance().giveMission("1", mission2);
-        //Networking.getInstance().giveMission("2", mission3);
-        //Networking.getInstance().giveMission("3", mission4);
-        Networking.getInstance().giveMission("0", testStrat0);
+        Networking.getInstance().giveMission("0", mission1);
+        Networking.getInstance().giveMission("1", mission2);
+        Networking.getInstance().giveMission("2", mission3);
+        Networking.getInstance().giveMission("3", mission4);
+        //Networking.getInstance().giveMission("0", testStrat0);
 
     }
 
