@@ -6,6 +6,7 @@ import simbad.sim.*;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Environment implements IEnvironment{
@@ -248,45 +249,80 @@ public class Environment implements IEnvironment{
     private void initWalls() {
         for (IArea area : areas) {
             if (area instanceof Room) {
-                Point2D[] edges = area.getEdges();
-                double x1 = edges[0].getX();
-                double x2 = edges[1].getX();
-                double y1 = edges[0].getY();
-                double y2 = edges[1].getY();
-                verticalWalls.add(new double[]{x1, y1, y2});
-                verticalWalls.add(new double[]{x2, y1, y2});
-                horizontalDoors.add(new double[]{y1, x1, x2});
-                horizontalDoors.add(new double[]{y2, x1, x2});
+                initRoom((Room) area);
+            } else if (area instanceof Division) {
+                List<Room> rooms = ((Division) area).getRooms();
+                for (Room room : rooms)
+                    initRoom(room);
             }
         }
+        verticalWalls = removeDupes(verticalWalls);
+        horizontalWalls = removeDupes(horizontalWalls);
+    }
+
+    private void initRoom(Room room) {
+        Point2D[] edges = room.getEdges();
+        double x1 = edges[0].getX();
+        double x2 = edges[1].getX();
+        double y1 = edges[0].getY();
+        double y2 = edges[1].getY();
+        verticalWalls.add(new double[]{x1, y1, y2});
+        verticalWalls.add(new double[]{x2, y1, y2});
+        horizontalWalls.add(new double[]{y1, x1, x2});
+        horizontalWalls.add(new double[]{y2, x1, x2});
     }
 
     private void initDoors() {
         for (IArea area : areas) {
             if (area instanceof Room) {
-                Point2D[] edges = area.getEdges();
-                if (((Room) area).getDoorX1()[1] > 0) {
-                    double x = edges[0].getX();
-                    double y = edges[0].getY() + ((Room) area).getDoorX1()[0] + (((Room) area).getDoorX1()[1] / 2);
-                    verticalDoors.add(new double[]{x, y});
-                }
-                if (((Room) area).getDoorX2()[1] > 0) {
-                    double x = edges[1].getX();
-                    double y = edges[0].getY() + ((Room) area).getDoorX2()[0] + (((Room) area).getDoorX2()[1] / 2);
-                    verticalDoors.add(new double[]{x, y});
-                }
-                if (((Room) area).getDoorY1()[1] > 0) {
-                    double y = edges[0].getY();
-                    double x = edges[0].getX() + ((Room) area).getDoorY1()[0] + (((Room) area).getDoorY1()[1] / 2);
-                    horizontalDoors.add(new double[]{x, y});
-                }
-                if (((Room) area).getDoorY2()[1] > 0) {
-                    double y = edges[1].getY();
-                    double x = edges[0].getX() + ((Room) area).getDoorY2()[0] + (((Room) area).getDoorY2()[1] / 2);
-                    horizontalDoors.add(new double[]{x, y});
-                }
+                initDoor((Room) area);
+            } else if (area instanceof Division) {
+                for (Room room : ((Division) area).getRooms())
+                    initDoor(room);
             }
         }
+        verticalDoors = removeDupes(verticalDoors);
+        horizontalDoors = removeDupes(horizontalDoors);
+    }
+
+    private void initDoor(Room room) {
+        Point2D[] edges = room.getEdges();
+        if (room.getDoorX1()[1] > 0) {
+            double x = edges[0].getX();
+            double y = edges[0].getY() + room.getDoorX1()[0] + (room.getDoorX1()[1] / 2);
+            verticalDoors.add(new double[]{x, y});
+        }
+        if (room.getDoorX2()[1] > 0) {
+            double x = edges[1].getX();
+            double y = edges[0].getY() + room.getDoorX2()[0] + (room.getDoorX2()[1] / 2);
+            verticalDoors.add(new double[]{x, y});
+        }
+        if (room.getDoorY1()[1] > 0) {
+            double y = edges[0].getY();
+            double x = edges[0].getX() + room.getDoorY1()[0] + (room.getDoorY1()[1] / 2);
+            horizontalDoors.add(new double[]{x, y});
+        }
+        if (room.getDoorY2()[1] > 0) {
+            double y = edges[1].getY();
+            double x = edges[0].getX() + room.getDoorY2()[0] + (room.getDoorY2()[1] / 2);
+            horizontalDoors.add(new double[]{x, y});
+        }
+    }
+
+    private List<double[]> removeDupes(List<double[]> list) {
+        List<double[]> dupeFree = new ArrayList<>();
+        for (double[] item1 : list) {
+            boolean exists = false;
+            for (double[] item2 : dupeFree) {
+                if (Arrays.equals(item1, item2)) {
+                    exists = true;
+                    break;
+                }
+            }
+            if (!exists)
+                dupeFree.add(item1);
+        }
+        return dupeFree;
     }
 
     private int collectReward(Point2D point, boolean isPhysical) {
