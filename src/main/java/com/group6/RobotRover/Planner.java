@@ -116,7 +116,7 @@ public class Planner extends AbstractRobotSimulator {
         if (dest == null)
             throw new NullPointerException("The destination cannot be null");
         Vector3d position = this.getAgent().getPosition();
-        return Math.abs(dest.getZ() - position.z) <= 0.4 && Math.abs(dest.getX() - position.x) <= 0.4;
+        return Math.abs(dest.getZ() - position.z) <= 0.2 && Math.abs(dest.getX() - position.x) <= 0.2;
 
     }
 

@@ -23,7 +23,7 @@ public class Mission implements IMission{
         sb.append("< i: [x, y] >\n");
         int i = 0;
         for (Point2D point : missionPoints)
-            sb.append(i++ + ": [" + point.getX() + ", " + point.getY() + "]\n");
+            sb.append(i++).append(": [").append(point.getX()).append(", ").append(point.getY()).append("]\n");
         return sb.toString();
     }
 
