@@ -4,5 +4,7 @@ import java.awt.geom.Point2D;
 
 public interface IActor {
     Point2D getPosition();
-    void enteredRoom();
+    void sleep();
+    void halt();
+    void start();
 }

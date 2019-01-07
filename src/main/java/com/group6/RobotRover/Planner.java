@@ -11,7 +11,7 @@ import java.util.Stack;
 
 public class Planner extends AbstractRobotSimulator {
 
-    private static final long DEFAULT_HALT_TIME = 2000;
+    private static final long DEFAULT_SLEEP_TIME = 2000;
 
     private List<Point> missionPoints;
 
@@ -27,11 +27,13 @@ public class Planner extends AbstractRobotSimulator {
 
     private boolean available;
 
+    private boolean sleeping;
+
     private boolean halted;
 
     private boolean stopped;
 
-    private long haltTime;
+    private long sleepTime;
 
 
     public Planner(Point position, String name) {
@@ -43,9 +45,10 @@ public class Planner extends AbstractRobotSimulator {
 
         this.currentGoal = position;
         this.available = false;
+        this.sleeping = false;
         this.halted = false;
         this.stopped = false;
-        this.haltTime = DEFAULT_HALT_TIME;
+        this.sleepTime = DEFAULT_SLEEP_TIME;
         this.proximitySensorFactory = new ProximitySensorFactory();
 
     }
@@ -75,11 +78,11 @@ public class Planner extends AbstractRobotSimulator {
         }
     }
 
-    void halt() throws InterruptedException {
+    void sleep() throws InterruptedException {
         super.setDestination(super.getPosition());
-        Thread.sleep(haltTime);
+        Thread.sleep(sleepTime);
         super.setDestination(currentGoal);
-        halted = false;
+        sleeping = false;
     }
 
     public boolean emergencyStop() {
@@ -93,6 +96,10 @@ public class Planner extends AbstractRobotSimulator {
         return available;
     }
 
+    public boolean isSleeping() {
+        return sleeping;
+    }
+
     public boolean isHalted() {
         return halted;
     }
@@ -101,13 +108,18 @@ public class Planner extends AbstractRobotSimulator {
         return stopped;
     }
 
-    public void haltRover(long millis) {
+    public void haltRover() {
+        super.setDestination(super.getPosition());
         this.halted = true;
-        this.haltTime = millis;
     }
 
-    public void haltRover() {
-        haltRover(DEFAULT_HALT_TIME);
+    public void waitRover() {
+        this.sleeping = true;
+    }
+
+    public void startRover() {
+        super.setDestination(currentGoal);
+        this.halted = false;
     }
 
     // In order to increase the margin

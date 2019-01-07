@@ -111,7 +111,6 @@ public class Main {
     private void main() {
         long tStart = System.currentTimeMillis();
         while (running) {
-            // ToDo all the server stuff
             environment.updateAreas();
 
             long tEnd = System.currentTimeMillis();

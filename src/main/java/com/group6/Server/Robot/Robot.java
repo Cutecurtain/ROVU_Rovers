@@ -45,8 +45,16 @@ public class Robot implements IRobot{
         position.setLocation(x, y);
     }
 
-    public void enteredRoom() {
+    public void sleep() {
+        Networking.getInstance().wait(id);
+    }
+
+    public void halt() {
         Networking.getInstance().halt(id);
+    }
+
+    public void start() {
+        Networking.getInstance().start(id);
     }
 
     public void giveRewardPoints(int reward) {

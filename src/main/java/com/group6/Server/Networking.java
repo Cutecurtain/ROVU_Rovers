@@ -70,10 +70,24 @@ public class Networking extends PretendSocket {
         return false;
     }
 
+    public boolean wait(String id) {
+        if (!hasSubscriber(id))
+            return false;
+        getSubscriber(id).waitRover();
+        return true;
+    }
+
     public boolean halt(String id) {
         if (!hasSubscriber(id))
             return false;
         getSubscriber(id).haltRover();
+        return true;
+    }
+
+    public boolean start(String id) {
+        if (!hasSubscriber(id))
+            return false;
+        getSubscriber(id).startRover();
         return true;
     }
 

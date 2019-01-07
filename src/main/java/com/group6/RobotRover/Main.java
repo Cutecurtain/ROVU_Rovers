@@ -44,8 +44,8 @@ public class Main {
 
     private void main() throws InterruptedException {
         while (!planner.isStopped()) {
-            if (planner.isHalted()) {
-                planner.halt();
+            if (planner.isSleeping()) {
+                planner.sleep();
             } else {
                 planner.followPath();
                 updateServer();
