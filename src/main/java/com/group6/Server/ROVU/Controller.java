@@ -12,7 +12,7 @@ public class Controller {
     private View view;
     private Model model;
     private Networking networking = Networking.getInstance();
-    private List<ButtonListener> buttonListeners = new ArrayList<ButtonListener>();
+    private List<ButtonListener> buttonListeners = new ArrayList<>();
 
     public Controller(View view, Model model) {
 

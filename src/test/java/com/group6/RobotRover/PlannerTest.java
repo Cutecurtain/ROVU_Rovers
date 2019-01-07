@@ -12,7 +12,7 @@ import static org.junit.Assert.assertFalse;
 
 public class PlannerTest {
 
-    private Planner planner = new Planner(new Point(0,0), "Test");;
+    private Planner planner = new Planner(new Point(0,0), "Test");
 
     @Before
     public void setUp() {
@@ -21,7 +21,7 @@ public class PlannerTest {
 
     @Test
     public void addMissionPoint() {
-        List<Point2D> missionPoints = new ArrayList<Point2D>();
+        List<Point2D> missionPoints = new ArrayList<>();
         missionPoints.add(new Point2D.Double(1,1));
         missionPoints.add(new Point2D.Double(2,2));
         missionPoints.add(new Point2D.Double(3,3));

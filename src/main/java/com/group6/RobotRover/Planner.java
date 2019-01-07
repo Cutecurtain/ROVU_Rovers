@@ -39,9 +39,9 @@ public class Planner extends AbstractRobotSimulator {
     public Planner(Point position, String name) {
         super(position, name);
         super.setDestination(super.getPosition());
-        this.missionPoints = new ArrayList<Point>();
+        this.missionPoints = new ArrayList<>();
         //this.missionIterator = this.missionPoints.iterator();
-        this.missionStack = new Stack<Point>();
+        this.missionStack = new Stack<>();
 
         this.currentGoal = position;
         this.available = false;
@@ -56,9 +56,9 @@ public class Planner extends AbstractRobotSimulator {
     public boolean addMissionPoint(List<Point2D> missionPoints) {
         /*if (!available)
             return false;*/
-        this.missionPoints = new ArrayList<Point>();
-        for (int i = 0; i < missionPoints.size(); i++)
-            this.missionPoints.add(new Point(missionPoints.get(i).getX(), missionPoints.get(i).getY()));
+        this.missionPoints = new ArrayList<>();
+        for (Point2D missionPoint : missionPoints)
+            this.missionPoints.add(new Point(missionPoint.getX(), missionPoint.getY()));
         for (int i = missionPoints.size() - 1; i > -1; i--) {
             this.missionStack.push(this.missionPoints.get(i));
         }

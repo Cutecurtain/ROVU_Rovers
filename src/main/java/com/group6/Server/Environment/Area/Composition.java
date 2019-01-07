@@ -9,7 +9,7 @@ public class Composition<S extends IShape> implements IShape{
     private List<S> shapes;
 
     public Composition() {
-        this.shapes = new ArrayList<S>();
+        this.shapes = new ArrayList<>();
     }
 
     public Composition(List<S> shapes) {

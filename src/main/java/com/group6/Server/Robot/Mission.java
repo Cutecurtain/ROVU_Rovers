@@ -14,7 +14,7 @@ public class Mission implements IMission{
     private static ArrayList<Double> dist;
 
     public Mission() {
-        this.missionPoints = new ArrayList<Point2D>();
+        this.missionPoints = new ArrayList<>();
     }
 
     @Override

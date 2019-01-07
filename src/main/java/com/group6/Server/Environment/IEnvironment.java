@@ -1,7 +1,6 @@
 package com.group6.Server.Environment;
 
 import com.group6.Server.Environment.Area.IArea;
-import com.group6.Server.Robot.IRobot;
 import simbad.sim.AbstractWall;
 import simbad.sim.Boundary;
 import simbad.sim.EnvironmentDescription;

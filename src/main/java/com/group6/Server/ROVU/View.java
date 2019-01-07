@@ -9,10 +9,10 @@ import java.util.Observer;
 
 public class View extends JFrame implements Observer {
 
-    private ArrayList<JButton> buttons = new ArrayList<JButton>();
+    private ArrayList<JButton> buttons = new ArrayList<>();
     private JTextField robotNb = new JTextField(10);
     private JPanel jPanel = new JPanel();
-    private List<ActionListener> actionListeners = new ArrayList<ActionListener>();
+    private List<ActionListener> actionListeners = new ArrayList<>();
 
     public void update(Observable observable, Object o) {
 

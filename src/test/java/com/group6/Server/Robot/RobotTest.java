@@ -44,7 +44,7 @@ public class RobotTest {
     @Test
 
     public void testStrategy(){
-        List<Point2D> missionPoints = new ArrayList<Point2D>();
+        List<Point2D> missionPoints = new ArrayList<>();
         List<Point2D> results ;
 
         missionPoints.add(new Point2D.Double(1,1));

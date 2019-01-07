@@ -8,7 +8,6 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -37,10 +36,10 @@ public class Environment implements IEnvironment {
     public Environment(List<IArea> areas, Color boundaryColor) {
         this.environmentDescription = new EnvironmentDescription();
         this.areas = new ArrayList<>();
-        this.verticalWalls = new ArrayList<double[]>();
-        this.horizontalWalls = new ArrayList<double[]>();
-        this.verticalDoors = new ArrayList<double[]>();
-        this.horizontalDoors = new ArrayList<double[]>();
+        this.verticalWalls = new ArrayList<>();
+        this.horizontalWalls = new ArrayList<>();
+        this.verticalDoors = new ArrayList<>();
+        this.horizontalDoors = new ArrayList<>();
         this.color = boundaryColor;
         this.actors = new ArrayList<>();
         this.roomQueues = new ArrayList<>();
@@ -54,7 +53,7 @@ public class Environment implements IEnvironment {
     }
 
     public Environment(Color boundaryColor) {
-        this(new ArrayList<IArea>(), boundaryColor);
+        this(new ArrayList<>(), boundaryColor);
     }
 
     public Environment() {
@@ -139,7 +138,7 @@ public class Environment implements IEnvironment {
     }
 
     public List<AbstractWall> createWalls() {
-        List<AbstractWall> walls = new ArrayList<AbstractWall>();
+        List<AbstractWall> walls = new ArrayList<>();
 
         for (IArea area : areas) {
             if (area instanceof Room) // Is this a good idea?
@@ -194,7 +193,7 @@ public class Environment implements IEnvironment {
 
     private List<AbstractWall> getWalls(Room room) {
         // x1, x2, y1 ,y2
-        List<AbstractWall> abstractWalls = new ArrayList<AbstractWall>();
+        List<AbstractWall> abstractWalls = new ArrayList<>();
         Point2D[] edges = room.getEdges();
 
         double yWallLength = (edges[1].getX() - edges[0].getX());

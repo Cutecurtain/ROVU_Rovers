@@ -23,7 +23,7 @@ public class MissionTest {
     private IEnvironment environment;
 
     public void setUp() {
-        List<Room> rooms = new ArrayList<Room>();
+        List<Room> rooms = new ArrayList<>();
 
         // Example room 1 - S001
         Room room1 = AreaFactory.createRoom(20, -5, -5, 5, Color.BLUE);

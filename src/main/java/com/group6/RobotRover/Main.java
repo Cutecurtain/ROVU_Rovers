@@ -19,16 +19,13 @@ public class Main {
 
     public void start() {
         if (connect()) {
-            Thread thread = new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        main();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+            Thread thread = new Thread(() -> {
+                try {
+                    main();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-            };
+            });
             thread.start();
         }
     }

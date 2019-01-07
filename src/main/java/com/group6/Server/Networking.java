@@ -16,7 +16,7 @@ public class Networking extends PretendSocket {
     private Map<String, IRobot> robots;
 
     private Networking() {
-        robots = new HashMap<String, IRobot>();
+        robots = new HashMap<>();
     }
 
     public static Networking getInstance() {

@@ -35,12 +35,7 @@ public class Main {
 
         running = true;
 
-        Thread thread = new Thread() {
-            @Override
-            public void run() {
-                main();
-            }
-        };
+        Thread thread = new Thread(this::main);
         thread.start();
     }
 
@@ -53,7 +48,7 @@ public class Main {
     }
 
     private void createEnvironment() {
-        List<Room> rooms = new ArrayList<Room>();
+        List<Room> rooms = new ArrayList<>();
 
         // Example room 1 - S001
         Room room1 = AreaFactory.createRoom(20, 0, -4,4, Color.BLUE);

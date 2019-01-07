@@ -26,7 +26,7 @@ class Strategy {
         for (double[] door : environment.getHorizontalDoors())
             doors.add(new Point2D.Double(door[0], door[1]));
 
-        Queue<Path> pq = new PriorityQueue<Path>();
+        Queue<Path> pq = new PriorityQueue<>();
         pq.add(new Path(missionPoints.get(0)));
 
         for (int i = 1; i < missionPoints.size(); ) {
@@ -158,8 +158,8 @@ class Strategy {
     }
 
     List<Point2D> nearestPath() {
-        List<Point2D> orderedPoints = new ArrayList<Point2D>();
-        List<Point2D> pointsVisited = new ArrayList<Point2D>();
+        List<Point2D> orderedPoints = new ArrayList<>();
+        List<Point2D> pointsVisited = new ArrayList<>();
         orderedPoints.add(0, missionPoints.get(0));
         pointsVisited.add(0, missionPoints.get(0));
         double distance = 100;
@@ -201,8 +201,8 @@ class Strategy {
     }
 
     boolean visited(List<Point2D> pointsVisited, List<Point2D> missionPoint, int l) {
-        for (int i = 0; i < missionPoint.size(); i++) {
-            if (pointsVisited.get(l) == missionPoint.get(i)) {
+        for (Point2D point2D : missionPoint) {
+            if (pointsVisited.get(l) == point2D) {
                 return true;
             }
         }
