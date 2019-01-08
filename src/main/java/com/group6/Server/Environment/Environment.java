@@ -186,7 +186,7 @@ public class Environment implements IEnvironment {
     public void updateAreas() {
         for (RoomQueue roomQueue : roomQueues) {
             for (IActor actor : actors)
-                roomQueue.addActor(actor);
+                roomQueue.offerActor(actor);
             roomQueue.updateQueue();
         }
     }
@@ -363,13 +363,13 @@ public class Environment implements IEnvironment {
             actorQueue = new LinkedBlockingQueue<>();
         }
 
-        void addActor(IActor actor) {
-            if (!actorQueue.contains(actor) && !room.isPosIn(actor.getPosition()))
-                return;
-            if (!actorQueue.isEmpty())
-                actor.halt();
-            actor.sleep();
-            actorQueue.offer(actor);
+        void offerActor(IActor actor) {
+            if (!actorQueue.contains(actor) && room.isPosIn(actor.getPosition())) {
+                if (!actorQueue.isEmpty())
+                    actor.halt();
+                actor.sleep();
+                actorQueue.offer(actor);
+            }
         }
 
         void updateQueue() {
