@@ -378,7 +378,7 @@ public class Environment implements IEnvironment {
             if (!room.isPosIn(actorQueue.peek().getPosition())) {
                 actorQueue.poll();
                 if (!actorQueue.isEmpty())
-                    actorQueue.poll().start();
+                    actorQueue.peek().start();
             }
 
         }
