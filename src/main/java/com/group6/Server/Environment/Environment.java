@@ -366,9 +366,9 @@ public class Environment implements IEnvironment {
         void addActor(IActor actor) {
             if (!actorQueue.contains(actor) && !room.isPosIn(actor.getPosition()))
                 return;
-            actor.sleep();
             if (!actorQueue.isEmpty())
                 actor.halt();
+            actor.sleep();
             actorQueue.offer(actor);
         }
 
