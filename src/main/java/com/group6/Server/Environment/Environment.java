@@ -358,29 +358,34 @@ public class Environment implements IEnvironment {
 
         private BlockingQueue<IActor> actorQueue;
 
+        private IActor customer;
+
         RoomQueue(Room room) {
             this.room = room;
             actorQueue = new LinkedBlockingQueue<>();
+            customer = null;
         }
 
         void offerActor(IActor actor) {
             if (!actorQueue.contains(actor) && room.isPosIn(actor.getPosition())) {
-                if (!actorQueue.isEmpty())
+                if (customer == null)
+                    customer = actor;
+                else {
+                    actorQueue.offer(actor);
                     actor.halt();
+                }
                 actor.sleep();
-                actorQueue.offer(actor);
             }
         }
 
         void updateQueue() {
-            if (actorQueue.isEmpty())
-                return;
-            if (!room.isPosIn(actorQueue.peek().getPosition())) {
-                actorQueue.poll();
-                if (!actorQueue.isEmpty())
-                    actorQueue.peek().start();
+            if (customer != null) {
+                if (!room.isPosIn(customer.getPosition())) {
+                    customer = actorQueue.poll();
+                    if (customer != null)
+                        customer.start();
+                }
             }
-
         }
 
     }
