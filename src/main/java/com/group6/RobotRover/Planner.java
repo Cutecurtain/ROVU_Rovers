@@ -111,7 +111,8 @@ public class Planner extends AbstractRobotSimulator {
     }
 
     public void haltRover() {
-        super.setDestination(super.getPosition());
+        if (!sleeping)
+            super.setDestination(super.getPosition());
         this.halted = true;
     }
 
@@ -120,7 +121,8 @@ public class Planner extends AbstractRobotSimulator {
     }
 
     public void startRover() {
-        super.setDestination(currentGoal);
+        if (!sleeping)
+            super.setDestination(currentGoal);
         this.halted = false;
     }
 
