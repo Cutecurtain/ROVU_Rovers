@@ -44,7 +44,8 @@ public class Main {
             if (planner.isSleeping()) {
                 planner.sleep();
             } else {
-                planner.followPath();
+                if (!planner.isHalted())
+                    planner.followPath();
                 updateServer();
             }
         }

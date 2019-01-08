@@ -79,8 +79,7 @@ public class Planner extends AbstractRobotSimulator {
     }
 
     void sleep() throws InterruptedException {
-        if (!halted)
-            super.setDestination(super.getPosition());
+        super.setDestination(super.getPosition());
         Thread.sleep(sleepTime);
         if (!halted)
             super.setDestination(currentGoal);
@@ -111,8 +110,7 @@ public class Planner extends AbstractRobotSimulator {
     }
 
     public void haltRover() {
-        if (!sleeping)
-            super.setDestination(super.getPosition());
+        super.setDestination(super.getPosition());
         this.halted = true;
     }
 
