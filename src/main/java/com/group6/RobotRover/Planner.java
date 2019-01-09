@@ -3,6 +3,7 @@ package com.group6.RobotRover;
 import project.AbstractRobotSimulator;
 import project.Point;
 
+import javax.vecmath.Color3f;
 import javax.vecmath.Vector3d;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -12,6 +13,10 @@ import java.util.Stack;
 public class Planner extends AbstractRobotSimulator {
 
     private static final long DEFAULT_SLEEP_TIME = 2000;
+
+    private static final Color3f DEFAULT_COLOR = new Color3f(0, 255, 255);
+    private static final Color3f SLEEP_COLOR = new Color3f(0, 0, 255);
+    private static final Color3f HALT_COLOR = new Color3f(255, 0, 0);
 
     private List<Point> missionPoints;
 
@@ -80,9 +85,12 @@ public class Planner extends AbstractRobotSimulator {
 
     void sleep() throws InterruptedException {
         super.setDestination(super.getPosition());
+        this.changeColor(SLEEP_COLOR);
         Thread.sleep(sleepTime);
         if (!halted)
             super.setDestination(currentGoal);
+        else
+            this.changeColor(HALT_COLOR);
         sleeping = false;
     }
 
@@ -111,6 +119,7 @@ public class Planner extends AbstractRobotSimulator {
 
     public void haltRover() {
         super.setDestination(super.getPosition());
+        //this.changeColor(HALT_COLOR);
         this.halted = true;
     }
 
@@ -119,8 +128,10 @@ public class Planner extends AbstractRobotSimulator {
     }
 
     public void startRover() {
-        if (!sleeping)
+        if (!sleeping) {
             super.setDestination(currentGoal);
+            this.changeColor(DEFAULT_COLOR);
+        }
         this.halted = false;
     }
 

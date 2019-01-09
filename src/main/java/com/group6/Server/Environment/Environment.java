@@ -367,7 +367,9 @@ public class Environment implements IEnvironment {
         }
 
         void offerActor(IActor actor) {
-            if (!actorQueue.contains(actor) && room.isPosIn(actor.getPosition())) {
+            if (customer == actor || actorQueue.contains(actor))
+                return;
+            if (room.isPosIn(actor.getPosition())) {
                 if (customer == null)
                     customer = actor;
                 else {
