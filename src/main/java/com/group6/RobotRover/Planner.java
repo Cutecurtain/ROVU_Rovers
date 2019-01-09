@@ -87,10 +87,11 @@ public class Planner extends AbstractRobotSimulator {
         super.setDestination(super.getPosition());
         this.changeColor(SLEEP_COLOR);
         Thread.sleep(sleepTime);
-        if (!halted)
+        if (!halted) {
             super.setDestination(currentGoal);
-        else
-            this.changeColor(HALT_COLOR);
+            super.changeColor(DEFAULT_COLOR);
+        } else
+            super.changeColor(HALT_COLOR);
         sleeping = false;
     }
 
@@ -119,7 +120,7 @@ public class Planner extends AbstractRobotSimulator {
 
     public void haltRover() {
         super.setDestination(super.getPosition());
-        //this.changeColor(HALT_COLOR);
+        this.changeColor(HALT_COLOR);
         this.halted = true;
     }
 
