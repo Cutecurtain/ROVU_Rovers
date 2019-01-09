@@ -185,9 +185,9 @@ public class Environment implements IEnvironment {
 
     public void updateAreas() {
         for (RoomQueue roomQueue : roomQueues) {
+            roomQueue.updateQueue();
             for (IActor actor : actors)
                 roomQueue.offerActor(actor);
-            roomQueue.updateQueue();
         }
     }
 
