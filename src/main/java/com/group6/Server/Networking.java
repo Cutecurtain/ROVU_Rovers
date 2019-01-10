@@ -56,7 +56,7 @@ public class Networking extends PretendSocket {
         return false;
     }
 
-    public boolean request(char instruction, Planner planner) {
+    public synchronized boolean request(char instruction, Planner planner) {
         switch (instruction) {
             case CONNECT:
                 return connect(planner, planner.getPosition().getX(), planner.getPosition().getZ());
